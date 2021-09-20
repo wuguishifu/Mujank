@@ -2,6 +2,8 @@ import os
 import dotenv
 import random
 
+import cards
+
 import discord
 from discord.ext import commands
 
@@ -39,8 +41,8 @@ async def on_message(message):
     channel = message.channel
     if message.content == 'ping':
         await channel.send('pong')
-    elif message.content == '69':
-        await channel.send('Nice {0.author.mention}!'.format(message))
+    elif message.content == '!online' and str(message.author) == 'Bo#3515':
+        await channel.send('Mujank is currently online.')
     await bot.process_commands(message)
 
 
