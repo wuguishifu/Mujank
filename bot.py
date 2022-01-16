@@ -1,39 +1,43 @@
 import os
-import dotenv
 import random
+import dotenv
 
 import cards
+import buttons
+import dataloader
 
 import discord
 from discord.ext import commands
 
-import dataloader
-
 dotenv.load_dotenv()
 BOT_TOKEN = os.getenv('DISCORD_TOKEN')
+bot = commands.Bot('*')
 
-
-def get_prefix(client, message):
-    return dataloader.get_guild_prefix(message.guild.id)
-
-
-bot = commands.Bot(command_prefix=get_prefix)
 bot.remove_command('help')
 
 
-@bot.command(name='prefix', help='edits the bots prefix')
-async def change_prefix(ctx, *args):
-    if len(args) == 0:
-        await ctx.send(f'Usage: `{dataloader.get_guild_prefix(ctx.guild.id)}prefix <set, reset> <prefix>`')
-    if len(args) == 1 and args[0] == 'set':
-        await ctx.send(f'Please enter a new prefix.\n\n'
-                       f'Usage: `{dataloader.get_guild_prefix(ctx.guild.id)}prefix <set, reset> <prefix>`')
-    if len(args) == 2 and args[0] == 'set':
-        dataloader.change_guild_prefix(ctx.guild.id, args[1])
-        await ctx.send(f'My prefix on this server has been changed to `{args[1]}`')
-    elif len(args) == 1 and args[0] == 'reset':
-        dataloader.change_guild_prefix(ctx.guild.id, '*')
-        await ctx.send(f'My prefix on this server has been reset to `*`')
+card_deck = {}
+for c in cards.card_deck:
+    card_deck[c[0]] = cards.Card(c[0], c[1], c[2], c[3], c[4])
+
+
+@bot.command(name='roll', aliases=['r'])
+async def roll(ctx):
+    card = random.choice(card_deck)
+    await ctx.send(embed=card.to_embed(), view=buttons.CardView(card))
+
+
+@bot.command(name='test')
+async def test(ctx):
+    print(dataloader.card_owned(0))
+
+
+@bot.command(name='join', aliases=['j'])
+async def join(ctx):
+    if dataloader.user_exists(ctx.author.id):
+        await ctx.send('You have already joined!')
+    else:
+        dataloader.add_user(ctx.author.id)
 
 
 @bot.event
@@ -52,13 +56,13 @@ async def on_ready():
 
 
 @bot.event
-async def on_guild_join(guild):
-    dataloader.add_guild(guild.id)
-
-
-@bot.event
 async def on_command_error(ctx, error):
     print(error)
+
+
+@bot.command(name='help')
+async def help_menu(ctx):
+    await ctx.send(embed=card_deck[0].to_embed())
 
 
 bot.run(BOT_TOKEN)
