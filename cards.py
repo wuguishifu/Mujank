@@ -1,4 +1,5 @@
 import discord
+import dataloader
 
 
 class Card:
@@ -10,18 +11,28 @@ class Card:
         self.description = description
         self.rarity = rarity
 
-    def to_embed(self):
+    def to_embed(self, author: discord.member.Member):
         stars = ''
         for i in range(self.rating):
             stars += '★'
+        file = discord.File(self.image_url, filename='image.png')
         embed = discord.Embed(
-            title=f'{self.title}\n{stars}',
-            description=self.description,
-            colour=discord.Colour.red()
+            title=f'{self.title}',
+            description=f'{stars}\n{self.description}',
+            colour=discord.Colour.red(),
         )
-        embed.set_image(url=self.image_url)
-        return embed
+        num_owned = dataloader.get_num(author.id, self.id)
+        embed.set_footer(text=f'{num_owned} owned by {author.name}')
+        embed.set_image(url='attachment://image.png')
+        return embed, file
 
 
-card_deck = [[0, 'https://media.discordapp.net/attachments/932061869911453696/932061898441125888/IMG_0140.jpg',
-              5, 'Raze', 'Made by Susie']]
+def to_owned_embed(user: discord.user.User, owned_list: [], page: int, card_deck: {}):
+    description = ''
+    for i in owned_list[page:page + 10]:
+        description += f'{dataloader.get_num(user.id, owned_list[i])}x {card_deck[owned_list[i + page]].title}\n'
+
+
+cards = [
+    [0, 'cards/IMG_0140.jpg', 5, 'Raze', 'Made by Susie'],
+]
