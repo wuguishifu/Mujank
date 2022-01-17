@@ -17,6 +17,9 @@ firebase = pyrebase.initialize_app(config=firebase_config)
 db = firebase.database()
 
 
+max_rolls = 3
+
+
 def user_exists(user_id: int):
     if db.child(f'users/{user_id}').get().val():
         return True
@@ -25,7 +28,7 @@ def user_exists(user_id: int):
 
 
 def add_user(user_id: int):
-    db.child(f'users/{user_id}').set({'num_cards': 0})
+    db.child(f'users/{user_id}').set({'num_cards': 0, 'claimed': False, 'num_rolls': 3})
 
 
 def get_num(user_id: int, card_id: int):
@@ -47,7 +50,7 @@ def get_cards(user_id: int):
     cards_list = []
     if cards:
         for card in cards:
-            cards_list.append(card.key())
+            cards_list.append(int(card.key()))
         cards_list.sort()
         return cards_list
     else:
@@ -93,3 +96,25 @@ def remove_card(user_id: int, card_id: int):
         return True
     else:
         return False
+
+
+def check_claimed(user_id: int):
+    return bool(db.child(f'users/{user_id}/claimed').get().val())
+
+
+def set_claimed(user_id: int, claimed: bool):
+    db.child(f'users/{user_id}').update({'claimed': claimed})
+
+
+def get_num_rolls(user_id: int):
+    return int(db.child(f'users/{user_id}/num_rolls').get().val())
+
+
+def dec_rolls(user_id: int):
+    num = get_num_rolls(user_id) - 1
+    db.child(f'users/{user_id}').update({'num_rolls': num})
+
+
+def reset_rolls(user_id: int):
+    db.child(f'users/{user_id}').update({'num_rolls': max_rolls})
+
