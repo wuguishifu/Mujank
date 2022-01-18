@@ -279,9 +279,9 @@ help_embed.set_thumbnail(url='attachment://logo.png')
 #     dataloader.remove_card(ctx.author.id, cards.name_deck.get(query.lower()).id)
 #
 #
-# @bot.command(name='reset')
-# async def reset(ctx):
-#     dataloader.reset_all_timers()
+@bot.command(name='reset')
+async def reset(ctx):
+    dataloader.reset_all_timers()
 
 
 bot.run(BOT_TOKEN)
