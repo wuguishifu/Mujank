@@ -26,6 +26,7 @@ class ClaimButton(discord.ui.Button):
                 dataloader.add_card(interaction.user.id, self.card.id)
                 embed, file = self.card.to_embed(interaction.user)
                 await interaction.response.edit_message(view=None, embed=embed)
+                await interaction.channel.send(f'{interaction.user.mention} claimed {self.card.title}!')
         else:
             await interaction.channel.send(f'Only {self.user.mention} can claim this card!')
 

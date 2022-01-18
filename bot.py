@@ -91,10 +91,12 @@ async def set_displayed_card(ctx):
             owned_cards: [pyrebase.Pyre] = dataloader.get_cards(ctx.author.id)
             if cards.name_deck.get(query.lower()).id in [item.key().lower() for item in owned_cards]:
                 dataloader.set_displayed_card(ctx.author.id, cards.name_deck.get(query).id)
+                await ctx.send(f'Successfully set your display card to {cards.name_deck.get(query).title}!')
             else:
                 await ctx.send(f"You don't own that card yet!")
         elif query == 'reset':
             dataloader.set_displayed_card(ctx.author.id, 'c_id_-1')
+            await ctx.send(f'Your deck display was reset!')
         else:
             await ctx.send(f'No card named {query} found!')
 
