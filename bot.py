@@ -246,7 +246,7 @@ async def on_command_error(ctx, error):
     print(error)
 
 
-help_thumbnail_file = discord.File('jank-logo.png', filename='logo.png')
+help_thumbnail_file = discord.File('mujank-logo.jpg', filename='logo.png')
 help_embed = discord.Embed(
     title=f'Help - Page {1}',
     description=f'``*join`` - joins the game!\n\n'
