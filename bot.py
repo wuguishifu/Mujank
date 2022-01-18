@@ -180,16 +180,7 @@ async def trade(ctx):
                             await ctx.send(f'Trade cancelled.')
 
 
-@bot.command(name='reset')
-async def reset(ctx):
-    dataloader.set_claimed(ctx.author.id, False)
-    dataloader.reset_rolls(ctx.author.id)
-
-
 # TODO: implement CSV reading
-
-
-# TODO: timing circuit
 
 
 @bot.command(name='help')
@@ -248,6 +239,11 @@ async def give(ctx):
 async def remove(ctx):
     query = ctx.message.content[8:]
     dataloader.remove_card(ctx.author.id, cards.name_deck.get(query.lower()).id)
+
+
+@bot.command(name='reset')
+async def reset(ctx):
+    dataloader.reset_all_timers()
 
 
 bot.run(BOT_TOKEN)

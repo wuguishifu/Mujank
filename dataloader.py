@@ -1,5 +1,4 @@
 import os
-import collections
 
 import dotenv
 import pyrebase
@@ -17,7 +16,7 @@ firebase = pyrebase.initialize_app(config=firebase_config)
 db = firebase.database()
 
 
-max_rolls = 100
+max_rolls = 3
 
 
 def user_exists(user_id: int):
@@ -115,3 +114,9 @@ def reset_displayed_card(user_id: int):
     cards = get_cards(user_id)
     db.child(f'users/{user_id}').update({'displayed_card': cards[0].key()})
 
+
+def reset_all_timers():
+    users = db.child(f'users').shallow().get()
+    for user in users.pyres:
+        reset_rolls(int(user))
+        set_claimed(int(user), False)
