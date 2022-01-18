@@ -48,7 +48,7 @@ async def roll(ctx):
             embed, file = card.to_embed(ctx.author)
             await ctx.send(embed=embed, view=buttons.CardView(card, ctx.author), file=file)
         else:
-            await ctx.send(f'{ctx.author.mention}, you can only roll {dataloader.max_rolls} times every 6 hours!')
+            await ctx.send(f'{ctx.author.mention}, you can only roll {dataloader.max_rolls} times every 12 hours!')
     else:
         await ctx.send(f'{ctx.author.mention}, Please join using the ``*join`` command!')
 
