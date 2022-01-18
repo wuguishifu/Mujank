@@ -124,7 +124,7 @@ async def trade(ctx):
             # get the first users card to trade
             await ctx.send(f'{ctx.author.mention}, enter the name of the card you would like to trade.')
             try:
-                user1_msg = await bot.wait_for("message", check=check_user1, timeout=20)
+                user1_msg = await bot.wait_for("message", check=check_user1, timeout=30)
             except asyncio.TimeoutError:
                 await ctx.send(f'No message sent, trade cancelled.')
             else:
@@ -146,7 +146,7 @@ async def trade(ctx):
                 await ctx.send(f'{ctx.message.mentions[0].mention}, enter the name of the '
                                f'card you would like to trade.')
                 try:
-                    user2_msg = await bot.wait_for("message", check=check_user2, timeout=20)
+                    user2_msg = await bot.wait_for("message", check=check_user2, timeout=30)
                 except asyncio.TimeoutError:
                     await ctx.send(f'No message sent, trade cancelled.')
                 else:
@@ -167,7 +167,7 @@ async def trade(ctx):
                     # confirm
                     await ctx.send(f'{ctx.author.mention}, do you accept this trade? (yes/no)')
                     try:
-                        confirm_msg = await bot.wait_for("message", check=confirm, timeout=20)
+                        confirm_msg = await bot.wait_for("message", check=confirm, timeout=30)
                     except asyncio.TimeoutError:
                         await ctx.send(f'No message sent, trade cancelled.')
                     else:
