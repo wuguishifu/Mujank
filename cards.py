@@ -104,7 +104,7 @@ cards = [
     ['c_id_0020', "cards/bo- oreos_bos_cookies.jpg", "Oreos > Bo's Cookies", 3, "Bo"],
     ['c_id_0021', "cards/bo- peace_out.jpg", "Peace Out - from Bo", 3, "Bo"],
     ['c_id_0022', "cards/bo- red_cup.jpg", "Dad Bo", 3, "Bo"],
-    ['c_id_0023', "cards/bo_smol_version.jpg", "smol Bo", 3, "Bo"],
+    ['c_id_0023', "cards/bo- smol_version.jpg", "smol Bo", 3, "Bo"],
     ['c_id_0024', "cards/bo- takoyaki_chef.JPG", "Hey, I'm a Takoyaki Chef!", 3, "Bo"],
     ['c_id_0025', "cards/bo- towel_wrap.jpg", "Don't Look at me I'm Shy", 3, "Bo"],
     ['c_id_0026', "cards/bo- uci_commit.jpg", "Commitment", 3, "Bo"],
