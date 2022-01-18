@@ -21,7 +21,13 @@ class Card:
         for i in range(self.rating):
             stars += '★'
 
-        color = discord.Colour.red() if self.rating < 5 else discord.Colour.green()
+        color = discord.Colour.greyple()
+        if self.rating == 3:
+            color = discord.Colour.red()
+        elif self.rating == 4:
+            color = discord.Colour.yellow()
+        elif self.rating == 5:
+            color = discord.Colour.green()
         file = discord.File(self.image_url, filename='image.png')
         embed = discord.Embed(
             title=f'{self.title}',
