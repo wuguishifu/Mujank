@@ -216,34 +216,35 @@ help_embed = discord.Embed(
                 f'``*deck`` - displays your deck.\n\n'
                 f'``*info <card name>`` - displays a specific card\n\n'
                 f'``*display <card name>`` - sets the thumbnail of your deck\n\n'
+                f'``*trade <@user>`` - initiates a trade with the tagged user\n\n'
                 f'``*help`` - shows this message.',
     colour=discord.Colour.red()
 )
 help_embed.set_thumbnail(url='attachment://logo.png')
 
 
-# test commands
-@bot.command(name='test')
-async def test(ctx):
-    for card in cards.cards:
-        dataloader.add_card(ctx.author.id, card[0])
-
-
-@bot.command(name='give')
-async def give(ctx):
-    query = ctx.message.content[6:]
-    dataloader.add_card(ctx.author.id, cards.name_deck.get(query.lower()).id)
-
-
-@bot.command(name='remove')
-async def remove(ctx):
-    query = ctx.message.content[8:]
-    dataloader.remove_card(ctx.author.id, cards.name_deck.get(query.lower()).id)
-
-
-@bot.command(name='reset')
-async def reset(ctx):
-    dataloader.reset_all_timers()
+# # test commands
+# @bot.command(name='test')
+# async def test(ctx):
+#     for card in cards.cards:
+#         dataloader.add_card(ctx.author.id, card[0])
+#
+#
+# @bot.command(name='give')
+# async def give(ctx):
+#     query = ctx.message.content[6:]
+#     dataloader.add_card(ctx.author.id, cards.name_deck.get(query.lower()).id)
+#
+#
+# @bot.command(name='remove')
+# async def remove(ctx):
+#     query = ctx.message.content[8:]
+#     dataloader.remove_card(ctx.author.id, cards.name_deck.get(query.lower()).id)
+#
+#
+# @bot.command(name='reset')
+# async def reset(ctx):
+#     dataloader.reset_all_timers()
 
 
 bot.run(BOT_TOKEN)
