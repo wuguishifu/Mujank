@@ -17,7 +17,7 @@ firebase = pyrebase.initialize_app(config=firebase_config)
 db = firebase.database()
 
 
-max_rolls = 3
+max_rolls = 100
 
 
 def user_exists(user_id: int):
@@ -28,74 +28,58 @@ def user_exists(user_id: int):
 
 
 def add_user(user_id: int):
-    db.child(f'users/{user_id}').set({'num_cards': 0, 'claimed': False, 'num_rolls': 3})
+    db.child(f'users/{user_id}').set({'num_cards': 0, 'claimed': False, 'num_rolls': 3, 'displayed_card': 'c_id_-1'})
 
 
-def get_num(user_id: int, card_id: int):
-    cards = get_cards(user_id)
-    exists = False
-    if cards:
-        for card in cards:
-            if int(card) == card_id:
-                exists = True
-                break
-    if exists:
-        return int(db.child(f'users/{user_id}/cards/{card_id}/num').get().val())
+def get_num(user_id: int, card_id: str):
+    if db.child(f'users/{user_id}/cards/{card_id}').get().val():
+        return int(db.child(f'users/{user_id}/cards/{card_id}').get().val())
     else:
         return 0
 
 
 def get_cards(user_id: int):
-    cards = db.child(f'users/{user_id}/cards').get().each()
-    cards_list = []
-    if cards:
-        for card in cards:
-            cards_list.append(int(card.key()))
-        cards_list.sort()
+    cards = db.child(f'users/{user_id}/cards').get()
+    if cards.pyres:
+        cards_list = []
+        for pyre in cards.pyres:
+            cards_list.append(pyre)
+            pass
         return cards_list
     else:
         return []
 
 
-def add_card(user_id: int, card_id: int):
-    cards = get_cards(user_id)
-    exists = False
-    if cards:
-        for card in cards:
-            if int(card) == card_id:
-                exists = True
-                break
-
+def add_card(user_id: int, card_id: str):
     num_cards = int(db.child(f'users/{user_id}/num_cards').get().val())
-    if exists:
-        num = int(db.child(f'users/{user_id}/cards/{card_id}/num').get().val())
-        db.child(f'users/{user_id}/cards/{card_id}').set({'num': (num + 1)})
+    if num_cards == 0:
+        set_displayed_card(user_id, card_id)
+    if db.child(f'users/{user_id}/cards/{card_id}').get().val():
+        num = int(db.child(f'users/{user_id}/cards/{card_id}').get().val())
+        db.child(f'users/{user_id}/cards').update({card_id: (num + 1)})
         pass
     else:
-        db.child(f'users/{user_id}/cards/{card_id}').set({'num': 1})
+        db.child(f'users/{user_id}/cards').update({card_id: 1})
     num_cards += 1
     db.child(f'users/{user_id}').update({'num_cards': num_cards})
 
 
-def remove_card(user_id: int, card_id: int):
-    cards_dict = collections.OrderedDict = db.child(f'users/{user_id}/favorites').get().val()
-    card_key = 0
-    exists = False
-    for key, value in cards_dict.items():
-        if value['id'] == card_id:
-            card_key = key
-            exists = True
-            break
+def set_num(user_id: int, card_id: str, num: int):
+    db.child(f'users/{user_id}/cards').update({card_id: num})
 
-    # remove the card
-    if exists:
-        db.child(f'users/{user_id}/favorites').child(card_key).remove()
-        num_cards = int(db.child(f'users/{user_id}/num_cards').get().val())
-        num_cards -= 1
-        db.child(f'users/{user_id}').update({'num_cards': num_cards})
-        return True
-    else:
-        return False
+
+def delete_card(user_id: int, card_id: str):
+    db.child(f'users/{user_id}/cards/{card_id}').remove()
+
+
+def remove_card(user_id: int, card_id: str):
+    cards = get_cards(user_id)
+    if card_id in [item.key() for item in cards]:
+        num = get_num(user_id, card_id) - 1
+        if num > 0:
+            set_num(user_id, card_id, num)
+        else:
+            delete_card(user_id, card_id)
 
 
 def check_claimed(user_id: int):
@@ -117,4 +101,17 @@ def dec_rolls(user_id: int):
 
 def reset_rolls(user_id: int):
     db.child(f'users/{user_id}').update({'num_rolls': max_rolls})
+
+
+def set_displayed_card(user_id: int, card_id: str):
+    db.child(f'users/{user_id}').update({'displayed_card': card_id})
+
+
+def get_displayed_card(user_id: int):
+    return db.child(f'users/{user_id}/displayed_card').get().val()
+
+
+def reset_displayed_card(user_id: int):
+    cards = get_cards(user_id)
+    db.child(f'users/{user_id}').update({'displayed_card': cards[0].key()})
 
