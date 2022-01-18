@@ -2,6 +2,11 @@ import discord
 import dataloader
 
 
+color_3 = discord.Colour.from_rgb(30, 2550, 0)
+color_4 = discord.Colour.from_rgb(163, 53, 238)
+color_5 = discord.Colour.from_rgb(255, 128, 0)
+
+
 class Card:
     def __init__(self, card_id: str, image_url: str, title: str, rating: int, tags: str):
         self.id = card_id
@@ -21,13 +26,14 @@ class Card:
         for i in range(self.rating):
             stars += '★'
 
-        color = discord.Colour.greyple()
         if self.rating == 3:
-            color = discord.Colour.red()
+            color = color_3
         elif self.rating == 4:
-            color = discord.Colour.yellow()
+            color = color_4
         elif self.rating == 5:
-            color = discord.Colour.green()
+            color = color_5
+        else:
+            color = discord.Colour.greyple()
         file = discord.File(self.image_url, filename='image.png')
         embed = discord.Embed(
             title=f'{self.title}',
