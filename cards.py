@@ -440,6 +440,17 @@ cards = [
 
 card_deck = {}
 name_deck = {}
+card_deck_3 = {}
+card_deck_4 = {}
+card_deck_5 = {}
+
+
 for c in cards:
     card_deck[c[0]] = Card(c[0], c[1], c[2], c[3], c[4])
     name_deck[c[2].lower()] = Card(c[0], c[1], c[2], c[3], c[4])
+    if c[3] == 3:
+        card_deck_3[c[0]] = Card(c[0], c[1], c[2], c[3], c[4])
+    elif c[3] == 4:
+        card_deck_4[c[0]] = Card(c[0], c[1], c[2], c[3], c[4])
+    elif c[3] == 5:
+        card_deck_5[c[0]] = Card(c[0], c[1], c[2], c[3], c[4])

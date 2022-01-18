@@ -18,6 +18,11 @@ bot = commands.Bot('*')
 bot.remove_command('help')
 
 
+rate_3 = 82
+rate_4 = 15
+rate_5 = 3
+
+
 @bot.command(name='join', aliases=['j'])
 async def join(ctx):
     if dataloader.user_exists(ctx.author.id):
@@ -32,7 +37,14 @@ async def roll(ctx):
     if dataloader.user_exists(ctx.author.id):
         if dataloader.get_num_rolls(ctx.author.id) > 0:
             dataloader.dec_rolls(ctx.author.id)
-            card = random.choice(list(cards.card_deck.values()))
+            random_number = random.randint(1, 100)
+            card = None
+            if random_number <= rate_3:
+                card = random.choice(list(cards.card_deck_3.values()))
+            elif random_number <= rate_4 + rate_3:
+                card = random.choice(list(cards.card_deck_4.values()))
+            elif random_number <= rate_5 + rate_4 + rate_3:
+                card = random.choice(list(cards.card_deck_5.values()))
             embed, file = card.to_embed(ctx.author)
             await ctx.send(embed=embed, view=buttons.CardView(card, ctx.author), file=file)
         else:
@@ -215,7 +227,7 @@ def get_time_delta(current_hour, current_min, target_hour):
 
 @bot.command(name='help')
 async def help_menu(ctx):
-    await ctx.send(embed=help_embed, view=buttons.HelpView(), file=help_thumbnail_file)
+    await ctx.send(embed=help_embed, file=help_thumbnail_file)
 
 
 @bot.event
