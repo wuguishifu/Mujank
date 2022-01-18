@@ -18,9 +18,9 @@ bot = commands.Bot('*')
 bot.remove_command('help')
 
 
-rate_3 = 82
+rate_3 = 83
 rate_4 = 15
-rate_5 = 3
+rate_5 = 2
 
 
 @bot.command(name='join', aliases=['j'])
