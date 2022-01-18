@@ -194,15 +194,12 @@ async def trade(ctx):
 async def time_until_reset(ctx):
     current_hour = datetime.datetime.now().hour
     current_min = datetime.datetime.now().minute
-    response_string = ''
     if current_hour < 6:
         response_string = get_time_delta(current_hour, current_min, 6)
     elif current_hour < 12:
         response_string = get_time_delta(current_hour, current_min, 12)
-    elif current_hour < 18:
-        response_string = get_time_delta(current_hour, current_min, 18)
     else:
-        response_string = get_time_delta(current_hour, current_min, 24)
+        response_string = get_time_delta(current_hour, current_min, 30)
     await ctx.send(response_string)
 
 
