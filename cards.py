@@ -21,11 +21,12 @@ class Card:
         for i in range(self.rating):
             stars += '★'
 
+        color = discord.Colour.red() if self.rating < 5 else discord.Colour.green()
         file = discord.File(self.image_url, filename='image.png')
         embed = discord.Embed(
             title=f'{self.title}',
             description=f'{stars}\n{self.tags}',
-            colour=discord.Colour.red(),
+            colour=color,
         )
 
         num_owned = dataloader.get_num(author.id, self.id)
