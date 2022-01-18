@@ -2,6 +2,7 @@ import asyncio
 import os
 import random
 import dotenv
+import datetime
 
 import cards
 import buttons
@@ -180,7 +181,36 @@ async def trade(ctx):
                             await ctx.send(f'Trade cancelled.')
 
 
-# TODO: implement CSV reading
+@bot.command(name='time')
+async def time_until_reset(ctx):
+    current_hour = datetime.datetime.now().hour
+    current_min = datetime.datetime.now().minute
+    response_string = ''
+    if current_hour < 6:
+        response_string = get_time_delta(current_hour, current_min, 6)
+    elif current_hour < 12:
+        response_string = get_time_delta(current_hour, current_min, 12)
+    elif current_hour < 18:
+        response_string = get_time_delta(current_hour, current_min, 18)
+    else:
+        response_string = get_time_delta(current_hour, current_min, 24)
+    await ctx.send(response_string)
+
+
+def get_time_delta(current_hour, current_min, target_hour):
+    if current_min != 0:
+        hour_delta = target_hour - current_hour - 1
+        min_delta = 60 - current_min
+        hour_string = f'{hour_delta} hours' if hour_delta != 1 else f'{hour_delta} hour'
+        min_string = f'{min_delta} minutes' if min_delta != 1 else f'{min_delta} minutes'
+        if hour_delta == 0:
+            return f'There is currently {min_string} until roll reset.'
+        else:
+            return f'There is currently {hour_string} and {min_string} until roll reset.'
+    else:
+        hour_delta = target_hour - current_hour
+        hour_string = f'{hour_delta} hours' if hour_delta != 1 else f'{hour_delta} hour'
+        return f'There is currently {hour_string} until roll reset.'
 
 
 @bot.command(name='help')
@@ -200,7 +230,7 @@ async def on_message(message):
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=f'*help'))
+    await bot.change_presence(activity=discord.Activity(tyKLpe=discord.ActivityType.listening, name=f'*help'))
 
 
 @bot.event
@@ -213,10 +243,11 @@ help_embed = discord.Embed(
     title=f'Help - Page {1}',
     description=f'``*join`` - joins the game!\n\n'
                 f'``*roll`` - rolls for a new card.\n\n'
+                f'``*time`` - checks how much time until roll reset.\n\n'
                 f'``*deck`` - displays your deck.\n\n'
-                f'``*info <card name>`` - displays a specific card\n\n'
-                f'``*display <card name>`` - sets the thumbnail of your deck\n\n'
-                f'``*trade <@user>`` - initiates a trade with the tagged user\n\n'
+                f'``*info <card name>`` - displays a specific card.\n\n'
+                f'``*display <card name>`` - sets the thumbnail of your deck.\n\n'
+                f'``*trade <@user>`` - initiates a trade with the tagged user.\n\n'
                 f'``*help`` - shows this message.',
     colour=discord.Colour.red()
 )
