@@ -143,7 +143,7 @@ async def trade(ctx):
                     return
 
                 # get the second users card to trade
-                await ctx.send(f'{ctx.message.mentions[0].mention}, enter the name of the'
+                await ctx.send(f'{ctx.message.mentions[0].mention}, enter the name of the '
                                f'card you would like to trade.')
                 try:
                     user2_msg = await bot.wait_for("message", check=check_user2, timeout=20)
