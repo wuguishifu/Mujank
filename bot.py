@@ -48,7 +48,9 @@ async def roll(ctx):
             embed, file = card.to_embed(ctx.author)
             await ctx.send(embed=embed, view=buttons.CardView(card, ctx.author), file=file)
         else:
-            await ctx.send(f'{ctx.author.mention}, you can only roll {dataloader.max_rolls} times every 12 hours!')
+            wait_response = get_time_until_reset()
+            await ctx.send(f'{ctx.author.mention}, you can only roll {dataloader.max_rolls} times every 12 hours!\n'
+                           f'{wait_response}')
     else:
         await ctx.send(f'{ctx.author.mention}, Please join using the ``*join`` command!')
 
@@ -194,15 +196,20 @@ async def trade(ctx):
 
 @bot.command(name='time')
 async def time_until_reset(ctx):
+    response_string = get_time_until_reset()
+    await ctx.send(response_string)
+
+
+def get_time_until_reset():
     current_hour = datetime.datetime.now().hour
     current_min = datetime.datetime.now().minute
     if current_hour < 6:
         response_string = get_time_delta(current_hour, current_min, 6)
-    elif current_hour < 12:
-        response_string = get_time_delta(current_hour, current_min, 12)
+    elif current_hour < 18:
+        response_string = get_time_delta(current_hour, current_min, 18)
     else:
         response_string = get_time_delta(current_hour, current_min, 30)
-    await ctx.send(response_string)
+    return response_string
 
 
 def get_time_delta(current_hour, current_min, target_hour):
