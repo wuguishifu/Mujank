@@ -203,6 +203,7 @@ async def time_until_reset(ctx):
 def get_time_until_reset():
     current_hour = datetime.datetime.now().hour
     current_min = datetime.datetime.now().minute
+    print(f'{current_hour}, {current_min}')
     if current_hour < 6:
         response_string = get_time_delta(current_hour, current_min, 6)
     elif current_hour < 18:
