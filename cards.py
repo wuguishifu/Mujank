@@ -191,7 +191,7 @@ cards = [
     ['c_id_0101', "cards/mikey- pho_night.jpg", "This Picture is Pho You", 3, "Mikey"],
     ['c_id_0102', "cards/mikey- phonelight.PNG", "Flashlight", 3, "Mikey"],
     ['c_id_0103', "cards/mikey- really.png", "Really?", 3, "Mikey"],
-    ['c_id_0104', "cards/mikey- rec_room.jpg", "Billiards is not a Hobby. Billiards is my Life.", 3, "Mikey"],
+    ['c_id_0104', "cards/mikey- rec_room.png", "Billiards is not a Hobby. Billiards is my Life.", 3, "Mikey"],
     ['c_id_0105', "cards/mikey- soma.jpg", "Shokugeki no Soma", 3, "Mikey"],
     ['c_id_0106', "cards/mikey- thats_too_small.jpg", "Concerned Mikey", 3, "Mikey"],
     ['c_id_0107', "cards/mikey- widelens.jpg", "Widelens Mikey", 3, "Mikey"],
