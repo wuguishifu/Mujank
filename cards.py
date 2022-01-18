@@ -131,7 +131,7 @@ cards = [
     ['c_id_0041', "cards/combo- ft_matt_bo_steven_mikey.PNG", "FaceTime Time", 3, "Combo"],
     ['c_id_0042', "cards/combo- good_day.png", "Good Day", 3, "Combo"],
     ['c_id_0043', "cards/combo- idiot.jpg", "idiot", 3, "Combo"],
-    ['c_id_0044', "cards/combo- steven_jenn_koifish.jpg", "We at The Pond", 3, "Combo"],
+    ['c_id_0044', "cards/combo- jenn_steven_koifish.jpg", "We at The Pond", 3, "Combo"],
     ['c_id_0045', "cards/combo- kbbq_peace.png", "KBBQ peace", 3, "Combo"],
     ['c_id_0046', "cards/combo- matt_tommy_thumbs_up.jpg", "Matt & Tommy Covid Crossover", 3, "Combo"],
     ['c_id_0047', "cards/combo- mikey_marth_steven_min_min.png", "Mikey & Steven as Smash Characters", 3, "Combo"],
