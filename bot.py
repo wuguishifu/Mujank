@@ -119,9 +119,6 @@ async def trade(ctx):
                 if m.author == ctx.author:
                     return True
 
-            user1_card_to_trade = None
-            user2_card_to_trade = None
-
             # get the first users card to trade
             await ctx.send(f'{ctx.author.mention}, enter the name of the card you would like to trade.')
             try:
@@ -242,7 +239,7 @@ async def on_message(message):
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Activity(tyKLpe=discord.ActivityType.listening, name=f'*help'))
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=f'*help'))
 
 
 @bot.event
