@@ -231,6 +231,20 @@ def get_time_delta(current_hour, current_min, target_hour):
 
 @bot.command(name='help')
 async def help_menu(ctx):
+    help_thumbnail_file = discord.File('mujank-logo.jpg', filename='logo.jpg')
+    help_embed = discord.Embed(
+        title=f'Help - Page {1}',
+        description=f'``*join`` - joins the game!\n\n'
+                    f'``*roll`` - rolls for a new card.\n\n'
+                    f'``*time`` - checks how much time until roll reset.\n\n'
+                    f'``*deck`` - displays your deck.\n\n'
+                    f'``*info <card name>`` - displays a specific card.\n\n'
+                    f'``*display <card name>`` - sets the thumbnail of your deck.\n\n'
+                    f'``*trade <@user>`` - initiates a trade with the tagged user.\n\n'
+                    f'``*help`` - shows this message.',
+        colour=discord.Colour.red()
+    )
+    help_embed.set_thumbnail(url='attachment://logo.jpg')
     await ctx.send(embed=help_embed, file=help_thumbnail_file)
 
 
@@ -252,22 +266,6 @@ async def on_ready():
 @bot.event
 async def on_command_error(ctx, error):
     print(error)
-
-
-help_thumbnail_file = discord.File('mujank-logo.jpg', filename='logo.png')
-help_embed = discord.Embed(
-    title=f'Help - Page {1}',
-    description=f'``*join`` - joins the game!\n\n'
-                f'``*roll`` - rolls for a new card.\n\n'
-                f'``*time`` - checks how much time until roll reset.\n\n'
-                f'``*deck`` - displays your deck.\n\n'
-                f'``*info <card name>`` - displays a specific card.\n\n'
-                f'``*display <card name>`` - sets the thumbnail of your deck.\n\n'
-                f'``*trade <@user>`` - initiates a trade with the tagged user.\n\n'
-                f'``*help`` - shows this message.',
-    colour=discord.Colour.red()
-)
-help_embed.set_thumbnail(url='attachment://logo.png')
 
 
 # # test commands

@@ -20,7 +20,7 @@ class ClaimButton(discord.ui.Button):
     async def callback(self, interaction: discord.Interaction):
         if interaction.user.id == self.user.id:
             if dataloader.check_claimed(interaction.user.id):
-                await interaction.channel.send(f'{interaction.user.mention}, you can only claim once every 6 hours!')
+                await interaction.channel.send(f'{interaction.user.mention}, you can only claim once every 12 hours!')
             else:
                 dataloader.set_claimed(interaction.user.id, True)
                 dataloader.add_card(interaction.user.id, self.card.id)

@@ -2,7 +2,7 @@ import discord
 import dataloader
 
 
-color_3 = discord.Colour.from_rgb(0,112,221)
+color_3 = discord.Colour.from_rgb(0, 112, 221)
 color_4 = discord.Colour.from_rgb(163, 53, 238)
 color_5 = discord.Colour.from_rgb(255, 128, 0)
 
