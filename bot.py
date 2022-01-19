@@ -103,7 +103,7 @@ async def set_displayed_card(ctx):
             await ctx.send(f'No card named {query} found!')
 
 
-@bot.command(name='trade')
+@bot.command(name='trade', aliases=['t'])
 async def trade(ctx):
     if ctx.message.mentions:
 
