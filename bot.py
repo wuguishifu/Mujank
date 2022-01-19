@@ -173,7 +173,7 @@ async def trade(ctx):
                     except asyncio.TimeoutError:
                         await ctx.send(f'No message sent, trade cancelled.')
                     else:
-                        if confirm_msg.content == 'yes':
+                        if confirm_msg.content.lower() == 'yes':
                             dataloader.add_card(ctx.author.id, user2_card_to_trade.id)
                             dataloader.add_card(ctx.message.mentions[0].id, user1_card_to_trade.id)
                             dataloader.remove_card(ctx.author.id, user1_card_to_trade.id)
