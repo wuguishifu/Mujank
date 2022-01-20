@@ -1,10 +1,10 @@
-import dataloader
+import database
 import schedule
 import time
 
 
 def reset():
-    dataloader.reset_all_timers()
+    database.reset_all_timers()
 
 
 schedule.every().day.at("06:00").do(reset)
