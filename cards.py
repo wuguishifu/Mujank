@@ -109,7 +109,7 @@ def to_wishlist_embed(user: discord.user.User, wishlist: [], page: int, num_page
         card = card_deck.get(i.key()).title
         description += f'{wishlist.index(i) + 1}. **{card}**\n'
     embed = discord.Embed(
-        title=f"{user.name}’s Wishlist - Page {page}/{num_pages}",
+        title=f"{user.name}’s Wishlist - Page {page + 1}/{num_pages}",
         description=description,
         colour=discord.Colour.red()
     )
@@ -133,7 +133,7 @@ def to_search_embed(search_query: str, card_list: [], page: int, num_pages):
             stars += '★'
         description += f'{card_list.index(i) + 1}. **{card}** - {stars}\n'
     embed = discord.Embed(
-        title=f"Search: {search_query} - Page {page}/{num_pages}",
+        title=f"Search: {search_query} - Page {page + 1}/{num_pages}",
         description=description,
         colour=discord.Colour.red()
     )
