@@ -120,3 +120,27 @@ def reset_all_timers():
     for user in users.pyres:
         reset_rolls(int(user))
         set_claimed(int(user), False)
+
+
+def add_card_to_wishlist(user_id: int, card_id: str):
+    db.child(f'users/{user_id}/wishlist').update({card_id: 1})
+
+
+def get_wishlist(user_id: int):
+    wishlist = db.child(f'users/{user_id}/wishlist').get()
+    if wishlist.pyres:
+        cards_list = []
+        for pyre in wishlist.pyres:
+            cards_list.append(pyre)
+            pass
+        return cards_list
+    else:
+        return []
+
+
+def remove_card_from_wishlist(user_id: int, card_id: str):
+    wishlist = get_wishlist(user_id)
+    if card_id in [item.key() for item in wishlist]:
+        db.child(f'users/{user_id}/wishlist/{card_id}').remove()
+
+
