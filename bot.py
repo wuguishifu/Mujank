@@ -445,22 +445,22 @@ async def on_command_error(ctx, error):
     print(error)
 
 
-@bot.command(name='add')
-async def add(ctx):
-    query = ctx.message.content[5:].lower()
-    if len(query) > 0:
-        if query in cards.name_deck:
-            database.add_card(str(ctx.author.id), cards.name_deck.get(query).id)
-            await ctx.send('ok')
-
-
-@bot.command(name='remove')
-async def add(ctx):
-    query = ctx.message.content[8:].lower()
-    if len(query) > 0:
-        if query in cards.name_deck:
-            database.remove_card(str(ctx.author.id), cards.name_deck.get(query).id)
-            await ctx.send('ok')
+# @bot.command(name='add')
+# async def add(ctx):
+#     query = ctx.message.content[5:].lower()
+#     if len(query) > 0:
+#         if query in cards.name_deck:
+#             database.add_card(str(ctx.author.id), cards.name_deck.get(query).id)
+#             await ctx.send('ok')
+#
+#
+# @bot.command(name='remove')
+# async def add(ctx):
+#     query = ctx.message.content[8:].lower()
+#     if len(query) > 0:
+#         if query in cards.name_deck:
+#             database.remove_card(str(ctx.author.id), cards.name_deck.get(query).id)
+#             await ctx.send('ok')
 
 bot.run(BOT_TOKEN)
 
