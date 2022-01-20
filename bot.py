@@ -170,7 +170,7 @@ async def show_card(ctx):
 
 
 @bot.command(name='search', aliases=['s'])
-async def search_list(ctx):
+async def search_list(ctx, *args):
     content: str = ctx.message.content
     query = ''
     if content.startswith(f'*search '):
@@ -178,7 +178,7 @@ async def search_list(ctx):
     elif content.startswith(f'*s '):
         query = content[3:].lower()
     if len(query) > 0:
-        cards_list = cards.name_search(query)
+        cards_list = cards.name_search(args)
         if len(cards_list) > 0:
             num_pages = int((len(cards_list) + 9) / 10)
             embed, file = cards.to_search_embed(query, cards_list, 0, num_pages)

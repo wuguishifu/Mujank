@@ -149,10 +149,10 @@ def to_search_embed(search_query: str, card_list: [], page: int, num_pages):
     return embed, file
 
 
-def name_search(query: str):
+def name_search(query: []):
     card_list = []
     for card in card_deck.values():
-        if card.tags.lower() == query:
+        if card.tags.lower() in query:
             card_list.append(card)
     return card_list
 
