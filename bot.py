@@ -5,7 +5,7 @@ import dotenv
 import datetime
 
 import cards
-from views import buttons
+import buttons
 import dataloader
 
 import discord
