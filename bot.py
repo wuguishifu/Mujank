@@ -174,9 +174,9 @@ async def search_list(ctx):
     content: str = ctx.message.content
     query = ''
     if content.startswith(f'*search '):
-        query = content[8:]
+        query = content[8:].lower()
     elif content.startswith(f'*s '):
-        query = content[3:]
+        query = content[3:].lower()
     if len(query) > 0:
         cards_list = cards.name_search(query)
         if len(cards_list) > 0:

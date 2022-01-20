@@ -70,7 +70,7 @@ def to_search_slideshow_embed(query: str, card_list: [], cur_page: int):
     color = colors.get(card.rating)
     file = discord.File(card.image_url, filename='image.png')
     embed = discord.Embed(
-        title=f'Search: {query} - Page {cur_page}/{len(card_list)}\n'
+        title=f'Search: {query} - Page {cur_page + 1}/{len(card_list)}\n'
               f'{card.title}',
         description=f'{stars}\n{card.tags}',
         colour=color,
@@ -88,7 +88,7 @@ def to_owned_embed(user: discord.user.User, owned_list: [], page: int, num_pages
         card = card_deck.get(i.key()).title
         description += f'{num}x **{card}**\n'
     embed = discord.Embed(
-        title=f"{user.name}’s Deck - Page {page}/{num_pages}",
+        title=f"{user.name}’s Deck - Page {page + 1}/{num_pages}",
         description=description,
         colour=discord.Colour.red()
     )
