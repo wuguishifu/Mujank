@@ -412,6 +412,7 @@ async def help_menu(ctx):
                     f'``*wishlist`` - displays your wishlist.\n\n'
                     f'``*wishremove <card name>`` - removes a card from your wishlist.\n\n'
                     f'``*info <card name>`` - displays a specific card.\n\n'
+                    f'``*search <person>`` - searches for cards of that person.\n\n'
                     f'``*display <card name>`` - sets the thumbnail of your deck.\n\n'
                     f'``*trade <@user>`` - initiates a trade with the tagged user.\n\n'
                     f'``*help`` - shows this message.',
