@@ -1,5 +1,6 @@
 import discord
-import dataloader
+
+import database
 import csv
 
 colors = {
@@ -20,7 +21,7 @@ class Card:
         self.tags = tags
 
     def to_embed(self, author: discord.member.Member):
-        rolls_left = dataloader.get_num_rolls(author.id)
+        rolls_left = database.get_num_rolls(str(author.id))
         if rolls_left == 1:
             rolls_left_text = f'⚠️{rolls_left} roll left! ⚠️'
         else:
@@ -31,16 +32,22 @@ class Card:
             stars += '★'
 
         color = colors.get(self.rating)
-        file = discord.File(self.image_url, filename='image.png')
+        if 'gif' in self.image_url:
+            file = discord.File(self.image_url, filename='image.gif')
+        else:
+            file = discord.File(self.image_url, filename='image.png')
         embed = discord.Embed(
             title=f'{self.title}',
             description=f'{stars}\n{self.tags}',
             colour=color,
         )
 
-        num_owned = dataloader.get_num(author.id, self.id)
+        num_owned = database.get_num(str(author.id), self.id)
         embed.set_footer(text=f'{num_owned} owned by {author.name}\n{rolls_left_text}')
-        embed.set_image(url='attachment://image.png')
+        if 'gif' in self.image_url:
+            embed.set_image(url='attachment://image.gif')
+        else:
+            embed.set_image(url='attachment://image.png')
         return embed, file
 
     def to_display_embed(self, author: discord.member.Member):
@@ -59,7 +66,7 @@ class Card:
             colour=color,
         )
 
-        num_owned = dataloader.get_num(author.id, self.id)
+        num_owned = database.get_num(str(author.id), self.id)
         embed.set_footer(text=f'{num_owned} owned by {author.name}')
         if 'gif' in self.image_url:
             embed.set_image(url='attachment://image.gif')
@@ -68,43 +75,34 @@ class Card:
         return embed, file
 
 
-def to_search_slideshow_embed(query: str, card_list: [], cur_page: int):
-    card = card_list[cur_page]
-    stars = ''
-    for i in range(card.rating):
-        stars += '★'
-
-    color = colors.get(card.rating)
-    file = discord.File(card.image_url, filename='image.png')
-    embed = discord.Embed(
-        title=f'Search: {query} - Page {cur_page + 1}/{len(card_list)}\n'
-              f'{card.title}',
-        description=f'{stars}\n{card.tags}',
-        colour=color,
-    )
-    embed.set_image(url='attachment://image.png')
-    return embed, file
-
-
 def to_owned_embed(user: discord.user.User, owned_list: [], page: int, num_pages: int):
     description = ''
     index_first = 10 * page
     index_last = 10 * (page + 1)
-    for i in owned_list[index_first:index_last]:
-        num = i.val()
-        card = card_deck.get(i.key()).title
-        description += f'{num}x **{card}**\n'
+    for i in list(owned_list)[index_first:index_last]:
+        card = card_deck.get(i).title
+        description += f'{owned_list[i]}x **{card}**\n'
     embed = discord.Embed(
         title=f"{user.name}’s Deck - Page {page + 1}/{num_pages}",
         description=description,
         colour=discord.Colour.red()
     )
-    displayed_id = dataloader.get_displayed_card(user.id)
+    displayed_id = database.get_displayed_card(str(user.id))
     if displayed_id == 'c_id_-1':
         file = discord.File('mujank-logo.jpg', 'image.png')
+        gif = False
     else:
-        file = discord.File(card_deck.get(displayed_id).image_url, 'image.png')
-    embed.set_thumbnail(url='attachment://image.png')
+        displayed_card = card_deck.get(displayed_id)
+        if 'gif' in displayed_card.image_url:
+            file = discord.File(displayed_card.image_url, 'image.gif')
+            gif = True
+        else:
+            file = discord.File(displayed_card.image_url, 'image.png')
+            gif = False
+    if gif:
+        embed.set_thumbnail(url='attachment://image.gif')
+    else:
+        embed.set_thumbnail(url='attachment://image.png')
     return embed, file
 
 
@@ -112,20 +110,30 @@ def to_wishlist_embed(user: discord.user.User, wishlist: [], page: int, num_page
     description = ''
     index_first = 10 * page
     index_last = 10 * (page + 1)
-    for i in wishlist[index_first:index_last]:
-        card = card_deck.get(i.key()).title
-        description += f'{wishlist.index(i) + 1}. **{card}**\n'
+    for i in list(wishlist)[index_first:index_last]:
+        card = card_deck.get(i).title
+        description += f'{list(wishlist).index(i) + 1}. **{card}**\n'
     embed = discord.Embed(
         title=f"{user.name}’s Wishlist - Page {page + 1}/{num_pages}",
         description=description,
         colour=discord.Colour.red()
     )
-    display_id = dataloader.get_displayed_card(user.id)
-    if display_id == 'c_id_-1':
+    displayed_id = database.get_displayed_card(str(user.id))
+    if displayed_id == 'c_id_-1':
         file = discord.File('mujank-logo.jpg', 'image.png')
+        gif = False
     else:
-        file = discord.File(card_deck.get(display_id).image_url, 'image.png')
-    embed.set_thumbnail(url='attachment://image.png')
+        displayed_card = card_deck.get(displayed_id)
+        if 'gif' in displayed_card.image_url:
+            file = discord.File(displayed_card.image_url, 'image.gif')
+            gif = True
+        else:
+            file = discord.File(displayed_card.image_url, 'image.png')
+            gif = False
+    if gif:
+        embed.set_thumbnail(url='attachment://image.gif')
+    else:
+        embed.set_thumbnail(url='attachment://image.png')
     return embed, file
 
 
@@ -145,8 +153,13 @@ def to_search_embed(search_query: str, card_list: [], page: int, num_pages):
         colour=discord.Colour.red()
     )
     display_id = card_list[0].id
-    file = discord.File(card_deck.get(display_id).image_url, 'image.png')
-    embed.set_thumbnail(url='attachment://image.png')
+    display_card = card_deck.get(display_id)
+    if 'gif' in display_card.image_url:
+        file = discord.File(display_card.image_url, 'image.gif')
+        embed.set_thumbnail(url='attachment://image.gif')
+    else:
+        file = discord.File(display_card.image_url, 'image.png')
+        embed.set_thumbnail(url='attachment://image.gif')
     return embed, file
 
 
@@ -166,8 +179,8 @@ def rating_search(query: int):
     return card_list
 
 
-file = open('Mujank spreadsheet.csv')
-csvreader = csv.reader(file)
+mujank_spreadsheet = open('Mujank spreadsheet.csv')
+csvreader = csv.reader(mujank_spreadsheet)
 header = next(csvreader)
 
 card_deck = {}

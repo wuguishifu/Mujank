@@ -6,14 +6,13 @@ import datetime
 
 import cards
 import buttons
-import dataloader
+import database
 
 import discord
 from discord.ext import commands
-from pyrebase import pyrebase
 
 dotenv.load_dotenv()
-BOT_TOKEN = os.getenv('DISCORD_TOKEN')
+BOT_TOKEN = os.getenv('DISCORD_TOKEN_MAIN')
 bot = commands.Bot('*')
 bot.remove_command('help')
 
@@ -31,18 +30,18 @@ rates = {2: 490, 3: 890, 4: 990, 5: 999, 6: 1000}
 
 @bot.command(name='join', aliases=['j'])
 async def join(ctx):
-    if dataloader.user_exists(ctx.author.id):
+    if database.user_exists(str(ctx.author.id)):
         await ctx.send('You have already joined!')
     else:
-        dataloader.add_user(ctx.author.id)
+        database.add_user(str(ctx.author.id))
         await ctx.send(f'Thanks for joining, {ctx.author.mention}!')
 
 
 @bot.command(name='roll', aliases=['r'])
 async def roll(ctx):
-    if dataloader.user_exists(ctx.author.id):
-        if dataloader.get_num_rolls(ctx.author.id) > 0:
-            dataloader.dec_rolls(ctx.author.id)
+    if database.user_exists(str(ctx.author.id)):
+        if database.get_num_rolls(str(ctx.author.id)) > 0:
+            database.dec_rolls(str(ctx.author.id))
             random_number = random.randint(1, 1000)
             card = None
             if random_number < rates.get(2):
@@ -59,7 +58,7 @@ async def roll(ctx):
             await ctx.send(embed=embed, view=buttons.CardView(card, ctx.author), file=file)
         else:
             wait_response = get_time_until_reset()
-            await ctx.send(f'{ctx.author.mention}, you can only roll {dataloader.max_rolls} times every 12 hours!\n'
+            await ctx.send(f'{ctx.author.mention}, you can only roll {database.max_rolls} times every 12 hours!\n'
                            f'{wait_response}')
     else:
         await ctx.send(f'{ctx.author.mention}, Please join using the ``*join`` command!')
@@ -71,8 +70,8 @@ async def show_deck(ctx):
         user = ctx.message.mentions[0]
     else:
         user = ctx.author
-    if dataloader.user_exists(user.id):
-        owned_cards = dataloader.get_cards(user.id)
+    if database.user_exists(str(user.id)):
+        owned_cards = database.get_cards(str(user.id))
         if len(owned_cards) == 0:
             if user.id == ctx.author.id:
                 await ctx.send(f"{user.mention}, you don't have any cards yet!")
@@ -99,7 +98,7 @@ async def add_wish(ctx):
         query = content[3:]
     if len(query) > 0:
         if query.lower() in cards.name_deck:
-            dataloader.add_card_to_wishlist(ctx.author.id, cards.name_deck.get(query.lower()).id)
+            database.add_card_to_wishlist(str(ctx.author.id), cards.name_deck.get(query.lower()).id)
             await ctx.send(f"You've added {cards.name_deck.get(query.lower()).title} to your wishlist!")
 
 
@@ -109,8 +108,8 @@ async def show_wishlist(ctx):
         user = ctx.message.mentions[0]
     else:
         user = ctx.author
-    if dataloader.user_exists(user.id):
-        wishlist = dataloader.get_wishlist(user.id)
+    if database.user_exists(str(user.id)):
+        wishlist = database.get_wishlist(str(user.id))
         if len(wishlist) == 0:
             if user.id == ctx.author.id:
                 await ctx.send(f"{user.mention}, you don't have any cards on your wishlist yet!")
@@ -132,7 +131,7 @@ async def remove_wish(ctx):
         query = content[4:]
     if len(query) > 0:
         if query.lower() in cards.name_deck:
-            dataloader.remove_card_from_wishlist(ctx.author.id, cards.name_deck.get(query.lower()).id)
+            database.remove_card_from_wishlist(str(ctx.author.id), cards.name_deck.get(query.lower()).id)
             await ctx.send(f"You've removed {cards.name_deck.get(query.lower()).title} from your wishlist!")
 
 
@@ -213,17 +212,16 @@ async def categories(ctx):
 @bot.command(name='display')
 async def set_displayed_card(ctx):
     content: str = ctx.message.content
-    query = content[9:]
+    query = content[9:].lower()
     if len(query) > 0:
-        if query.lower() in cards.name_deck:
-            owned_cards: [pyrebase.Pyre] = dataloader.get_cards(ctx.author.id)
-            if cards.name_deck.get(query.lower()).id in [item.key().lower() for item in owned_cards]:
-                dataloader.set_displayed_card(ctx.author.id, cards.name_deck.get(query).id)
+        if query in cards.name_deck:
+            if database.has_card(str(ctx.author.id), cards.name_deck.get(query).id):
+                database.set_displayed_card(str(ctx.author.id), cards.name_deck.get(query).id)
                 await ctx.send(f'Successfully set your display card to {cards.name_deck.get(query).title}!')
             else:
                 await ctx.send(f"You don't own that card yet!")
         elif query == 'reset':
-            dataloader.set_displayed_card(ctx.author.id, 'c_id_-1')
+            database.set_displayed_card(str(ctx.author.id), 'c_id_-1')
             await ctx.send(f'Your deck display was reset!')
         else:
             await ctx.send(f'No card named {query} found!')
@@ -257,9 +255,8 @@ async def trade(ctx):
                 await ctx.send(f'No message sent, trade cancelled.')
             else:
                 card_title: str = user1_msg.content
-                user1_cards = dataloader.get_cards(ctx.author.id)
                 if card_title.lower() in cards.name_deck:
-                    if cards.name_deck.get(card_title.lower()).id in [item.key().lower() for item in user1_cards]:
+                    if database.has_card(str(ctx.author.id), cards.name_deck.get(card_title.lower()).id):
                         user1_card_to_trade = cards.name_deck.get(card_title.lower())
                     else:
                         await ctx.send(f"{ctx.author.mention}, you don't own any cards named {card_title}"
@@ -279,9 +276,8 @@ async def trade(ctx):
                     await ctx.send(f'No message sent, trade cancelled.')
                 else:
                     card_title: str = user2_msg.content
-                    user2_cards = dataloader.get_cards(ctx.message.mentions[0].id)
                     if card_title.lower() in cards.name_deck:
-                        if cards.name_deck.get(card_title.lower()).id in [item.key().lower() for item in user2_cards]:
+                        if database.has_card(str(ctx.message.mentions[0].id), cards.name_deck.get(card_title.lower()).id):
                             user2_card_to_trade = cards.name_deck.get(card_title.lower())
                         else:
                             await ctx.send(f"{ctx.message.mentions[0].mention}, you don't own any cards named "
@@ -300,21 +296,10 @@ async def trade(ctx):
                         await ctx.send(f'No message sent, trade cancelled.')
                     else:
                         if confirm_msg.content.lower() == 'yes':
-                            dataloader.add_card(ctx.author.id, user2_card_to_trade.id)
-                            dataloader.add_card(ctx.message.mentions[0].id, user1_card_to_trade.id)
-                            dataloader.remove_card(ctx.author.id, user1_card_to_trade.id)
-                            dataloader.remove_card(ctx.message.mentions[0].id, user2_card_to_trade.id)
-
-                            user1_display_card = dataloader.get_displayed_card(ctx.author.id)
-                            user2_display_card = dataloader.get_displayed_card(ctx.message.mentions[0].id)
-                            if user1_display_card == user1_card_to_trade.id:
-                                if dataloader.get_num(ctx.author.id, user1_display_card) == 0:
-                                    dataloader.reset_displayed_card(ctx.author.id)
-
-                            if user2_display_card == user2_card_to_trade.id:
-                                if dataloader.get_num(ctx.message.mentions[0].id, user2_display_card) == 0:
-                                    dataloader.reset_displayed_card(ctx.message.mentions[0].id)
-
+                            database.add_card(str(ctx.author.id), user2_card_to_trade.id)
+                            database.add_card(str(ctx.message.mentions[0].id), user1_card_to_trade.id)
+                            database.remove_card(str(ctx.author.id), user1_card_to_trade.id)
+                            database.remove_card(str(ctx.message.mentions[0].id), user2_card_to_trade.id)
                             await ctx.send('Trade completed!')
                         else:
                             await ctx.send(f'Trade cancelled.')
@@ -346,9 +331,8 @@ async def give_card(ctx):
                 await ctx.send(f'No message sent, give cancelled.')
             else:
                 card_title: str = user1_msg.content
-                user1_cards = dataloader.get_cards(user1.id)
                 if card_title.lower() in cards.name_deck:
-                    if cards.name_deck.get(card_title.lower()).id in [item.key().lower() for item in user1_cards]:
+                    if database.has_card(str(ctx.author.id), cards.name_deck.get(card_title.lower()).id):
                         user1_card_to_give = cards.name_deck.get(card_title.lower())
                     else:
                         await ctx.send(f"{user1.mention}, you don't own any cards named {card_title}"
@@ -368,13 +352,8 @@ async def give_card(ctx):
                 await ctx.send(f'No message sent, give cancelled.')
             else:
                 if confirm_msg.content.lower() == 'yes':
-                    dataloader.add_card(user2.id, user1_card_to_give.id)
-                    dataloader.remove_card(user1.id, user1_card_to_give.id)
-
-                    user1_display_card = dataloader.get_displayed_card(user1.id)
-                    if user1_display_card == user1_card_to_give.id:
-                        if dataloader.get_num(user1.id, user1_display_card) == 0:
-                            dataloader.reset_displayed_card(user1.id)
+                    database.add_card(str(user2.id), user1_card_to_give.id)
+                    database.remove_card(str(user1.id), user1_card_to_give.id)
 
                     # if Will gives a card to Nina
                     will_id = 129387033993936897
@@ -396,7 +375,6 @@ async def time_until_reset(ctx):
 def get_time_until_reset():
     current_hour = datetime.datetime.now().hour
     current_min = datetime.datetime.now().minute
-    print(f'{current_hour}, {current_min}')
     if current_hour < 6:
         response_string = get_time_delta(current_hour, current_min, 6)
     elif current_hour < 18:
@@ -467,29 +445,22 @@ async def on_command_error(ctx, error):
     print(error)
 
 
-# # test commands
-# @bot.command(name='test')
-# async def test(ctx):
-#     for card in cards.cards:
-#         dataloader.add_card(ctx.author.id, card[0])
-#
-#
-# @bot.command(name='give')
-# async def give(ctx):
-#     query = ctx.message.content[6:]
-#     dataloader.add_card(ctx.author.id, cards.name_deck.get(query.lower()).id)
-#
-#
-# @bot.command(name='remove')
-# async def remove(ctx):
-#     query = ctx.message.content[8:]
-#     dataloader.remove_card(ctx.author.id, cards.name_deck.get(query.lower()).id)
-#
-#
-# @bot.command(name='reset')
-# async def reset(ctx):
-#     dataloader.reset_all_timers()
+@bot.command(name='add')
+async def add(ctx):
+    query = ctx.message.content[5:].lower()
+    if len(query) > 0:
+        if query in cards.name_deck:
+            database.add_card(str(ctx.author.id), cards.name_deck.get(query).id)
+            await ctx.send('ok')
 
+
+@bot.command(name='remove')
+async def add(ctx):
+    query = ctx.message.content[8:].lower()
+    if len(query) > 0:
+        if query in cards.name_deck:
+            database.remove_card(str(ctx.author.id), cards.name_deck.get(query).id)
+            await ctx.send('ok')
 
 bot.run(BOT_TOKEN)
 

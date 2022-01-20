@@ -1,5 +1,6 @@
 import discord
-import dataloader
+
+import database
 import cards
 
 
@@ -19,11 +20,11 @@ class ClaimButton(discord.ui.Button):
 
     async def callback(self, interaction: discord.Interaction):
         if interaction.user.id == self.user.id:
-            if dataloader.check_claimed(interaction.user.id):
+            if database.check_claimed(str(interaction.user.id)):
                 await interaction.channel.send(f'{interaction.user.mention}, you can only claim once every 12 hours!')
             else:
-                dataloader.set_claimed(interaction.user.id, True)
-                dataloader.add_card(interaction.user.id, self.card.id)
+                database.set_claimed(str(interaction.user.id), True)
+                database.add_card(str(interaction.user.id), self.card.id)
                 embed, file = self.card.to_embed(interaction.user)
                 await interaction.response.edit_message(view=None, embed=embed)
                 await interaction.channel.send(f'{interaction.user.mention} claimed {self.card.title}!')
@@ -164,52 +165,6 @@ class PrevSearchListPageButton(discord.ui.Button):
                                                                                 self.cur_page))
 
 
-class NextSearchSlideshowPageButton(discord.ui.Button):
-    def __init__(self, user: discord.user.User, query: str, card_list: [], cur_page: int):
-        if cur_page == len(card_list) - 1:
-            super(NextSearchSlideshowPageButton, self).__init__(style=discord.ButtonStyle.primary, disabled=True,
-                                                                label='Next Page', row=0)
-        else:
-            super(NextSearchSlideshowPageButton, self).__init__(style=discord.ButtonStyle.primary, label='Next Page',
-                                                                row=0)
-        self.num_pages = len(card_list)
-        self.user = user
-        self.query = query
-        self.card_list = card_list
-        self.cur_page = cur_page
-
-    async def callback(self, interaction: discord.Interaction):
-        if self.user.id == interaction.user.id:
-            if self.cur_page + 1 < self.num_pages:
-                self.cur_page += 1
-                embed, file = cards.to_search_slideshow_embed(self.query, self.card_list, self.cur_page)
-                await interaction.message.edit(embed=embed, view=SearchSlideshowView(self.user, self.query,
-                                                                                     self.card_list, self.cur_page))
-
-
-class PrevSearchSlideshowPageButton(discord.ui.Button):
-    def __init__(self, user: discord.user.User, query: str, card_list: [], cur_page: int):
-        if cur_page == 0:
-            super(PrevSearchSlideshowPageButton, self).__init__(style=discord.ButtonStyle.primary, disabled=True,
-                                                                label='Previous Page', row=0)
-        else:
-            super(PrevSearchSlideshowPageButton, self).__init__(style=discord.ButtonStyle.primary,
-                                                                label='Previous Page', row=0)
-        self.num_pages = len(card_list)
-        self.user = user
-        self.query = query
-        self.card_list = card_list
-        self.cur_page = cur_page
-
-    async def callback(self, interaction: discord.Interaction):
-        if self.user.id == interaction.user.id:
-            if self.cur_page - 1 >= 0:
-                self.cur_page -= 1
-                embed, file = cards.to_search_slideshow_embed(self.query, self.card_list, self.cur_page)
-                await interaction.message.edit(embed=embed, view=SearchSlideshowView(self.user, self.query,
-                                                                                     self.card_list, self.cur_page))
-
-
 class CardView(discord.ui.View):
     def __init__(self, card: cards.Card, user: discord.user.User):
         super(CardView, self).__init__()
@@ -241,10 +196,3 @@ class SearchListView(discord.ui.View):
         super(SearchListView, self).__init__()
         self.add_item(PrevSearchListPageButton(user, query, card_list, cur_page))
         self.add_item(NextSearchListPageButton(user, query, card_list, cur_page))
-
-
-class SearchSlideshowView(discord.ui.View):
-    def __init__(self, user: discord.user.User, query: str, card_list: [], cur_page=0):
-        super(SearchSlideshowView, self).__init__()
-        self.add_item(PrevSearchSlideshowPageButton(user, query, card_list, cur_page))
-        self.add_item(NextSearchSlideshowPageButton(user, query, card_list, cur_page))
