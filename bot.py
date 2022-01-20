@@ -203,7 +203,7 @@ async def search_rare(ctx, rating: str):
 
 @bot.command(name='categories', aliases=['c'])
 async def categories(ctx):
-    await ctx.send('The categories are:\nAlex, Misc,Bo, Combo, Flynn, Haroon, Jenn, Matt, Mikey, Nayoung, Nina, Noah, '
+    await ctx.send('The categories are:\nAlex, Misc, Bo, Combo, Flynn, Haroon, Jenn, Matt, Mikey, Nayoung, Nina, Noah, '
                    'Patrick, Steven, Tim, Tommy, Wendy, Will, Elijah, Ashwin, John')
 
 
