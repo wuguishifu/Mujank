@@ -686,9 +686,8 @@ cards = [
     ["c_id_0523", "cards/flynn- vr_chat_sus_gif.gif", "Spicy VRChat", 6, "Flynn"],
     ["c_id_0524", "cards/combo- star_bbq_gif.gif", "KBBQ Hangout", 6, "Combo"],
     ["c_id_0525", "cards/nayoung- korean_snack_gif.gif", "Korean Snack", 6, "Nayoung"],
-    ["c_id_0526", "cards/steven- haena_gif.gif", "Haena", 6, "Steven"],
-    ["c_id_0527", "cards/matt- silent_disco_gif.gif", "Silent Disco", 6, "Matt"],
-    ["c_id_0528", "cards/haroon- hot_shot_gif.gif", "Buckets", 6, "Haroon"],
+    ["c_id_0526", "cards/matt- silent_disco_gif.gif", "Silent Disco", 6, "Matt"],
+    ["c_id_0527", "cards/haroon- hot_shot_gif.gif", "Buckets", 6, "Haroon"],
 ]
 
 card_deck = {}
