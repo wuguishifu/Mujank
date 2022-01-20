@@ -5,7 +5,7 @@ import dotenv
 import datetime
 
 import cards
-import buttons
+from views import buttons
 import dataloader
 
 import discord
@@ -119,7 +119,7 @@ async def show_wishlist(ctx):
         else:
             num_pages = int((len(wishlist) + 9) / 10)
             embed, file = cards.to_wishlist_embed(user, wishlist, 0, num_pages)
-            await ctx.send(embed=embed, file=file, view=buttons.DeckView(wishlist, user, cur_page=0))
+            await ctx.send(embed=embed, file=file, view=buttons.WishlistView(wishlist, user, cur_page=0))
 
 
 @bot.command(name='wishremove', aliases=['wr'])
@@ -136,7 +136,7 @@ async def remove_wish(ctx):
             await ctx.send(f"You've removed {cards.name_deck.get(query.lower()).title} from your wishlist!")
 
 
-@bot.command(name='info', aliases=['i'])
+@bot.command(name='info', aliases=['i', 'im'])
 async def show_card(ctx):
     content: str = ctx.message.content
     query = ''
@@ -144,6 +144,8 @@ async def show_card(ctx):
         query = content[6:]
     elif content.startswith(f'*i '):
         query = content[3:]
+    elif content.startswith(f'*im '):
+        query = content[4:]
     if len(query) > 0:
         if query.lower() in cards.name_deck:
             embed, file = cards.name_deck.get(query.lower()).to_display_embed(ctx.author)
