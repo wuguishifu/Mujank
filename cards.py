@@ -159,7 +159,7 @@ def to_search_embed(search_query: str, card_list: [], page: int, num_pages):
         embed.set_thumbnail(url='attachment://image.gif')
     else:
         file = discord.File(display_card.image_url, 'image.png')
-        embed.set_thumbnail(url='attachment://image.gif')
+        embed.set_thumbnail(url='attachment://image.png')
     return embed, file
 
 
