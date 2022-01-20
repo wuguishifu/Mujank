@@ -171,12 +171,13 @@ async def show_card(ctx):
 
 @bot.command(name='search', aliases=['s'])
 async def search_list(ctx, *args):
+    args = [i.lower() for i in args]
     content: str = ctx.message.content
     query = ''
     if content.startswith(f'*search '):
-        query = content[8:].lower()
+        query = content[8:]
     elif content.startswith(f'*s '):
-        query = content[3:].lower()
+        query = content[3:]
     if len(query) > 0:
         cards_list = cards.name_search(args)
         if len(cards_list) > 0:
