@@ -642,7 +642,7 @@ cards = [
     ["c_id_0471", "cards/combo- visitors.JPG", "Visitors", 2, "Combo"],
     ["c_id_0472", "cards/combo- waiting_sushi.jpeg", "Waiting for Sushi", 2, "Combo"],
     ["c_id_0473", "cards/combo- wowow.PNG", "Nayoung Hyped", 2, "Combo"],
-    ["c_id_0474", "cards/elijah- hold_my_zot2.JPG", "Hold My Zot - Ellijah", 3, "Elijah"],
+    ["c_id_0474", "cards/elijah- hold_my_zot2.JPG", "Hold My Zot - Elijah", 3, "Elijah"],
     ["c_id_0475", "cards/haroon- audacity.jpeg", "Audacity", 2, "Haroon"],
     ["c_id_0476", "cards/haroon- grad_ready.jpeg", "Grad Ready Haroon", 2, "Haroon"],
     ["c_id_0477", "cards/haroon- irides.jpeg", "iridescence Haroon", 2, "Haroon"],
@@ -707,3 +707,7 @@ for c in cards:
     name_deck[c[2].lower()] = Card(c[0], c[1], c[2], c[3], c[4])
     name_deck[c[2].lower().replace('’', "'")] = Card(c[0], c[1], c[2], c[3], c[4])
     rating_decks[c[3]][c[0]] = Card(c[0], c[1], c[2], c[3], c[4])
+
+
+t = ["c_id_0337", "cards/matt- poptart.jpg", "Poptart \*in a British accent\*", 5, "Matt"]
+name_deck[t[2].lower().replace('\*', '*')] = Card(t[0], t[1], t[2], t[3], t[4])
