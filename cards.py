@@ -48,7 +48,10 @@ class Card:
             stars += '★'
 
         color = colors.get(self.rating)
-        file = discord.File(self.image_url, filename='image.png')
+        if 'gif' in self.image_url:
+            file = discord.File(self.image_url, filename='image.gif')
+        else:
+            file = discord.File(self.image_url, filename='image.png')
         embed = discord.Embed(
             title=f'{self.title}',
             description=f'{stars}\n{self.tags}',
@@ -57,7 +60,10 @@ class Card:
 
         num_owned = dataloader.get_num(author.id, self.id)
         embed.set_footer(text=f'{num_owned} owned by {author.name}')
-        embed.set_image(url='attachment://image.png')
+        if 'gif' in self.image_url:
+            embed.set_image(url='attachment://image.gif')
+        else:
+            embed.set_image(url='attachment://image.png')
         return embed, file
 
 
