@@ -187,7 +187,7 @@ async def search_list(ctx):
             await ctx.send('No cards were found.')
 
 
-@bot.command(name='searchrare', aliases=['sr'])
+@bot.command(name='searchrarity', aliases=['sr'])
 async def search_rare(ctx, rating: str):
     if rating:
         if rating.isnumeric():
@@ -203,7 +203,8 @@ async def search_rare(ctx, rating: str):
 
 @bot.command(name='categories', aliases=['c'])
 async def categories(ctx):
-    pass
+    await ctx.send('The categories are:\nAlex, Misc,Bo, Combo, Flynn, Haroon, Jenn, Matt, Mikey, Nayoung, Nina, Noah, '
+                   'Patrick, Steven, Tim, Tommy, Wendy, Will, Elijah, Ashwin, John')
 
 
 @bot.command(name='display')
@@ -432,6 +433,8 @@ async def help_menu(ctx):
                     f'``*wishremove <card name>`` - removes a card from your wishlist.\n\n'
                     f'``*info <card name>`` - displays a specific card.\n\n'
                     f'``*search <person>`` - searches for cards of that person.\n\n'
+                    f'``*searchrarity <rarity>`` - searches for cards by rarity.\n\n'
+                    f'``*categories`` - shows all the search tags\n\n'
                     f'``*display <card name>`` - sets the thumbnail of your deck.\n\n'
                     f'``*trade <@user>`` - initiates a trade with the tagged user.\n\n'
                     f'``*help`` - shows this message.',
