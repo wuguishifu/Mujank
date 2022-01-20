@@ -187,6 +187,25 @@ async def search_list(ctx):
             await ctx.send('No cards were found.')
 
 
+@bot.command(name='searchrare', aliases=['sr'])
+async def search_rare(ctx, rating: str):
+    if rating:
+        if rating.isnumeric():
+            query = int(rating)
+            cards_list = cards.rating_search(query)
+            if len(cards_list) > 0:
+                num_pages = int((len(cards_list) + 9) / 10)
+                embed, file = cards.to_search_embed(rating, cards_list, 0, num_pages)
+                await ctx.send(embed=embed, file=file, view=buttons.SearchListView(ctx.author, rating, cards_list, 0))
+            else:
+                await ctx.send('No cards were found.')
+
+
+@bot.command(name='categories', aliases=['c'])
+async def categories(ctx):
+    pass
+
+
 @bot.command(name='display')
 async def set_displayed_card(ctx):
     content: str = ctx.message.content

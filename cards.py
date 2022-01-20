@@ -157,10 +157,18 @@ def name_search(query: str):
     return card_list
 
 
+def rating_search(query: int):
+    card_list = []
+    for card in card_deck.values():
+        if card.rating == query:
+            card_list.append(card)
+    return card_list
+
+
 cards = [
     ["c_id_0000", "cards/alex- _3.jpg", "Much Love", 3, "Alex"],
     ["c_id_0001", "cards/alex- puppy.jpg", "Wassup Dog", 3, "Alex"],
-    ["c_id_0002", "cards/anteatery_cup_tower.png", "The Legendary Tower", 2, "Misc."],
+    ["c_id_0002", "cards/anteatery_cup_tower.png", "The Legendary Tower", 2, "Misc"],
     ["c_id_0003", "cards/bo- ac_A.jpg", "A", 3, "Bo"],
     ["c_id_0004", "cards/bo- airpods.jpg", "Hey, Look at my Airpods!", 2, "Bo"],
     ["c_id_0005", "cards/bo- beard.jpg", "Hey, Look at my Beard!", 2, "Bo"],
@@ -436,8 +444,8 @@ cards = [
     ["c_id_0274", "cards/noah- highlights.jpg", "Swaggy Noah", 4, "Noah"],
     ["c_id_0275", "cards/patrick- dead.jpg", "Dead Patrick 1", 4, "Patrick"],
     ["c_id_0276", "cards/patrick- sleepy.jpg", "Dead Patrick 2", 4, "Patrick"],
-    ["c_id_0277", "cards/ponyo- attack.png", "she attack", 4, "Misc."],
-    ["c_id_0278", "cards/radish.PNG", "Raddish", 4, "Misc."],
+    ["c_id_0277", "cards/ponyo- attack.png", "she attack", 4, "Misc"],
+    ["c_id_0278", "cards/radish.PNG", "Raddish", 4, "Misc"],
     ["c_id_0279", "cards/steven- amogus.png", "Among Us - Steven", 4, "Steven"],
     ["c_id_0280", "cards/steven- anime.png", "Anime Steven", 4, "Steven"],
     ["c_id_0281", "cards/steven- chef.jpg", "Chef Steven", 4, "Steven"],
