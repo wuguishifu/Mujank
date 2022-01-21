@@ -76,7 +76,7 @@ async def show_deck(ctx):
             if user.id == ctx.author.id:
                 await ctx.send(f"{user.mention}, you don't have any cards yet!")
             else:
-                await ctx.send(f"{user.mention} doesn't have any cards on their wishlist yet!")
+                await ctx.send(f"{user.mention} doesn't have any cards in their deck yet!")
         else:
             num_pages = int((len(owned_cards) + 9) / 10)
             embed, file = cards.to_owned_embed(user, owned_cards, 0, num_pages)
