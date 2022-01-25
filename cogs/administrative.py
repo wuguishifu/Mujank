@@ -237,7 +237,7 @@ help_embed = discord.Embed(
                 f'**\*deck**: displays your deck of cards.\n'
                 f'**\*display <card name>**: sets the thumbnail of your deck.\n'
                 f'**\*inventory**: displays your inventory of items.\n'
-                f'**\*use <card name>**: uses a card from your inventory.\n\n'
+                f'**\*use <item name>**: uses an item from your inventory.\n\n'
                 f''
                 f'**Social** :family:\n'
                 f'**\*give <@user>**: gives the tagged user a card.\n'
