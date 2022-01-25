@@ -1,7 +1,19 @@
+import datetime
+import shutil
 import json
+from datetime import date
 
 max_rolls = 3
 file_path = 'mujank_db.json'
+
+
+def backup():
+    today = date.today()
+    date_format = today.strftime('%m_%d_%Y')
+    current_hour = datetime.datetime.now().hour
+    current_min = datetime.datetime.now().minute
+    destination = f'mujank_backup_{date_format}_{current_hour}_{current_min}'
+    shutil.copy('mujank_db.json', f'db_backups/{destination}.json')
 
 
 def save_data(data):
@@ -24,7 +36,11 @@ def add_user(user_id: str):
             'num_rolls': 3,
             'displayed_card': 'c_id_-1',
             'cards': {},
-            'wishlist': {}
+            'wishlist': {},
+            'inventory': {
+                'items': {},
+                'coins': 0
+            }
         }
     save_data(data)
 
@@ -178,4 +194,49 @@ def remove_card_from_wishlist(user_id: str, card_id: str):
         data['users'][user_id]['wishlist'][card_id] -= 1
         if data['users'][user_id]['wishlist'][card_id] == 0:
             del data['users'][user_id]['wishlist'][card_id]
+    save_data(data)
+
+
+def get_coins(user_id: str):
+    with open(file_path) as json_file:
+        data = json.load(json_file)
+        return data['users'][user_id]['inventory']['coins']
+
+
+def add_coins(user_id: str, coins: int):
+    with open(file_path) as json_file:
+        data = json.load(json_file)
+        data['users'][user_id]['inventory']['coins'] += coins
+    save_data(data)
+
+
+def remove_coins(user_id: str, coins: int):
+    with open(file_path) as json_file:
+        data = json.load(json_file)
+        data['users'][user_id]['inventory']['coins'] -= coins
+    save_data(data)
+
+
+def get_items(user_id: str):
+    with open(file_path) as json_file:
+        data = json.load(json_file)
+        return data['users'][user_id]['inventory']['items']
+
+
+def add_item(user_id: str, item_id: str):
+    with open(file_path) as json_file:
+        data = json.load(json_file)
+        if item_id in data['users'][user_id]['inventory']['items']:
+            data['users'][user_id]['inventory']['items'][item_id] += 1
+        else:
+            data['users'][user_id]['inventory']['items'][item_id] = 1
+    save_data(data)
+
+
+def remove_item(user_id: str, item_id: str):
+    with open(file_path) as json_file:
+        data = json.load(json_file)
+        data['users'][user_id]['inventory']['items'][item_id] -= 1
+        if data['users'][user_id]['inventory']['items'][item_id] == 0:
+            del data['users'][user_id]['inventory']['items'][item_id]
     save_data(data)
