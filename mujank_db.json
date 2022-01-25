@@ -14,7 +14,7 @@
                 "items": {
                     "i_id_0004": 100000
                 },
-                "coins": 25
+                "coins": 15
             }
         },
         "1": {
@@ -63,6 +63,18 @@
             "inventory": {
                 "items": {},
                 "coins": 0
+            }
+        },
+        "933726675974381578": {
+            "num_cards": 0,
+            "claimed": false,
+            "num_rolls": 3,
+            "displayed_card": "c_id_-1",
+            "cards": {},
+            "wishlist": {},
+            "inventory": {
+                "items": {},
+                "coins": 10
             }
         }
     }

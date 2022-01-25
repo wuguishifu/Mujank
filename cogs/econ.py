@@ -9,6 +9,7 @@ import database
 import item
 
 card_price = {2: 1, 3: 1, 4: 3, 5: 15, 6: 30}
+coin_emoji = '<:jankcoin:935376607353397308>'
 
 
 class Econ(commands.Cog):
@@ -34,7 +35,7 @@ class Econ(commands.Cog):
                 card = cards.name_deck[query.lower()]
                 if card.id in database.get_cards(str(ctx.author.id)):
                     await ctx.send(f'Are you sure you would like to sell **{card.title}** '
-                                   f'for {card_price[card.rating]} Jankcoins? (yes/no)')
+                                   f'for {card_price[card.rating]}x {coin_emoji}? (yes/no)')
                     try:
                         user_msg = await self.bot.wait_for("message", check=confirm, timeout=30)
                     except asyncio.TimeoutError:
@@ -45,10 +46,10 @@ class Econ(commands.Cog):
                             database.add_coins(str(ctx.author.id), card_price[card.rating])
                             if card_price[card.rating] == 1:
                                 await ctx.send(f"{ctx.author.mention}, you've sold **{card.title}** "
-                                               f"for {card_price[card.rating]} Jankcoin!")
+                                               f"for {card_price[card.rating]}x {coin_emoji}!")
                             else:
                                 await ctx.send(f"{ctx.author.mention}, you've sold **{card.title}** "
-                                               f"for {card_price[card.rating]} Jankcoins!")
+                                               f"for {card_price[card.rating]}x {coin_emoji}!")
                         else:
                             await ctx.send(f'Transaction cancelled.')
                 else:
@@ -61,15 +62,15 @@ class Econ(commands.Cog):
         if not ctx.message.mentions:
             balance = database.get_coins(str(ctx.author.id))
             if balance == 1:
-                await ctx.send(f'{ctx.author.mention}, your balance is {balance} Jankcoin.')
+                await ctx.send(f'{ctx.author.mention}, your balance is {balance}x {coin_emoji}.')
             else:
-                await ctx.send(f'{ctx.author.mention}, your balance is {balance} Jankcoins.')
+                await ctx.send(f'{ctx.author.mention}, your balance is {balance}x {coin_emoji}.')
         else:
             balance = database.get_coins(str(ctx.message.mentions[0].id))
             if balance == 1:
-                await ctx.send(f"{ctx.message.mentions[0].mention}'s balance is {balance} Jankcoin.")
+                await ctx.send(f"{ctx.message.mentions[0].mention}'s balance is {balance}x {coin_emoji}.")
             else:
-                await ctx.send(f"{ctx.message.mentions[0].mention}'s balance is {balance} Jankcoins.")
+                await ctx.send(f"{ctx.message.mentions[0].mention}'s balance is {balance}x {coin_emoji}.")
 
     @commands.command(name='price')
     async def check_price(self, ctx):
@@ -84,9 +85,11 @@ class Econ(commands.Cog):
                 card = cards.name_deck[query.lower()]
                 price = card_price[card.rating]
                 if price == 1:
-                    await ctx.send(f"{ctx.author.mention}, the selling price of **{card.title}** is {price} Jankcoin.")
+                    await ctx.send(f"{ctx.author.mention}, the selling price of **{card.title}** "
+                                   f"is {price}x {coin_emoji}.")
                 else:
-                    await ctx.send(f"{ctx.author.mention}, the selling price of **{card.title}** is {price} Jankcoins.")
+                    await ctx.send(f"{ctx.author.mention}, the selling price of **{card.title}** "
+                                   f"is {price}x {coin_emoji}.")
             else:
                 await ctx.send(f"{ctx.author.mention}, no cards found named {query}.")
 
@@ -95,11 +98,11 @@ class Econ(commands.Cog):
         thumbnail_file = discord.File('mujank-logo.jpg', filename='logo.jpg')
         prices_embed = discord.Embed(
             title='Card Prices',
-            description=f'2★ - {card_price[2]} Jankcoins\n'
-                        f'3★ - {card_price[3]} Jankcoins\n'
-                        f'4★ - {card_price[4]} Jankcoins\n'
-                        f'5★ - {card_price[5]} Jankcoins\n'
-                        f'6★ - {card_price[6]} Jankcoins',
+            description=f'2★ - {card_price[2]}x {coin_emoji}\n'
+                        f'3★ - {card_price[3]}x {coin_emoji}\n'
+                        f'4★ - {card_price[4]}x {coin_emoji}\n'
+                        f'5★ - {card_price[5]}x {coin_emoji}\n'
+                        f'6★ - {card_price[6]}x {coin_emoji}',
             colour=discord.Colour.from_rgb(227, 24, 24)
         )
         prices_embed.set_thumbnail(url='attachment://logo.jpg')
@@ -111,7 +114,7 @@ class Econ(commands.Cog):
         description = ''
         for j in list(item.item_ids):
             i = item.item_ids[j]
-            description += f'{i.icon} **{i.title}** - {i.price} Jankcoins\n'
+            description += f'{i.icon} **{i.title}** - {i.price}x {coin_emoji}\n'
         embed = discord.Embed(
             title=':convenience_store: Mujank Marketplace :shopping_cart:',
             description=description,
@@ -133,7 +136,7 @@ class Econ(commands.Cog):
                             return True
 
                     await ctx.send(f'{ctx.author.mention}, are you sure you would like to buy **{i.title}** '
-                                   f'for {i.price} Jankcoins? (yes/no)')
+                                   f'for {i.price}x {coin_emoji}? (yes/no)')
                     try:
                         user_msg = await self.bot.wait_for("message", check=confirm, timeout=30)
                     except asyncio.TimeoutError:
@@ -142,12 +145,12 @@ class Econ(commands.Cog):
                         if user_msg.content.lower() in ['yes', 'y']:
                             database.add_item(str(ctx.author.id), i.id)
                             database.remove_coins(str(ctx.author.id), i.price)
-                            await ctx.send(f"{ctx.author.mention}, you've bought **{i.title}** for {i.price}"
-                                           f" Jankcoins!")
+                            await ctx.send(f"{ctx.author.mention}, you've bought **{i.title}** for {i.price}x"
+                                           f" {coin_emoji}!")
                         else:
                             await ctx.send(f'Transaction cancelled.')
                 else:
-                    await ctx.send(f"{ctx.author.mention}, you don't have enough Jankcoins to buy that item!")
+                    await ctx.send(f"{ctx.author.mention}, you don't have enough {coin_emoji} to buy that item!")
             else:
                 await ctx.send(f'{ctx.author.mention}, no item found called {query}.')
 
@@ -165,12 +168,12 @@ class Econ(commands.Cog):
             amount = int(amount)
             balance = database.get_coins(str(ctx.author.id))
             if balance < amount:
-                await ctx.send(f"{ctx.author.mention}, you don't have enough Jankcoins!")
+                await ctx.send(f"{ctx.author.mention}, you don't have enough {coin_emoji}!")
             else:
                 database.remove_coins(str(ctx.author.id), amount)
                 database.add_coins(str(ctx.message.mentions[0].id), amount)
-                await ctx.send(f"{ctx.author.mention}, you've paid {ctx.message.mentions[0].mention} {amount} "
-                               f"Jankcoins!")
+                await ctx.send(f"{ctx.author.mention}, you've paid {ctx.message.mentions[0].mention} {amount}x "
+                               f"{coin_emoji}!")
 
     @commands.command(name='inventory', aliases=['inv'])
     async def show_inventory(self, ctx):
@@ -240,6 +243,35 @@ class Econ(commands.Cog):
                 await ctx.send(embed=embed, file=file)
             else:
                 await ctx.send(f"{ctx.author.mention}, could not find an item named {query}.")
+
+    @commands.command(name='leaderboard')
+    async def show_leaderboard(self, ctx):
+        leaderboard: [] = database.get_leaderboard()[:10]
+        description = ''
+        i = 0
+        for u in leaderboard:
+            try:
+                member = await ctx.guild.fetch_member(int(u.id))
+            except discord.HTTPException:
+                pass
+            else:
+                i += 1
+                if leaderboard[i].balance == 1:
+                    if member.nick:
+                        description += f'{i}. {member.nick} - {u.balance}x {coin_emoji}\n'
+                    else:
+                        description += f'{i}. {member.name} - {u.balance}x {coin_emoji}\n'
+                else:
+                    if member.nick:
+                        description += f'{i}. {member.nick} - {u.balance}x {coin_emoji}\n'
+                    else:
+                        description += f'{i}. {member.name} - {u.balance}x {coin_emoji}\n'
+        embed = discord.Embed(
+            title='Mujank Leaderboard',
+            description=description,
+            colour=discord.Colour.from_rgb(227, 24, 24)
+        )
+        await ctx.send(embed=embed)
 
 
 async def execute_item_function(ctx, item_id):

@@ -1,7 +1,9 @@
 import datetime
+import functools
 import shutil
 import json
 from datetime import date
+import user
 
 max_rolls = 3
 file_path = 'mujank_db.json'
@@ -240,3 +242,12 @@ def remove_item(user_id: str, item_id: str):
         if data['users'][user_id]['inventory']['items'][item_id] == 0:
             del data['users'][user_id]['inventory']['items'][item_id]
     save_data(data)
+
+
+def get_leaderboard():
+    with open(file_path) as json_file:
+        data = json.load(json_file)
+        user_list = []
+        for u in list(data['users']):
+            user_list.append(user.User(u, data['users'][u]['inventory']['coins']))
+    return sorted(user_list, reverse=True)
