@@ -40,7 +40,7 @@ class Econ(commands.Cog):
                     except asyncio.TimeoutError:
                         await ctx.send(f'No message sent, transaction cancelled.')
                     else:
-                        if user_msg.content.lower() == 'yes':
+                        if user_msg.content.lower() in ['yes', 'y']:
                             database.remove_card(str(ctx.author.id), card.id)
                             database.add_coins(str(ctx.author.id), card_price[card.rating])
                             if card_price[card.rating] == 1:
@@ -139,7 +139,7 @@ class Econ(commands.Cog):
                     except asyncio.TimeoutError:
                         await ctx.send(f'No message sent, transaction cancelled')
                     else:
-                        if user_msg.content.lower() == 'yes':
+                        if user_msg.content.lower() in ['yes', 'y']:
                             database.add_item(str(ctx.author.id), i.id)
                             database.remove_coins(str(ctx.author.id), i.price)
                             await ctx.send(f"{ctx.author.mention}, you've bought **{i.title}** for {i.price}"
@@ -221,7 +221,7 @@ class Econ(commands.Cog):
                     except asyncio.TimeoutError:
                         await ctx.send('No message sent, transaction cancelled.')
                     else:
-                        if user_msg.content.lower() == 'yes':
+                        if user_msg.content.lower() in ['yes', 'y']:
                             database.remove_item(str(ctx.author.id), item_to_use.id)
                             await execute_item_function(ctx, item_to_use.id)
                         else:

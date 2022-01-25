@@ -86,7 +86,7 @@ class Trade(commands.Cog):
                         except asyncio.TimeoutError:
                             await ctx.send(f'No message sent, trade cancelled.')
                         else:
-                            if confirm_msg.content.lower() == 'yes':
+                            if confirm_msg.content.lower() in ['yes', 'y']:
                                 database.add_card(str(ctx.author.id), user2_card_to_trade.id)
                                 database.add_card(str(ctx.message.mentions[0].id), user1_card_to_trade.id)
                                 database.remove_card(str(ctx.author.id), user1_card_to_trade.id)
@@ -143,7 +143,7 @@ class Trade(commands.Cog):
                 except asyncio.TimeoutError:
                     await ctx.send(f'No message sent, give cancelled.')
                 else:
-                    if confirm_msg.content.lower() == 'yes':
+                    if confirm_msg.content.lower() in ['yes', 'y']:
                         database.add_card(str(user2.id), user1_card_to_give.id)
                         database.remove_card(str(user1.id), user1_card_to_give.id)
 
