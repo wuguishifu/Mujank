@@ -189,10 +189,11 @@ name_deck = {}
 rating_decks = {2: {}, 3: {}, 4: {}, 5: {}, 6: {}}
 
 for c in csvreader:
-    card_deck[c[0]] = Card(c[0], f'cards/{c[1]}', c[2], int(c[3]), c[4])
-    name_deck[c[2].lower()] = Card(c[0], f'cards/{c[1]}', c[2], int(c[3]), c[4])
-    name_deck[c[2].lower().replace('’', "'")] = Card(c[0], f'cards/{c[1]}', c[2], int(c[3]), c[4])
-    rating_decks[int(c[3])][c[0]] = Card(c[0], f'cards/{c[1]}', c[2], int(c[3]), c[4])
+    if int(c[3]) != 0:
+        card_deck[c[0]] = Card(c[0], f'cards/{c[1]}', c[2], int(c[3]), c[4])
+        name_deck[c[2].lower()] = Card(c[0], f'cards/{c[1]}', c[2], int(c[3]), c[4])
+        name_deck[c[2].lower().replace('’', "'")] = Card(c[0], f'cards/{c[1]}', c[2], int(c[3]), c[4])
+        rating_decks[int(c[3])][c[0]] = Card(c[0], f'cards/{c[1]}', c[2], int(c[3]), c[4])
 
 t = ["c_id_0337", "cards/matt- poptart.jpg", "Poptart \*in a British accent\*", 5, "Matt"]
 name_deck[t[2].lower().replace('\*', '*')] = Card(t[0], t[1], t[2], t[3], t[4])
