@@ -153,7 +153,7 @@ class Econ(commands.Cog):
             await ctx.send('Please mention someone to pay!')
         elif not amount.isnumeric():
             await ctx.send('Please enter a number greater than 0.')
-        elif int(amount) < 0:
+        elif int(amount) <= 0:
             await ctx.send('Please enter a number greater than 0.')
         elif ctx.message.mentions[0].id == ctx.author.id:
             await ctx.send('Please mention someone to pay!')
@@ -165,7 +165,7 @@ class Econ(commands.Cog):
             else:
                 database.remove_coins(str(ctx.author.id), amount)
                 database.add_coins(str(ctx.message.mentions[0].id), amount)
-                await ctx.send(f"{ctx.author.mention}, you've payed {ctx.message.mentions[0].mention} {amount} "
+                await ctx.send(f"{ctx.author.mention}, you've paid {ctx.message.mentions[0].mention} {amount} "
                                f"Jankcoins!")
 
     @commands.command(name='inventory', aliases=['inv'])
