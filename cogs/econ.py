@@ -256,16 +256,17 @@ class Econ(commands.Cog):
                 pass
             else:
                 i += 1
-                if u.balance == 1:
-                    if member.nick:
-                        description += f'{i}. {member.nick} - {u.balance}x {coin_emoji}\n'
+                if u.balance > 0:
+                    if u.balance == 1:
+                        if member.nick:
+                            description += f'{i}. {member.nick} - {u.balance}x {coin_emoji}\n'
+                        else:
+                            description += f'{i}. {member.name} - {u.balance}x {coin_emoji}\n'
                     else:
-                        description += f'{i}. {member.name} - {u.balance}x {coin_emoji}\n'
-                else:
-                    if member.nick:
-                        description += f'{i}. {member.nick} - {u.balance}x {coin_emoji}\n'
-                    else:
-                        description += f'{i}. {member.name} - {u.balance}x {coin_emoji}\n'
+                        if member.nick:
+                            description += f'{i}. {member.nick} - {u.balance}x {coin_emoji}\n'
+                        else:
+                            description += f'{i}. {member.name} - {u.balance}x {coin_emoji}\n'
         embed = discord.Embed(
             title='Mujank Leaderboard',
             description=description,
