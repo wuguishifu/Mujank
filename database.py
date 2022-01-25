@@ -172,9 +172,9 @@ def reset_all_timers():
     with open(file_path) as json_file:
         data = json.load(json_file)
         users = data['users'].keys()
-        for user in users:
-            reset_rolls(user)
-            set_claimed(user, False)
+        for u in users:
+            reset_rolls(u)
+            set_claimed(u, False)
 
 
 def add_card_to_wishlist(user_id: str, card_id: str):
@@ -244,6 +244,19 @@ def remove_item(user_id: str, item_id: str):
     save_data(data)
 
 
+def check_daily_coin_claim(user_id: str):
+    with open(file_path) as json_file:
+        data = json.load(json_file)
+        return data['users'][user_id]['inventory']['daily_coin_claim']
+
+
+def set_daily_coin_claim(user_id: str, claimed: bool):
+    with open(file_path) as json_file:
+        data = json.load(json_file)
+        data['users'][user_id]['inventory']['daily_coin_claim'] = claimed
+    save_data(data)
+
+
 def get_leaderboard():
     with open(file_path) as json_file:
         data = json.load(json_file)
@@ -251,3 +264,12 @@ def get_leaderboard():
         for u in list(data['users']):
             user_list.append(user.User(u, data['users'][u]['inventory']['coins']))
     return sorted(user_list, reverse=True)
+
+
+def reset_dailies():
+    with open(file_path) as json_file:
+        data = json.load(json_file)
+        users = data['users'].keys()
+        for u in users:
+            data['users'][u]['inventory']['daily_coin_claim'] = False
+    save_data(data)

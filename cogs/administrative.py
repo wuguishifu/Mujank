@@ -227,6 +227,7 @@ help_embed = discord.Embed(
                 f''
                 f'**Shop** :shopping_cart:\n'
                 f'**\*balance**: displays your balance of Jankcoins.\n'
+                f'**\*daily**: claim your daily Jankcoins!'
                 f'**\*shop**: displays the Mujank Marketplace.\n'
                 f'**\*buy <item name>**: buys an item from the Mujank Marketplace with Jankcoins.\n'
                 f'**\*sell <card name>**: sells a card to the Mujank Marketplace for Jankcoins.\n'

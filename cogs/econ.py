@@ -8,6 +8,8 @@ import cards
 import database
 import item
 
+rates = {1: 700, 2: 900, 3: 990, 4: 999, 5: 1000}
+
 card_price = {2: 1, 3: 1, 4: 3, 5: 15, 6: 30}
 coin_emoji = '<:jankcoin:935376607353397308>'
 
@@ -273,6 +275,26 @@ class Econ(commands.Cog):
             colour=discord.Colour.from_rgb(227, 24, 24)
         )
         await ctx.send(embed=embed)
+
+    @commands.command(name='daily')
+    async def daily_coin_claim(self, ctx):
+        if database.check_daily_coin_claim(str(ctx.author.id)):
+            await ctx.send(f"{ctx.author.mention}, you've already claimed your daily {coin_emoji}!")
+        else:
+            random_number = random.randint(1, 1000)
+            if random_number < rates[1]:
+                coin = 1
+            elif random_number < rates[2]:
+                coin = 2
+            elif random_number < rates[3]:
+                coin = 3
+            elif random_number < rates[4]:
+                coin = 4
+            else:
+                coin = 5
+            database.add_coins(str(ctx.author.id), coin)
+            # database.set_daily_coin_claim(str(ctx.author.id), True)
+            await ctx.send(f"{ctx.author.mention}, you've received {coin}x {coin_emoji}!")
 
 
 async def execute_item_function(ctx, item_id):
