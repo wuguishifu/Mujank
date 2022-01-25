@@ -7,7 +7,7 @@ from discord.ext import commands
 intents = discord.Intents(messages=True, members=True, guilds=True)
 
 dotenv.load_dotenv()
-BOT_TOKEN = os.getenv('DISCORD_TOKEN_TEST')
+BOT_TOKEN = os.getenv('DISCORD_TOKEN_MAIN')
 bot = commands.Bot(command_prefix='*', intents=intents)
 bot.remove_command('help')
 
