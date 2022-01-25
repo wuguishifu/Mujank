@@ -256,7 +256,7 @@ class Econ(commands.Cog):
                 pass
             else:
                 i += 1
-                if leaderboard[i].balance == 1:
+                if u.balance == 1:
                     if member.nick:
                         description += f'{i}. {member.nick} - {u.balance}x {coin_emoji}\n'
                     else:
