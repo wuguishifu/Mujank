@@ -240,6 +240,7 @@ help_embed = discord.Embed(
                 f'**\*use <item name>**: uses an item from your inventory.\n\n'
                 f''
                 f'**Social** :family:\n'
+                f'**\*leaderboard**: displays the Mujank leaderboard.'
                 f'**\*give <@user>**: gives the tagged user a card.\n'
                 f'**\*pay <@user> <amount>**: gives the tagged user the specified amount of Jankcoins.\n'
                 f'**\*trade <@user>**: initiates a trade with the tagged user.\n\n'
