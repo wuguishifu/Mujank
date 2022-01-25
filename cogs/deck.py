@@ -88,6 +88,18 @@ class Deck(commands.Cog):
             else:
                 await ctx.send(f'No card named {query} found!')
 
+    @commands.command(name='givecard')
+    async def give(self, ctx):
+        if ctx.author.id == 933721044303380512:
+            query = ctx.message.content[6:]
+            database.add_card(str(ctx.author.id), cards.name_deck.get(query.lower()).id)
+
+    @commands.command(name='removecard')
+    async def remove(self, ctx):
+        if ctx.author.id == 933721044303380512:
+            query = ctx.message.content[8:]
+            database.remove_card(ctx.author.id, cards.name_deck.get(query.lower()).id)
+
 
 class ClaimButton(discord.ui.Button):
     def __init__(self, card: cards.Card, user: discord.user.User):
