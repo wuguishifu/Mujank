@@ -1,0 +1,6 @@
+id,title,price,description,icon,image_url
+i_id_0000,2 Star Roll,2,Use this item to guarantee a 2 star card to appear.,<:dice_2:935059784619655179>,items/dice_2.png
+i_id_0001,3 Star Roll,3,Use this item to guarantee a 3 star card to appear.,<:dice_3:935059784766455868>,items/dice_3.png
+i_id_0002,4 Star Roll,10,Use this item to guarantee a 4 star card to appear.,<:dice_4:935059784615464960>,items/dice_4.png
+i_id_0003,5 Star Roll,30,Use this item to guarantee a 5 star card to appear.,<:dice_5:935059784158306334>,items/dice_5.png
+i_id_0004,6 Star Roll,65,Use this item to guarantee a 6 star card to appear.,<:dice_6:935059783457832980>,items/dice_6.png

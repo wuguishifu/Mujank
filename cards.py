@@ -1,7 +1,8 @@
+import csv
+
 import discord
 
 import database
-import csv
 
 colors = {
     2: discord.Colour.from_rgb(24, 204, 0),
@@ -85,7 +86,7 @@ def to_owned_embed(user: discord.user.User, owned_list: [], page: int, num_pages
     embed = discord.Embed(
         title=f"{user.name}’s Deck - Page {page + 1}/{num_pages}",
         description=description,
-        colour=discord.Colour.red()
+        colour=discord.Colour.from_rgb(227, 24, 24)
     )
     displayed_id = database.get_displayed_card(str(user.id))
     if displayed_id == 'c_id_-1':
@@ -116,7 +117,7 @@ def to_wishlist_embed(user: discord.user.User, wishlist: [], page: int, num_page
     embed = discord.Embed(
         title=f"{user.name}’s Wishlist - Page {page + 1}/{num_pages}",
         description=description,
-        colour=discord.Colour.red()
+        colour=discord.Colour.from_rgb(227, 24, 24)
     )
     displayed_id = database.get_displayed_card(str(user.id))
     if displayed_id == 'c_id_-1':
@@ -150,7 +151,7 @@ def to_search_embed(search_query: str, card_list: [], page: int, num_pages):
     embed = discord.Embed(
         title=f"Search: {search_query} - Page {page + 1}/{num_pages}",
         description=description,
-        colour=discord.Colour.red()
+        colour=discord.Colour.from_rgb(227, 24, 24)
     )
     display_id = card_list[0].id
     display_card = card_deck.get(display_id)
@@ -192,7 +193,6 @@ for c in csvreader:
     name_deck[c[2].lower()] = Card(c[0], f'cards/{c[1]}', c[2], int(c[3]), c[4])
     name_deck[c[2].lower().replace('’', "'")] = Card(c[0], f'cards/{c[1]}', c[2], int(c[3]), c[4])
     rating_decks[int(c[3])][c[0]] = Card(c[0], f'cards/{c[1]}', c[2], int(c[3]), c[4])
-
 
 t = ["c_id_0337", "cards/matt- poptart.jpg", "Poptart \*in a British accent\*", 5, "Matt"]
 name_deck[t[2].lower().replace('\*', '*')] = Card(t[0], t[1], t[2], t[3], t[4])
