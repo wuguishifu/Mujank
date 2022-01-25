@@ -1,265 +1,69 @@
 {
-  "users" : {
-    "117759165698408453" : {
-      "cards" : {
-        "c_id_0028" : 1,
-        "c_id_0047" : 1,
-        "c_id_0161" : 1
-      },
-      "claimed" : false,
-      "displayed_card" : "c_id_0161",
-      "num_cards" : 3,
-      "num_rolls" : 3
-    },
-    "129387033993936897" : {
-      "cards" : {
-        "c_id_0001" : 1,
-        "c_id_0096" : 1,
-        "c_id_0221" : 1,
-        "c_id_0367" : 1
-      },
-      "claimed" : true,
-      "displayed_card" : "c_id_0221",
-      "num_cards" : 5,
-      "num_rolls" : 0,
-      "wishlist" : {
-        "c_id_0049" : 1,
-        "c_id_0187" : 1,
-        "c_id_0298" : 1,
-        "c_id_0299" : 1,
-        "c_id_0300" : 1,
-        "c_id_0302" : 1,
-        "c_id_0303" : 1,
-        "c_id_0307" : 1,
-        "c_id_0308" : 1,
-        "c_id_0309" : 1,
-        "c_id_0312" : 1,
-        "c_id_0314" : 1,
-        "c_id_0328" : 1,
-        "c_id_0358" : 1,
-        "c_id_0428" : 1,
-        "c_id_0429" : 1,
-        "c_id_0517" : 1
-      }
-    },
-    "152244128074301441" : {
-      "cards" : {
-        "c_id_0170" : 1
-      },
-      "claimed" : false,
-      "displayed_card" : "c_id_0170",
-      "num_cards" : 1,
-      "num_rolls" : 3
-    },
-    "183797639140081666" : {
-      "claimed" : false,
-      "displayed_card" : "c_id_-1",
-      "num_cards" : 0,
-      "num_rolls" : 3
-    },
-    "188079025367810049" : {
-      "cards" : {
-        "c_id_0400" : 1,
-        "c_id_0414" : 1
-      },
-      "claimed" : false,
-      "displayed_card" : "c_id_0400",
-      "num_cards" : 2,
-      "num_rolls" : 3
-    },
-    "200454087148437504" : {
-      "cards" : {
-        "c_id_0071" : 1,
-        "c_id_0352" : 1,
-        "c_id_0363" : 1,
-        "c_id_0490" : 1,
-        "c_id_0112" : 1
-      },
-      "claimed" : true,
-      "displayed_card" : "c_id_0490",
-      "num_cards" : 7,
-      "num_rolls" : 3,
-      "wishlist" : {
-        "c_id_0002" : 1,
-        "c_id_0507" : 1,
-        "c_id_0515" : 1
-      }
-    },
-    "207017037099171851" : {
-      "cards" : {
-        "c_id_0107" : 1,
-        "c_id_0186" : 1,
-        "c_id_0415" : 1
-      },
-      "claimed" : false,
-      "displayed_card" : "c_id_0107",
-      "num_cards" : 3,
-      "num_rolls" : 3,
-      "wishlist" : {
-        "c_id_0506" : 1,
-        "c_id_0515" : 1,
-        "c_id_0527" : 1
-      }
-    },
-    "233425866128883714" : {
-      "cards" : {
-        "c_id_0169" : 1,
-        "c_id_0177" : 1,
-        "c_id_0271" : 1
-      },
-      "claimed" : false,
-      "displayed_card" : "c_id_0271",
-      "num_cards" : 3,
-      "num_rolls" : 3
-    },
-    "272923842559606785" : {
-      "cards" : {
-        "c_id_0106" : 1,
-        "c_id_0191" : 1,
-        "c_id_0461" : 1
-      },
-      "claimed" : false,
-      "displayed_card" : "c_id_0461",
-      "num_cards" : 3,
-      "num_rolls" : 3,
-      "wishlist" : {
-        "c_id_0350" : 1,
-        "c_id_0359" : 1,
-        "c_id_0515" : 1,
-        "c_id_0523" : 1
-      }
-    },
-    "273617741817184257" : {
-      "cards" : {
-        "c_id_0159" : 1,
-        "c_id_0396" : 1
-      },
-      "claimed" : false,
-      "displayed_card" : "c_id_0396",
-      "num_cards" : 2,
-      "num_rolls" : 3
-    },
-    "280451832675827712" : {
-      "cards" : {
-        "c_id_0000" : 1,
-        "c_id_0040" : 1
-      },
-      "claimed" : false,
-      "displayed_card" : "c_id_0040",
-      "num_cards" : 2,
-      "num_rolls" : 3,
-      "wishlist" : {
-        "c_id_0297" : 1
-      }
-    },
-    "280550248135262209" : {
-      "cards" : {
-        "c_id_0111" : 1
-      },
-      "claimed" : false,
-      "displayed_card" : "c_id_0111",
-      "num_cards" : 1,
-      "num_rolls" : 3
-    },
-    "288252224310738944" : {
-      "cards" : {
-        "c_id_0073" : 1,
-        "c_id_0293" : 1,
-        "c_id_0422" : 1
-      },
-      "claimed" : false,
-      "displayed_card" : "c_id_0073",
-      "num_cards" : 4,
-      "num_rolls" : 3,
-      "wishlist" : {
-        "c_id_0523" : 1
-      }
-    },
-    "325728499224674304" : {
-      "claimed" : false,
-      "displayed_card" : "c_id_-1",
-      "num_cards" : 0,
-      "num_rolls" : 3
-    },
-    "331697683767099392" : {
-      "cards" : {
-        "c_id_0064" : 1,
-        "c_id_0209" : 1
-      },
-      "claimed" : false,
-      "displayed_card" : "c_id_0209",
-      "num_cards" : 2,
-      "num_rolls" : 3
-    },
-    "337002656688242698" : {
-      "cards" : {
-        "c_id_0104" : 1,
-        "c_id_0143" : 1,
-        "c_id_0287" : 1
-      },
-      "claimed" : false,
-      "displayed_card" : "c_id_0104",
-      "num_cards" : 6,
-      "num_rolls" : 3,
-      "wishlist" : {
-        "c_id_0003" : 1,
-        "c_id_0359" : 1
-      }
-    },
-    "392864023323869186" : {
-      "claimed" : false,
-      "displayed_card" : "c_id_-1",
-      "num_cards" : 0,
-      "num_rolls" : 3
-    },
-    "397601417541451787" : {
-      "cards" : {
-        "c_id_0013" : 1,
-        "c_id_0284" : 1,
-        "c_id_0305" : 1
-      },
-      "claimed" : false,
-      "displayed_card" : "c_id_0013",
-      "num_cards" : 3,
-      "num_rolls" : 3,
-      "wishlist" : {
-        "c_id_0000" : 1,
-        "c_id_0001" : 1,
-        "c_id_0188" : 1,
-        "c_id_0315" : 1
-      }
-    },
-    "468965618343870475" : {
-      "claimed" : false,
-      "displayed_card" : "c_id_-1",
-      "num_cards" : 0,
-      "num_rolls" : 3
-    },
-    "499617375239274507" : {
-      "claimed" : false,
-      "displayed_card" : "c_id_-1",
-      "num_cards" : 0,
-      "num_rolls" : 3
-    },
-    "511089695329878018" : {
-      "claimed" : false,
-      "displayed_card" : "c_id_-1",
-      "num_cards" : 0,
-      "num_rolls" : 3
-    },
-    "631952140801146883" : {
-      "cards" : {
-        "c_id_0248" : 1,
-        "c_id_0346" : 1
-      },
-      "claimed" : false,
-      "displayed_card" : "c_id_0346",
-      "num_cards" : 2,
-      "num_rolls" : 3,
-      "wishlist" : {
-        "c_id_0294" : 1,
-        "c_id_0357" : 1
-      }
+    "users": {
+        "200454087148437504": {
+            "num_cards": 999998,
+            "claimed": true,
+            "num_rolls": 0,
+            "displayed_card": "c_id_0515",
+            "cards": {
+                "c_id_0515": 999997,
+                "c_id_0509": 1
+            },
+            "wishlist": {},
+            "inventory": {
+                "items": {
+                    "i_id_0004": 100000
+                },
+                "coins": 25
+            }
+        },
+        "1": {
+            "num_cards": 0,
+            "claimed": false,
+            "num_rolls": 3,
+            "displayed_card": "c_id_-1",
+            "cards": {},
+            "wishlist": {},
+            "inventory": {
+                "items": {},
+                "coins": 0
+            }
+        },
+        "2": {
+            "num_cards": 0,
+            "claimed": false,
+            "num_rolls": 3,
+            "displayed_card": "c_id_-1",
+            "cards": {},
+            "wishlist": {},
+            "inventory": {
+                "items": {},
+                "coins": 0
+            }
+        },
+        "3": {
+            "num_cards": 0,
+            "claimed": false,
+            "num_rolls": 3,
+            "displayed_card": "c_id_-1",
+            "cards": {},
+            "wishlist": {},
+            "inventory": {
+                "items": {},
+                "coins": 0
+            }
+        },
+        "4": {
+            "num_cards": 0,
+            "claimed": false,
+            "num_rolls": 3,
+            "displayed_card": "c_id_-1",
+            "cards": {},
+            "wishlist": {},
+            "inventory": {
+                "items": {},
+                "coins": 0
+            }
+        }
     }
-  }
 }

@@ -43,8 +43,12 @@ class Econ(commands.Cog):
                         if user_msg.content.lower() == 'yes':
                             database.remove_card(str(ctx.author.id), card.id)
                             database.add_coins(str(ctx.author.id), card_price[card.rating])
-                            await ctx.send(f"{ctx.author.mention}, you've sold **{card.title}** "
-                                           f"for {card_price[card.rating]} Jankcoins!")
+                            if card_price[card.rating] == 1:
+                                await ctx.send(f"{ctx.author.mention}, you've sold **{card.title}** "
+                                               f"for {card_price[card.rating]} Jankcoin!")
+                            else:
+                                await ctx.send(f"{ctx.author.mention}, you've sold **{card.title}** "
+                                               f"for {card_price[card.rating]} Jankcoins!")
                         else:
                             await ctx.send(f'Transaction cancelled.')
                 else:
