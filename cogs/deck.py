@@ -74,7 +74,7 @@ class Deck(commands.Cog):
     @commands.command(name='display')
     async def set_displayed_card(self, ctx):
         content: str = ctx.message.content
-        query = content[9:].lower()
+        query = content[9:].lower().replace('‘', "'").replace('’', "'")
         if len(query) > 0:
             if query in cards.name_deck:
                 if database.has_card(str(ctx.author.id), cards.name_deck.get(query).id):
@@ -91,13 +91,13 @@ class Deck(commands.Cog):
     @commands.command(name='givecard')
     async def give(self, ctx):
         if ctx.author.id == 933721044303380512:
-            query = ctx.message.content[6:]
+            query = ctx.message.content[6:].replace('‘', "'").replace('’', "'")
             database.add_card(str(ctx.author.id), cards.name_deck.get(query.lower()).id)
 
     @commands.command(name='removecard')
     async def remove(self, ctx):
         if ctx.author.id == 933721044303380512:
-            query = ctx.message.content[8:]
+            query = ctx.message.content[8:].replace('‘', "'").replace('’', "'")
             database.remove_card(ctx.author.id, cards.name_deck.get(query.lower()).id)
 
 

@@ -16,7 +16,7 @@ class Wishlist(commands.Cog):
 
     @commands.command(name='wishadd', aliases=['wa'])
     async def add_wish(self, ctx):
-        content: str = ctx.message.content
+        content: str = ctx.message.content.replace('‘', "'").replace('’', "'")
         query = ''
         if content.startswith(f'*wishadd '):
             query = content[9:]
@@ -47,7 +47,7 @@ class Wishlist(commands.Cog):
 
     @commands.command(name='wishremove', aliases=['wr'])
     async def remove_wish(self, ctx):
-        content: str = ctx.message.content
+        content: str = ctx.message.content.replace('‘', "'").replace('’', "'")
         query = ''
         if content.startswith(f'*wishremove '):
             query = content[12:]

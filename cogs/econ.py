@@ -76,7 +76,7 @@ class Econ(commands.Cog):
 
     @commands.command(name='price')
     async def check_price(self, ctx):
-        content: str = ctx.message.content
+        content: str = ctx.message.content.replace('‘', "'").replace('’', "'")
         query = ''
         if content.startswith('*price '):
             query = content[7:]
@@ -127,7 +127,7 @@ class Econ(commands.Cog):
 
     @commands.command(name='buy')
     async def buy(self, ctx):
-        query = ctx.message.content[5:].lower()
+        query = ctx.message.content[5:].lower().replace('‘', "'").replace('’', "'")
         if len(query) > 0:
             if query in item.item_names:
                 i = item.item_names[query.lower()]
@@ -204,7 +204,7 @@ class Econ(commands.Cog):
 
     @commands.command(name='use', aliases=['u'])
     async def use_item(self, ctx):
-        content: str = ctx.message.content
+        content: str = ctx.message.content.replace('‘', "'").replace('’', "'")
         query = ''
         if content.startswith('*u '):
             query = content[3:].lower()
@@ -238,7 +238,7 @@ class Econ(commands.Cog):
 
     @commands.command(name='item')
     async def show_item(self, ctx):
-        query = ctx.message.content[6:].lower()
+        query = ctx.message.content[6:].lower().replace('‘', "'").replace('’', "'")
         if len(query) > 0:
             if query in list(item.item_names):
                 embed, file = item.item_names[query].to_item_embed()

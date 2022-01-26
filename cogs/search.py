@@ -14,7 +14,7 @@ class Search(commands.Cog):
 
     @commands.command(name='info', aliases=['i', 'im'])
     async def show_card(self, ctx):
-        content: str = ctx.message.content
+        content: str = ctx.message.content.replace('‘', "'").replace('’', "'")
         query = ''
         if content.startswith(f'*info '):
             query = content[6:]
@@ -32,7 +32,7 @@ class Search(commands.Cog):
     @commands.command(name='search', aliases=['s'])
     async def search_list(self, ctx, *args):
         args = [i.lower() for i in args]
-        content: str = ctx.message.content
+        content: str = ctx.message.content.replace('‘', "'").replace('’', "'")
         query = ''
         if content.startswith(f'*search '):
             query = content[8:]

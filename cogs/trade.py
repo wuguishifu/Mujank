@@ -44,7 +44,7 @@ class Trade(commands.Cog):
                 except asyncio.TimeoutError:
                     await ctx.send(f'No message sent, trade cancelled.')
                 else:
-                    card_title: str = user1_msg.content
+                    card_title: str = user1_msg.content.replace('‘', "'").replace('’', "'")
                     if card_title.lower() in cards.name_deck:
                         if database.has_card(str(ctx.author.id), cards.name_deck.get(card_title.lower()).id):
                             user1_card_to_trade = cards.name_deck.get(card_title.lower())
@@ -65,7 +65,7 @@ class Trade(commands.Cog):
                     except asyncio.TimeoutError:
                         await ctx.send(f'No message sent, trade cancelled.')
                     else:
-                        card_title: str = user2_msg.content
+                        card_title: str = user2_msg.content.replace('‘', "'").replace('’', "'")
                         if card_title.lower() in cards.name_deck:
                             if database.has_card(str(ctx.message.mentions[0].id),
                                                  cards.name_deck.get(card_title.lower()).id):
@@ -122,7 +122,7 @@ class Trade(commands.Cog):
                 except asyncio.TimeoutError:
                     await ctx.send(f'No message sent, give cancelled.')
                 else:
-                    card_title: str = user1_msg.content
+                    card_title: str = user1_msg.content.replace('‘', "'").replace('’', "'")
                     if card_title.lower() in cards.name_deck:
                         if database.has_card(str(ctx.author.id), cards.name_deck.get(card_title.lower()).id):
                             user1_card_to_give = cards.name_deck.get(card_title.lower())
