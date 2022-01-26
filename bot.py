@@ -58,7 +58,7 @@ async def reload(ctx, extension):
             await ctx.send(f'{extension} successfully reloaded.')
 
 
-@bot.command(name='award')
+@bot.command(name='award', aliases=['reward'])
 async def award_coins(ctx, mention, amount='2'):
     if ctx.author.id == 200454087148437504:
         if ctx.message.mentions:
