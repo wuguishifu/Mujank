@@ -4,6 +4,8 @@ import discord
 import dotenv
 from discord.ext import commands
 
+import database
+
 intents = discord.Intents(messages=True, members=True, guilds=True)
 
 dotenv.load_dotenv()
@@ -54,6 +56,17 @@ async def reload(ctx, extension):
             bot.unload_extension(f'cogs.{extension}')
             bot.load_extension(f'cogs.{extension}')
             await ctx.send(f'{extension} successfully reloaded.')
+
+
+@bot.command(name='award')
+async def award_coins(ctx, mention, amount='2'):
+    if ctx.author.id == 935675916586221630:
+        if ctx.message.mentions:
+            if amount.isnumeric():
+                amount = int(amount)
+                database.add_coins(str(ctx.message.mentions[0].id), amount)
+                await ctx.send(f"{ctx.message.mentions[0].mention}, you've been awarded 2 "
+                               f"<:jankcoin:935376607353397308> for finding a bug!")
 
 
 @bot.event

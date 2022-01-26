@@ -54,6 +54,7 @@ class Deck(commands.Cog):
             user = ctx.message.mentions[0]
         else:
             user = ctx.author
+        caller = ctx.author
         if database.user_exists(str(user.id)):
             owned_cards = database.get_cards(str(user.id))
             if len(owned_cards) == 0:
@@ -64,7 +65,7 @@ class Deck(commands.Cog):
             else:
                 num_pages = int((len(owned_cards) + 9) / 10)
                 embed, file = cards.to_owned_embed(user, owned_cards, 0, num_pages)
-                await ctx.send(embed=embed, file=file, view=DeckView(owned_cards, user, cur_page=0))
+                await ctx.send(embed=embed, file=file, view=DeckView(owned_cards, caller, user, cur_page=0))
         else:
             if user.id == ctx.author.id:
                 await ctx.send(f'{user.mention}, Please join using the ``*join`` command!')
@@ -124,7 +125,7 @@ class ClaimButton(discord.ui.Button):
 
 
 class PrevDeck(discord.ui.Button):
-    def __init__(self, card_list: [], cur_page: int, user: discord.user.User):
+    def __init__(self, card_list: [], cur_page: int, user: discord.user.User, caller: discord.user.User):
         num_pages = int((len(card_list) + 9) / 10)
         if cur_page == 0:
             super(PrevDeck, self).__init__(style=discord.ButtonStyle.primary, disabled=True, label='Previous Page',
@@ -132,20 +133,22 @@ class PrevDeck(discord.ui.Button):
         else:
             super(PrevDeck, self).__init__(style=discord.ButtonStyle.primary, label='Previous Page', row=0)
         self.user = user
+        self.caller = caller
         self.cur_page = cur_page
         self.num_pages = num_pages
         self.card_list = card_list
 
     async def callback(self, interaction: discord.Interaction):
-        if self.user.id == interaction.user.id:
+        if self.caller.id == interaction.user.id:
             if self.cur_page - 1 >= 0:
                 self.cur_page -= 1
                 embed, file = cards.to_owned_embed(interaction.user, self.card_list, self.cur_page, self.num_pages)
-                await interaction.message.edit(embed=embed, view=DeckView(self.card_list, self.user, self.cur_page))
+                await interaction.message.edit(embed=embed,
+                                               view=DeckView(self.card_list, self.user, self.caller, self.cur_page))
 
 
 class NextDeck(discord.ui.Button):
-    def __init__(self, card_list: [], cur_page: int, user: discord.user.User):
+    def __init__(self, card_list: [], cur_page: int, user: discord.user.User, caller: discord.user.User):
         num_pages = int((len(card_list) + 9) / 10)
         if cur_page == num_pages - 1:
             super(NextDeck, self).__init__(style=discord.ButtonStyle.primary, disabled=True,
@@ -154,16 +157,18 @@ class NextDeck(discord.ui.Button):
         else:
             super(NextDeck, self).__init__(style=discord.ButtonStyle.primary, label='Next Page', row=0)
         self.user = user
+        self.caller = caller
         self.cur_page = cur_page
         self.num_pages = num_pages
         self.card_list = card_list
 
     async def callback(self, interaction: discord.Interaction):
-        if self.user.id == interaction.user.id:
+        if self.caller.id == interaction.user.id:
             if self.cur_page + 1 < self.num_pages:
                 self.cur_page += 1
                 embed, file = cards.to_owned_embed(interaction.user, self.card_list, self.cur_page, self.num_pages)
-                await interaction.message.edit(embed=embed, view=DeckView(self.card_list, self.user, self.cur_page))
+                await interaction.message.edit(embed=embed,
+                                               view=DeckView(self.card_list, self.user, self.caller, self.cur_page))
 
 
 class CardView(discord.ui.View):
@@ -173,10 +178,10 @@ class CardView(discord.ui.View):
 
 
 class DeckView(discord.ui.View):
-    def __init__(self, card_list: [], user: discord.user.User, cur_page=0):
+    def __init__(self, card_list: [], user: discord.user.User, caller: discord.user.User, cur_page=0):
         super(DeckView, self).__init__()
-        self.add_item(PrevDeck(card_list, cur_page, user))
-        self.add_item(NextDeck(card_list, cur_page, user))
+        self.add_item(PrevDeck(card_list, cur_page, user, caller))
+        self.add_item(NextDeck(card_list, cur_page, user, caller))
 
 
 def get_time_until_reset():
