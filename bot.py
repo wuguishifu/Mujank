@@ -69,6 +69,24 @@ async def award_coins(ctx, mention, amount='2'):
                                f"<:jankcoin:935376607353397308> for finding a bug!")
 
 
+@bot.command(name='bal_dec')
+async def bal_dec(ctx, mention, amount='1'):
+    if ctx.author.id == 200454087148437504:
+        if ctx.message.mentions:
+            if amount.isnumeric():
+                amount = int(amount)
+                database.remove_coins(str(ctx.message.mentions[0].id), amount)
+
+
+@bot.command(name='bal_inc')
+async def bal_inc(ctx, mention, amount='1'):
+    if ctx.author.id == 200454087148437504:
+        if ctx.message.mentions:
+            if amount.isnumeric():
+                amount = int(amount)
+                database.add_coins(str(ctx.message.mentions[0].id), amount)
+
+
 @bot.event
 async def on_message(message):
     channel = message.channel
