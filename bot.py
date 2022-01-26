@@ -60,7 +60,7 @@ async def reload(ctx, extension):
 
 @bot.command(name='award')
 async def award_coins(ctx, mention, amount='2'):
-    if ctx.author.id == 935675916586221630:
+    if ctx.author.id == 200454087148437504:
         if ctx.message.mentions:
             if amount.isnumeric():
                 amount = int(amount)
