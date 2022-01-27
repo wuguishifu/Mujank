@@ -9,6 +9,8 @@ import database
 
 rates = {2: 480, 3: 880, 4: 980, 5: 995, 6: 1000}
 
+admin = [933726675974381578, 200454087148437504]
+
 
 class Deck(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -91,13 +93,13 @@ class Deck(commands.Cog):
 
     @commands.command(name='givecard')
     async def give(self, ctx):
-        if ctx.author.id == 933721044303380512:
+        if ctx.author.id in admin:
             query = ctx.message.content[6:].replace('‘', "'").replace('’', "'")
             database.add_card(str(ctx.author.id), cards.name_deck.get(query.lower()).id)
 
     @commands.command(name='removecard')
     async def remove(self, ctx):
-        if ctx.author.id == 933721044303380512:
+        if ctx.author.id in admin:
             query = ctx.message.content[8:].replace('‘', "'").replace('’', "'")
             database.remove_card(ctx.author.id, cards.name_deck.get(query.lower()).id)
 
