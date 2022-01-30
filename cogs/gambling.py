@@ -59,7 +59,7 @@ class Gambling(commands.Cog):
             description='**Dice**:\n'
                         'Rolls 2 dice, if the sum is higher than 8 then you win.\n\n'
                         '**Coinflip**:\n'
-                        'Flips a coin, if the coin lands on heads then you win.',
+                        'Flips a 3-sided coin, if the coin lands on heads then you win.',
             colour=discord.Colour.from_rgb(227, 24, 24)
         )
         file = discord.File('mujank-logo.jpg', filename='logo.jpg')
