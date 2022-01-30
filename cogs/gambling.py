@@ -23,16 +23,18 @@ class Gambling(commands.Cog):
         else:
             amount = 1
         balance = database.get_coins(str(ctx.author.id))
-        if amount <= balance:
-            roll = random.randint(1, 6) + random.randint(1, 6)
-            if roll > 8:
-                await ctx.send(f"{ctx.author.mention}, you rolled {roll} and won {2 * amount}x {coin_emoji}!")
-                database.add_coins(str(ctx.author.id), 2 * amount)
+        if amount > 0:
+            if amount <= balance:
+                roll = random.randint(1, 6) + random.randint(1, 6)
+                if roll > 8:
+                    await ctx.send(f"{ctx.author.mention}, you rolled {roll} and won {2 * amount}x {coin_emoji}!")
+                    database.add_coins(str(ctx.author.id), 2 * amount)
+                else:
+                    await ctx.send(f"{ctx.author.mention}, you rolled {roll} and lost {amount}x {coin_emoji}.")
+                    database.remove_coins(str(ctx.author.id), amount)
             else:
-                await ctx.send(f"{ctx.author.mention}, you rolled {roll} and lost {amount}x {coin_emoji}.")
-                database.remove_coins(str(ctx.author.id), amount)
-        else:
-            await ctx.send(f"{ctx.author.mention}, you don't have enough coins for that!")
+                await ctx.send(f"{ctx.author.mention}, you don't have enough coins for that!")
+        await ctx.send(f"{ctx.author.mention}, you can't gamble 0x {coin_emoji}!")
 
     @commands.command(name='coinflip')
     async def coinflip(self, ctx, a: str = '1'):
@@ -41,16 +43,18 @@ class Gambling(commands.Cog):
         else:
             amount = 1
         balance = database.get_coins(str(ctx.author.id))
-        if amount <= balance:
-            flip = random.randint(1, 2)
-            if flip == 2:
-                await ctx.send(f"{ctx.author.mention}, the coin landed on heads and you won {amount}x {coin_emoji}!")
-                database.add_coins(str(ctx.author.id), amount)
+        if amount > 0:
+            if amount <= balance:
+                flip = random.randint(1, 2)
+                if flip == 2:
+                    await ctx.send(f"{ctx.author.mention}, the coin landed on heads and you won {amount}x {coin_emoji}!")
+                    database.add_coins(str(ctx.author.id), amount)
+                else:
+                    await ctx.send(f"{ctx.author.mention}, the coin landed on tails and you lost {amount}x {coin_emoji}.")
+                    database.remove_coins(str(ctx.author.id), amount)
             else:
-                await ctx.send(f"{ctx.author.mention}, the coin landed on tails and you lost {amount}x {coin_emoji}.")
-                database.remove_coins(str(ctx.author.id), amount)
-        else:
-            await ctx.send(f"{ctx.author.mention}, you don't have enough coins for that!")
+                await ctx.send(f"{ctx.author.mention}, you don't have enough coins for that!")
+        await ctx.send(f"{ctx.author.mention}, you can't gamble 0x {coin_emoji}!")
 
     @commands.command(name='rules')
     async def rules(self, ctx):
