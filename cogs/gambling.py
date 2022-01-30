@@ -26,7 +26,7 @@ class Gambling(commands.Cog):
         if amount <= balance:
             roll = random.randint(1, 6) + random.randint(1, 6)
             if roll > 8:
-                await ctx.send(f"{ctx.author.mention}, you rolled {roll} and won {2 * amount}x {coin_emoji}!")
+                await ctx.send(f"{ctx.author.mention}, you rolled {roll} and won {amount}x {coin_emoji}!")
                 database.add_coins(str(ctx.author.id), amount)
             else:
                 await ctx.send(f"{ctx.author.mention}, you rolled {roll} and lost {amount}x {coin_emoji}.")
@@ -44,7 +44,7 @@ class Gambling(commands.Cog):
         if amount <= balance:
             flip = random.randint(1, 3)
             if flip == 3:
-                await ctx.send(f"{ctx.author.mention}, the coin landed on heads and you won {2 * amount}x {coin_emoji}!")
+                await ctx.send(f"{ctx.author.mention}, the coin landed on heads and you won {amount}x {coin_emoji}!")
                 database.add_coins(str(ctx.author.id), amount)
             else:
                 await ctx.send(f"{ctx.author.mention}, the coin landed on tails and you lost {amount}x {coin_emoji}.")
