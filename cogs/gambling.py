@@ -26,11 +26,11 @@ class Gambling(commands.Cog):
         if amount <= balance:
             roll = random.randint(1, 6) + random.randint(1, 6)
             if roll > 8:
-                await ctx.send(f"{ctx.author.mention}, you won {2 * amount}x {coin_emoji}!")
-                database.add_coins(str(ctx.author.mention), amount)
+                await ctx.send(f"{ctx.author.mention}, you rolled {roll} and won {2 * amount}x {coin_emoji}!")
+                database.add_coins(str(ctx.author.id), amount)
             else:
-                await ctx.send(f"{ctx.author.mention}, you lost {amount}x {coin_emoji}.")
-                database.remove_coins(str(ctx.author.mention), amount)
+                await ctx.send(f"{ctx.author.mention}, you rolled {roll} and lost {amount}x {coin_emoji}.")
+                database.remove_coins(str(ctx.author.id), amount)
         else:
             await ctx.send(f"{ctx.author.mention}, you don't have enough coins for that!")
 
@@ -44,11 +44,11 @@ class Gambling(commands.Cog):
         if amount <= balance:
             flip = random.randint(1, 3)
             if flip == 3:
-                await ctx.send(f"{ctx.author.mention}, you won {2 * amount}x {coin_emoji}!")
-                database.add_coins(str(ctx.author.mention), amount)
+                await ctx.send(f"{ctx.author.mention}, the coin landed on heads and you won {2 * amount}x {coin_emoji}!")
+                database.add_coins(str(ctx.author.id), amount)
             else:
-                await ctx.send(f"{ctx.author.mention}, you lost {amount}x {coin_emoji}.")
-                database.remove_coins(str(ctx.author.mention), amount)
+                await ctx.send(f"{ctx.author.mention}, the coin landed on tails and you lost {amount}x {coin_emoji}.")
+                database.remove_coins(str(ctx.author.id), amount)
         else:
             await ctx.send(f"{ctx.author.mention}, you don't have enough coins for that!")
 
