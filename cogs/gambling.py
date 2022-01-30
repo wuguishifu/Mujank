@@ -17,9 +17,9 @@ class Gambling(commands.Cog):
         print('gambling.py loaded')
 
     @commands.command(name='dice')
-    async def dice(self, ctx, amount: str = '1'):
-        if amount.isnumeric():
-            amount = str(amount)
+    async def dice(self, ctx, a: str = '1'):
+        if a.isnumeric():
+            amount = str(a)
         else:
             amount = 1
         balance = database.get_coins(str(ctx.author.id))
@@ -35,9 +35,9 @@ class Gambling(commands.Cog):
             await ctx.send(f"{ctx.author.mention}, you don't have enough coins for that!")
 
     @commands.command(name='coinflip')
-    async def coinflip(self, ctx, amount: str = '1'):
-        if amount.isnumeric():
-            amount = str(amount)
+    async def coinflip(self, ctx, a: str = '1'):
+        if a.isnumeric():
+            amount = str(a)
         else:
             amount = 1
         balance = database.get_coins(str(ctx.author.id))
