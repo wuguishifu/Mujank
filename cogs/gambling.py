@@ -37,7 +37,7 @@ class Gambling(commands.Cog):
         else:
             await ctx.send(f"{ctx.author.mention}, you can't gamble 0x {coin_emoji}!")
 
-    @commands.command(name='coinflip')
+    @commands.command(name='coinflip', aliases=['cf'])
     async def coinflip(self, ctx, a: str = '1'):
         if a.isnumeric():
             amount = int(a)
