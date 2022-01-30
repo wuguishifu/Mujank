@@ -293,7 +293,7 @@ class Econ(commands.Cog):
             else:
                 coin = 5
             database.add_coins(str(ctx.author.id), coin)
-            database.set_daily_coin_claim(str(ctx.author.id), False)
+            database.set_daily_coin_claim(str(ctx.author.id), True)
             await ctx.send(f"{ctx.author.mention}, you've received {coin}x {coin_emoji}!")
 
 
