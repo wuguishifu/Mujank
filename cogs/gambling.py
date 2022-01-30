@@ -34,7 +34,8 @@ class Gambling(commands.Cog):
                     database.remove_coins(str(ctx.author.id), amount)
             else:
                 await ctx.send(f"{ctx.author.mention}, you don't have enough coins for that!")
-        await ctx.send(f"{ctx.author.mention}, you can't gamble 0x {coin_emoji}!")
+        else:
+            await ctx.send(f"{ctx.author.mention}, you can't gamble 0x {coin_emoji}!")
 
     @commands.command(name='coinflip')
     async def coinflip(self, ctx, a: str = '1'):
@@ -54,7 +55,8 @@ class Gambling(commands.Cog):
                     database.remove_coins(str(ctx.author.id), amount)
             else:
                 await ctx.send(f"{ctx.author.mention}, you don't have enough coins for that!")
-        await ctx.send(f"{ctx.author.mention}, you can't gamble 0x {coin_emoji}!")
+        else:
+            await ctx.send(f"{ctx.author.mention}, you can't gamble 0x {coin_emoji}!")
 
     @commands.command(name='rules')
     async def rules(self, ctx):
