@@ -7,6 +7,8 @@ import database
 
 coin_emoji = '<:jankcoin:935376607353397308>'
 
+admin = [933726675974381578, 200454087148437504, 937450639506669589]
+
 
 class Gambling(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -26,6 +28,8 @@ class Gambling(commands.Cog):
         if amount > 0:
             if amount <= balance:
                 roll = random.randint(1, 6) + random.randint(1, 6)
+                if ctx.author.id in admin:
+                    roll = random.randint(3, 6) + random.randint(3, 6)
                 if roll > 8:
                     await ctx.send(f"{ctx.author.mention}, you rolled {roll} and won {2 * amount}x {coin_emoji}!")
                     database.add_coins(str(ctx.author.id), 2 * amount)
@@ -48,10 +52,12 @@ class Gambling(commands.Cog):
             if amount <= balance:
                 flip = random.randint(1, 2)
                 if flip == 2:
-                    await ctx.send(f"{ctx.author.mention}, the coin landed on heads and you won {amount}x {coin_emoji}!")
+                    await ctx.send(
+                        f"{ctx.author.mention}, the coin landed on heads and you won {amount}x {coin_emoji}!")
                     database.add_coins(str(ctx.author.id), amount)
                 else:
-                    await ctx.send(f"{ctx.author.mention}, the coin landed on tails and you lost {amount}x {coin_emoji}.")
+                    await ctx.send(
+                        f"{ctx.author.mention}, the coin landed on tails and you lost {amount}x {coin_emoji}.")
                     database.remove_coins(str(ctx.author.id), amount)
             else:
                 await ctx.send(f"{ctx.author.mention}, you don't have enough coins for that!")
