@@ -19,11 +19,11 @@ class Gambling(commands.Cog):
     @commands.command(name='dice')
     async def dice(self, ctx, a: str = '1'):
         if a.isnumeric():
-            amount = str(a)
+            amount = int(a)
         else:
             amount = 1
         balance = database.get_coins(str(ctx.author.id))
-        if amount <= int(balance):
+        if amount <= balance:
             roll = random.randint(1, 6) + random.randint(1, 6)
             if roll > 8:
                 await ctx.send(f"{ctx.author.mention}, you won {2 * amount}x {coin_emoji}!")
@@ -37,11 +37,11 @@ class Gambling(commands.Cog):
     @commands.command(name='coinflip')
     async def coinflip(self, ctx, a: str = '1'):
         if a.isnumeric():
-            amount = str(a)
+            amount = int(a)
         else:
             amount = 1
         balance = database.get_coins(str(ctx.author.id))
-        if amount <= int(balance):
+        if amount <= balance:
             flip = random.randint(1, 3)
             if flip == 3:
                 await ctx.send(f"{ctx.author.mention}, you won {2 * amount}x {coin_emoji}!")
