@@ -8,7 +8,7 @@ import cards
 import database
 import item
 
-rates = {1: 700, 2: 900, 3: 990, 4: 999, 5: 1000}
+rates = {1: 625, 2: 1650+625, 3: 5400+1650+625, 4: 1650+5400+1650+625, 5: 10000}
 
 card_price = {2: 1, 3: 1, 4: 3, 5: 15, 6: 30}
 coin_emoji = '<:jankcoin:935376607353397308>'
@@ -26,7 +26,7 @@ class Econ(commands.Cog):
     @commands.command(name='sell')
     async def sell(self, ctx):
         content: str = ctx.message.content
-        query = content[6:]
+        query = content[6:].replace('‘', "'").replace('’', "'")
         if len(query) > 0:
 
             def confirm(m):
@@ -246,7 +246,7 @@ class Econ(commands.Cog):
             else:
                 await ctx.send(f"{ctx.author.mention}, could not find an item named {query}.")
 
-    @commands.command(name='leaderboard')
+    @commands.command(name='leaderboard', aliases=['lb'])
     async def show_leaderboard(self, ctx):
         leaderboard: [] = database.get_leaderboard()[:10]
         description = ''
@@ -281,7 +281,7 @@ class Econ(commands.Cog):
         if database.check_daily_coin_claim(str(ctx.author.id)):
             await ctx.send(f"{ctx.author.mention}, you've already claimed your daily {coin_emoji}!")
         else:
-            random_number = random.randint(1, 1000)
+            random_number = random.randint(1, 10000)
             if random_number < rates[1]:
                 coin = 1
             elif random_number < rates[2]:
@@ -293,7 +293,7 @@ class Econ(commands.Cog):
             else:
                 coin = 5
             database.add_coins(str(ctx.author.id), coin)
-            database.set_daily_coin_claim(str(ctx.author.id), True)
+            database.set_daily_coin_claim(str(ctx.author.id), False)
             await ctx.send(f"{ctx.author.mention}, you've received {coin}x {coin_emoji}!")
 
 

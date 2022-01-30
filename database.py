@@ -273,3 +273,13 @@ def reset_dailies():
         for u in users:
             data['users'][u]['inventory']['daily_coin_claim'] = False
     save_data(data)
+
+
+def get_owners(card_id: str):
+    card_owners = []
+    with open(file_path) as json_file:
+        data = json.load(json_file)
+        for u in list(data['users']):
+            if card_id in data['users'][u]['cards'].keys():
+                card_owners.append(u)
+    return card_owners

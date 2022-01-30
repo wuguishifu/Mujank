@@ -13,6 +13,8 @@ BOT_TOKEN = os.getenv('DISCORD_TOKEN_MAIN')
 bot = commands.Bot(command_prefix='*', intents=intents)
 bot.remove_command('help')
 
+admin = [933726675974381578, 200454087148437504, 937450639506669589]
+
 '''
 2* - 49%
 3* - 40%
@@ -29,7 +31,7 @@ for filename in os.listdir('./cogs'):
 
 @bot.command()
 async def load(ctx, extension):
-    if ctx.author.id == 200454087148437504:
+    if ctx.author.id in admin:
         if f'{extension}.py' in os.listdir('./cogs'):
             bot.load_extension(f'cogs.{extension}')
             await ctx.send(f'{extension} successfully loaded.')
@@ -39,13 +41,13 @@ async def load(ctx, extension):
 
 @bot.command()
 async def unload(ctx, extension):
-    if ctx.author.id == 200454087148437504:
+    if ctx.author.id in admin:
         bot.unload_extension(f'cogs.{extension}')
 
 
 @bot.command()
 async def reload(ctx, extension):
-    if ctx.author.id == 200454087148437504:
+    if ctx.author.id in admin:
         if extension == 'all':
             for f in os.listdir('./cogs'):
                 if f.endswith('.py'):
@@ -60,7 +62,7 @@ async def reload(ctx, extension):
 
 @bot.command(name='award', aliases=['reward'])
 async def award_coins(ctx, mention, amount='2'):
-    if ctx.author.id == 200454087148437504:
+    if ctx.author.id in admin:
         if ctx.message.mentions:
             if amount.isnumeric():
                 amount = int(amount)
@@ -71,7 +73,7 @@ async def award_coins(ctx, mention, amount='2'):
 
 @bot.command(name='bal_dec')
 async def bal_dec(ctx, mention, amount='1'):
-    if ctx.author.id == 200454087148437504:
+    if ctx.author.id in admin:
         if ctx.message.mentions:
             if amount.isnumeric():
                 amount = int(amount)
@@ -80,7 +82,7 @@ async def bal_dec(ctx, mention, amount='1'):
 
 @bot.command(name='bal_inc')
 async def bal_inc(ctx, mention, amount='1'):
-    if ctx.author.id == 200454087148437504:
+    if ctx.author.id in admin:
         if ctx.message.mentions:
             if amount.isnumeric():
                 amount = int(amount)

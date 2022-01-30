@@ -127,7 +127,17 @@ patches = {
         ✩ Modified some card rarities
         ✩ _Hello and Welcome to my TEDTalk_: 3-star → 5-star""",
         colour=red
-    )
+    ),
+
+    'v0.9b': discord.Embed(
+        title='Version ***v0.9b***',
+        description="""✩ Added \*lb as an Alias for \*leaderboard
+        ✩ Changed Daily Coin Rates
+        ✩ Added New Units Across all Rarities
+        ✩ Added \*ownerlist command to see who owns a specific card
+        ✩ Fixed Various Bugs""",
+        colour=red
+    ),
 }
 
 
@@ -227,7 +237,7 @@ help_embed = discord.Embed(
                 f''
                 f'**Shop** :shopping_cart:\n'
                 f'**\*balance**: displays your balance of Jankcoins.\n'
-                f'**\*daily**: claim your daily Jankcoins!'
+                f'**\*daily**: claim your daily Jankcoins!\n'
                 f'**\*shop**: displays the Mujank Marketplace.\n'
                 f'**\*buy <item name>**: buys an item from the Mujank Marketplace with Jankcoins.\n'
                 f'**\*sell <card name>**: sells a card to the Mujank Marketplace for Jankcoins.\n'
@@ -235,13 +245,14 @@ help_embed = discord.Embed(
                 f'**\*prices**: displays the price of the different card rarities in Jankcoins.\n\n'
                 f''
                 f'**Inventory** :school_satchel:\n'
+                f'**\*ownerslist <card name>**: shows who owns a card.\n'
                 f'**\*deck**: displays your deck of cards.\n'
                 f'**\*display <card name>**: sets the thumbnail of your deck.\n'
                 f'**\*inventory**: displays your inventory of items.\n'
                 f'**\*use <item name>**: uses an item from your inventory.\n\n'
                 f''
                 f'**Social** :family:\n'
-                f'**\*leaderboard**: displays the Mujank leaderboard.'
+                f'**\*leaderboard**: displays the Mujank leaderboard.\n'
                 f'**\*give <@user>**: gives the tagged user a card.\n'
                 f'**\*pay <@user> <amount>**: gives the tagged user the specified amount of Jankcoins.\n'
                 f'**\*trade <@user>**: initiates a trade with the tagged user.\n\n'

@@ -75,6 +75,31 @@ class Card:
             embed.set_image(url='attachment://image.png')
         return embed, file
 
+    def to_owner_list_embed(self, owners: []):
+        stars = ''
+        for i in range(self.rating):
+            stars += '★'
+
+        description = ''
+        for o in owners:
+            if o.nick:
+                description += f'\n{o.nick}'
+            else:
+                description += f'\n{o.name}'
+        embed = discord.Embed(
+            title=f'{self.title}\n{stars}',
+            description=f'\n**People who own this card:**{description}',
+            color=colors.get(self.rating)
+        )
+
+        if 'gif' in self.image_url:
+            file = discord.File(self.image_url, filename='image.gif')
+            embed.set_thumbnail(url='attachment://image.gif')
+        else:
+            file = discord.File(self.image_url, filename='image.png')
+            embed.set_thumbnail(url='attachment://image.png')
+        return embed, file
+
 
 def to_owned_embed(user: discord.user.User, owned_list: [], page: int, num_pages: int):
     description = ''

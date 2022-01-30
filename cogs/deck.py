@@ -9,7 +9,7 @@ import database
 
 rates = {2: 480, 3: 880, 4: 980, 5: 995, 6: 1000}
 
-admin = [933726675974381578, 200454087148437504]
+admin = [933726675974381578, 200454087148437504, 937450639506669589]
 
 
 class Deck(commands.Cog):
@@ -91,6 +91,33 @@ class Deck(commands.Cog):
             else:
                 await ctx.send(f'No card named {query} found!')
 
+    @commands.command(name='ownerslist', aliases=['ol'])
+    async def display_owners(self, ctx):
+        content: str = ctx.message.content
+        query = ''
+        if content.startswith('*ownerslist '):
+            query = content[12:].lower().replace('‘', "'").replace('’', "'")
+        elif content.startswith('*ol '):
+            query = content[4:].lower().replace('‘', "'").replace('’', "'")
+        if query in cards.name_deck:
+            card = cards.name_deck[query]
+            card_owners = database.get_owners(card.id)
+            user_list = []
+            for owner in card_owners:
+                try:
+                    member = await ctx.guild.fetch_member(int(owner))
+                except discord.HTTPException:
+                    pass
+                else:
+                    user_list.append(member)
+            if len(user_list) > 0:
+                embed, file = card.to_owner_list_embed(user_list)
+                await ctx.send(embed=embed, file=file)
+            else:
+                await ctx.send(f"No one owns {card.title} yet!")
+        else:
+            await ctx.send(f"No card named {query} found!")
+
     @commands.command(name='givecard')
     async def give(self, ctx):
         if ctx.author.id in admin:
@@ -102,6 +129,31 @@ class Deck(commands.Cog):
         if ctx.author.id in admin:
             query = ctx.message.content[12:].replace('‘', "'").replace('’', "'")
             database.remove_card(ctx.author.id, cards.name_deck.get(query.lower()).id)
+
+    @commands.command(name='forcegive')
+    async def forcegive(self, ctx, mention, card_id):
+        if ctx.author.id in admin:
+            if ctx.message.mentions:
+                card_id = f'c_id_{card_id}'
+                if card_id in cards.card_deck:
+                    database.add_card(str(ctx.message.mentions[0].id), card_id)
+
+    @commands.command(name='forceremove')
+    async def forceremove(self, ctx, mention, card_id):
+        if ctx.author.id in admin:
+            if ctx.message.mentions:
+                card_id = f'c_id_{card_id}'
+                if card_id in cards.card_deck:
+                    database.remove_card(str(ctx.message.mentions[0].id), card_id)
+
+    @commands.command(name='getcardid')
+    async def getcardid(self, ctx):
+        if ctx.author.id in admin:
+            query = ctx.message.content[11:].lower().replace('‘', "'").replace('’', "'")
+            if query in cards.name_deck:
+                await ctx.send(f'{cards.name_deck[query].id}')
+            else:
+                await ctx.send(f'None')
 
 
 class ClaimButton(discord.ui.Button):
@@ -141,12 +193,11 @@ class PrevDeck(discord.ui.Button):
         self.card_list = card_list
 
     async def callback(self, interaction: discord.Interaction):
-        if self.caller.id == interaction.user.id:
-            if self.cur_page - 1 >= 0:
-                self.cur_page -= 1
-                embed, file = cards.to_owned_embed(interaction.user, self.card_list, self.cur_page, self.num_pages)
-                await interaction.message.edit(embed=embed,
-                                               view=DeckView(self.card_list, self.user, self.caller, self.cur_page))
+        if self.cur_page - 1 >= 0:
+            self.cur_page -= 1
+            embed, file = cards.to_owned_embed(interaction.user, self.card_list, self.cur_page, self.num_pages)
+            await interaction.message.edit(embed=embed,
+                                           view=DeckView(self.card_list, self.user, self.caller, self.cur_page))
 
 
 class NextDeck(discord.ui.Button):
@@ -165,12 +216,11 @@ class NextDeck(discord.ui.Button):
         self.card_list = card_list
 
     async def callback(self, interaction: discord.Interaction):
-        if self.caller.id == interaction.user.id:
-            if self.cur_page + 1 < self.num_pages:
-                self.cur_page += 1
-                embed, file = cards.to_owned_embed(interaction.user, self.card_list, self.cur_page, self.num_pages)
-                await interaction.message.edit(embed=embed,
-                                               view=DeckView(self.card_list, self.user, self.caller, self.cur_page))
+        if self.cur_page + 1 < self.num_pages:
+            self.cur_page += 1
+            embed, file = cards.to_owned_embed(interaction.user, self.card_list, self.cur_page, self.num_pages)
+            await interaction.message.edit(embed=embed,
+                                           view=DeckView(self.card_list, self.user, self.caller, self.cur_page))
 
 
 class CardView(discord.ui.View):
