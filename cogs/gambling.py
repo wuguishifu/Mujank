@@ -26,8 +26,8 @@ class Gambling(commands.Cog):
         if amount <= balance:
             roll = random.randint(1, 6) + random.randint(1, 6)
             if roll > 8:
-                await ctx.send(f"{ctx.author.mention}, you rolled {roll} and won {amount}x {coin_emoji}!")
-                database.add_coins(str(ctx.author.id), amount)
+                await ctx.send(f"{ctx.author.mention}, you rolled {roll} and won {2 * amount}x {coin_emoji}!")
+                database.add_coins(str(ctx.author.id), 2 * amount)
             else:
                 await ctx.send(f"{ctx.author.mention}, you rolled {roll} and lost {amount}x {coin_emoji}.")
                 database.remove_coins(str(ctx.author.id), amount)
@@ -42,8 +42,8 @@ class Gambling(commands.Cog):
             amount = 1
         balance = database.get_coins(str(ctx.author.id))
         if amount <= balance:
-            flip = random.randint(1, 3)
-            if flip == 3:
+            flip = random.randint(1, 2)
+            if flip == 2:
                 await ctx.send(f"{ctx.author.mention}, the coin landed on heads and you won {amount}x {coin_emoji}!")
                 database.add_coins(str(ctx.author.id), amount)
             else:
@@ -59,7 +59,7 @@ class Gambling(commands.Cog):
             description='**Dice**:\n'
                         'Rolls 2 dice, if the sum is higher than 8 then you win.\n\n'
                         '**Coinflip**:\n'
-                        'Flips a 3-sided coin, if the coin lands on heads then you win.',
+                        'Flips a sided coin, if the coin lands on heads then you win.',
             colour=discord.Colour.from_rgb(227, 24, 24)
         )
         file = discord.File('mujank-logo.jpg', filename='logo.jpg')
