@@ -23,6 +23,29 @@ class Econ(commands.Cog):
     async def on_ready(self):
         print('econ.py loaded')
 
+    @commands.command(name='sellall')
+    async def sellall(self, ctx):
+        def confirm(m):
+            if m.author == ctx.author:
+                return True
+
+        await ctx.send(f'Are you sure you want to sell all your cards? (yes/no)')
+        try:
+            user_msg = await self.bot.wait_for("message", check=confirm, timeout=30)
+        except asyncio.TimeoutError:
+            await ctx.send(f'No message sent, transaction cancelled.')
+        else:
+            if user_msg.content.lower() in ['yes', 'y']:
+                owned_cards = database.get_cards(str(ctx.author.id))
+                value = 0
+                for card in owned_cards:
+                    value += card_price[cards.card_deck[card].rating]
+                    database.delete_card(str(ctx.author.id), cards.card_deck[card].id)
+                database.add_coins(str(ctx.author.id), value)
+                await ctx.send(f"{ctx.author.mention}, you have received {value}x {coin_emoji}")
+            else:
+                await ctx.send(f'Transaction cancelled.')
+
     @commands.command(name='sell')
     async def sell(self, ctx):
         content: str = ctx.message.content

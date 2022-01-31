@@ -241,6 +241,7 @@ help_embed = discord.Embed(
                 f'**\*shop**: displays the Mujank Marketplace.\n'
                 f'**\*buy <item name>**: buys an item from the Mujank Marketplace with Jankcoins.\n'
                 f'**\*sell <card name>**: sells a card to the Mujank Marketplace for Jankcoins.\n'
+                f'**\*sellall**: sells all your cards to the Mujank Marketplace for Jankcoins.\n'
                 f'**\*price <card name>**: displays the price of that card in Jankcoins.\n'
                 f'**\*prices**: displays the price of the different card rarities in Jankcoins.\n\n'
                 f''
