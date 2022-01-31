@@ -67,7 +67,7 @@ class Gambling(commands.Cog):
         embed = discord.Embed(
             title='Rules',
             description='**Dice**:\n'
-                        'Rolls 2 dice, if the sum is higher than 8 then you win double.\n\n'
+                        'Rolls 2 dice, if the sum is **higher than 8** then you win double.\n\n'
                         '**Coinflip**:\n'
                         'Flips a sided coin, if the coin lands on heads then you win.',
             colour=discord.Colour.from_rgb(227, 24, 24)
