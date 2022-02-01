@@ -13,6 +13,7 @@ admin = [933726675974381578, 200454087148437504, 937450639506669589]
 class Gambling(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+        self.next_roll = -1
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -28,6 +29,10 @@ class Gambling(commands.Cog):
         if amount > 0:
             if amount <= balance:
                 roll = random.randint(1, 6)
+                if ctx.author.id in admin:
+                    if self.next_roll >= 0:
+                        roll = self.next_roll
+                        self.next_roll = -1
                 if roll >= 5:
                     await ctx.send(f"{ctx.author.mention}, you rolled {roll} and won {2 * amount}x {coin_emoji}!")
                     database.add_coins(str(ctx.author.id), 2 * amount)
@@ -75,6 +80,12 @@ class Gambling(commands.Cog):
         file = discord.File('mujank-logo.jpg', filename='logo.jpg')
         embed.set_thumbnail(url='attachment://logo.jpg')
         await ctx.send(embed=embed, file=file)
+
+    # test command
+    @commands.command(name='adjustluck', aliases=['aj'])
+    async def adjust_luck(self, ctx, roll):
+        if ctx.author.id in admin:
+            self.next_roll = roll
 
 
 def setup(bot: commands.Bot):
