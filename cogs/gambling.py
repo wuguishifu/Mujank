@@ -14,6 +14,7 @@ class Gambling(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.next_roll = -1
+        self.next_flip = -1
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -54,6 +55,10 @@ class Gambling(commands.Cog):
         if amount > 0:
             if amount <= balance:
                 flip = random.randint(1, 2)
+                if ctx.author.id in admin:
+                    if self.next_flip >= 0:
+                        flip = self.next_flip
+                        self.next_flip = -1
                 if flip == 2:
                     await ctx.send(
                         f"{ctx.author.mention}, the coin landed on heads and you won {amount}x {coin_emoji}!")
@@ -82,10 +87,16 @@ class Gambling(commands.Cog):
         await ctx.send(embed=embed, file=file)
 
     # test command
-    @commands.command(name='adjustluck', aliases=['aj'])
-    async def adjust_luck(self, ctx, roll):
+    @commands.command(name='nextroll')
+    async def set_next_roll(self, ctx, roll):
         if ctx.author.id in admin:
             self.next_roll = int(roll)
+
+    # test command
+    @commands.command(name='nextflip')
+    async def set_next_flip(self, ctx, flip):
+        if ctx.author.id in admin:
+            self.next_flip = int(flip)
 
 
 def setup(bot: commands.Bot):
