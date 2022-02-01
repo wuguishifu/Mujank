@@ -1,6 +1,7 @@
-import cards
-import os
 import csv
+import os
+
+import cards
 
 print(f'number of each rating: {[len(i) for i in cards.rating_decks.values()]}')
 
