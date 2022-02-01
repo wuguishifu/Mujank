@@ -27,10 +27,8 @@ class Gambling(commands.Cog):
         balance = database.get_coins(str(ctx.author.id))
         if amount > 0:
             if amount <= balance:
-                roll = random.randint(1, 6) + random.randint(1, 6)
-                if ctx.author.id in admin:
-                    roll = random.randint(3, 12)
-                if roll >= 8:
+                roll = random.randint(1, 6)
+                if roll >= 5:
                     await ctx.send(f"{ctx.author.mention}, you rolled {roll} and won {2 * amount}x {coin_emoji}!")
                     database.add_coins(str(ctx.author.id), 2 * amount)
                 else:
@@ -69,7 +67,7 @@ class Gambling(commands.Cog):
         embed = discord.Embed(
             title='Rules',
             description='**Dice**:\n'
-                        'Rolls 2 dice, if the sum is **8 or higher** then you win double.\n\n'
+                        'Rolls 1 die, if it lands on a 5 or 6, you win double.\n\n'
                         '**Coinflip**:\n'
                         'Flips a sided coin, if the coin lands on heads then you win.',
             colour=discord.Colour.from_rgb(227, 24, 24)
