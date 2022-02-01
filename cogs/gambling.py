@@ -85,7 +85,7 @@ class Gambling(commands.Cog):
     @commands.command(name='adjustluck', aliases=['aj'])
     async def adjust_luck(self, ctx, roll):
         if ctx.author.id in admin:
-            self.next_roll = roll
+            self.next_roll = int(roll)
 
 
 def setup(bot: commands.Bot):
