@@ -29,7 +29,7 @@ class Gambling(commands.Cog):
             if amount <= balance:
                 roll = random.randint(1, 6) + random.randint(1, 6)
                 if ctx.author.id in admin:
-                    roll = random.randint(5, 12)
+                    roll = random.randint(3, 12)
                 if roll >= 8:
                     await ctx.send(f"{ctx.author.mention}, you rolled {roll} and won {2 * amount}x {coin_emoji}!")
                     database.add_coins(str(ctx.author.id), 2 * amount)
