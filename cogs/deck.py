@@ -10,6 +10,7 @@ import database
 rates = {2: 480, 3: 880, 4: 980, 5: 995, 6: 1000}
 
 admin = [933726675974381578, 200454087148437504, 937450639506669589]
+rolling_channels = [933224926712836116, 932934074270642187, 934997810242265108]
 
 
 class Deck(commands.Cog):
@@ -23,7 +24,7 @@ class Deck(commands.Cog):
 
     @commands.command(name='roll', aliases=['r'])
     async def roll(self, ctx):
-        if ctx.channel.id in [933224926712836116, 932934074270642187]:
+        if ctx.channel.id in rolling_channels:
             if database.user_exists(str(ctx.author.id)):
                 if database.get_num_rolls(str(ctx.author.id)) > 0:
                     database.dec_rolls(str(ctx.author.id))
