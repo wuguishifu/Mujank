@@ -156,24 +156,10 @@ class Econ(commands.Cog):
                 i = item.item_names[query.lower()]
                 balance = database.get_coins(str(ctx.author.id))
                 if balance >= i.price:
-                    def confirm(s):
-                        if s.author == ctx.author:
-                            return True
-
-                    await ctx.send(f'{ctx.author.mention}, are you sure you would like to buy **{i.title}** '
-                                   f'for {i.price}x {coin_emoji}? (yes/no)')
-                    try:
-                        user_msg = await self.bot.wait_for("message", check=confirm, timeout=30)
-                    except asyncio.TimeoutError:
-                        await ctx.send(f'No message sent, transaction cancelled')
-                    else:
-                        if user_msg.content.lower() in ['yes', 'y']:
-                            database.add_item(str(ctx.author.id), i.id)
-                            database.remove_coins(str(ctx.author.id), i.price)
-                            await ctx.send(f"{ctx.author.mention}, you've bought **{i.title}** for {i.price}x"
-                                           f" {coin_emoji}!")
-                        else:
-                            await ctx.send(f'Transaction cancelled.')
+                    database.add_item(str(ctx.author.id), i.id)
+                    database.remove_coins(str(ctx.author.id), i.price)
+                    await ctx.send(f"{ctx.author.mention}, you've bought **{i.title}** for {i.price}x"
+                                   f" {coin_emoji}!")
                 else:
                     await ctx.send(f"{ctx.author.mention}, you don't have enough {coin_emoji} to buy that item!")
             else:
@@ -238,22 +224,8 @@ class Econ(commands.Cog):
                 item_to_use = item.item_names[query]
 
                 if item_to_use.id in list(database.get_items(str(ctx.author.id))):
-                    def confirm(s):
-                        if s.author == ctx.author:
-                            return True
-
-                    await ctx.send(f'{ctx.author.mention}, are you sure you want to use {item_to_use.icon} '
-                                   f'**{item_to_use.title}**? (yes/no)')
-                    try:
-                        user_msg = await self.bot.wait_for("message", check=confirm, timeout=30)
-                    except asyncio.TimeoutError:
-                        await ctx.send('No message sent, transaction cancelled.')
-                    else:
-                        if user_msg.content.lower() in ['yes', 'y']:
-                            database.remove_item(str(ctx.author.id), item_to_use.id)
-                            await execute_item_function(ctx, item_to_use.id)
-                        else:
-                            await ctx.send('Transaction cancelled.')
+                    database.remove_item(str(ctx.author.id), item_to_use.id)
+                    await execute_item_function(ctx, item_to_use.id)
                 else:
                     await ctx.send(f"{ctx.author.mention}, you don't have any of that item!")
             else:
