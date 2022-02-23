@@ -1,0 +1,27 @@
+@import url("colors.css");
+@import url("../fonts/nunito/font.css");
+
+.topnav {
+	background-color: var(--background_main);
+	overflow: hidden;
+	font-family: "Nunito-Regular";
+}
+
+.topnav	a {
+	float: left;
+	color: var(--red_secondary);
+	text-align: center;
+	padding: 8px 30px;
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.topnav a:hover {
+	background-color: var(--background_secondary);
+	color: var(--red_main);
+}
+
+.topnav	a.active {
+	background-color: var(--red_secondary);
+	color: var(--background_main);
+}

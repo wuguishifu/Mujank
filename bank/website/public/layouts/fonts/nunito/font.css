@@ -1,0 +1,11 @@
+@font-face {
+  font-family: 'Nunito-Regular';
+  src: url('Nunito-Regular.eot');
+  src: url('Nunito-Regular.eot?#iefix') format('embedded-opentype'),
+       url('Nunito-Regular.svg#Nunito-Regular') format('svg'),
+       url('Nunito-Regular.ttf') format('truetype'),
+       url('Nunito-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+

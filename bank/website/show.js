@@ -10,6 +10,8 @@ function showPage(res, pathName) {
 
 const contentMap = {
 	'/': location + 'main.html',
+	'/submit': location	+ 'submit.html',
+	'/history': location + 'history.html',
 	'404': location + '404.html'
 }
 

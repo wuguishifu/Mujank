@@ -1,0 +1,7 @@
+@import url(components/stylesheet.css);
+@import url(components/bootstrap.css);
+
+.rendered-form {
+	padding-left: 100px;
+	padding-right: 100px;
+}

@@ -1,0 +1,21 @@
+@import url("colors.css");
+
+button {
+  	background-color: var(--red_secondary);
+  	border: 2px var(--red_main);
+  	color: black;
+  	padding: 10px 24px;
+  	cursor: pointer;
+  	width: 10%;
+  	display: inline-block;
+  	border-radius: 10px;
+}
+
+button:hover {
+  	background-color: lightblue;
+}
+
+button:disabled {
+  	background-color: lightsteelblue;
+  	cursor: not-allowed;
+}

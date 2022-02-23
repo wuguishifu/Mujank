@@ -1,7 +1,2 @@
-* {
-	box-sizing: border-box;
-}
-
-.center {
-	text-align: center;
-}
+@import url("components/stylesheet.css");
+@import url(components/bootstrap.css);

@@ -1,0 +1,12 @@
+@import url("header.css");
+@import url("subheader.css");
+@import url("button.css");
+@import url("navigation_bar.css");
+
+body {
+	margin: 0px;
+}
+
+.center {
+	text-align: center;
+}

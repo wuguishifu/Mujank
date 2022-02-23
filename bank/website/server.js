@@ -8,17 +8,17 @@ const show = require('./show');
 // server files
 app.use(express.static('public'));
 app.use(express.static('public/layouts'));
+app.use(express.static('public/layouts/assets'));
+app.use(express.static('public/layouts/components'));
+app.use(express.static('public/layouts/fonts/nunito'));
 
-app.listen(3000, () => {
-	console.log('Listening on :3000');
+app.listen(80, () => {
+	console.log('Listening on :80');
 });
 
-// send main page
-app.get('/', (req, res) => {
-	show.showPage(res, '/');
-});
-
-// send 404 page - must be last
+// send pages
 app.get('*', (req, res) => {
-	show.showPage(res, '*');
+	if (req.url != '/favicon.ico') {
+		show.showPage(res, req.url);
+	}
 });

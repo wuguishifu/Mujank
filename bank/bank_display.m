@@ -14,5 +14,5 @@ for i=2:size(data, 2)
     end
 end
 
-% ylim([500, 700])
+ylim([500, 700])
 % legend(lgd)
