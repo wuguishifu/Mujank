@@ -1,5 +1,4 @@
 import datetime
-import functools
 import shutil
 import json
 from datetime import date
@@ -29,7 +28,7 @@ def user_exists(user_id: str):
         return user_id in data['users'].keys()
 
 
-def add_user(user_id: str):
+def add_user(user_id: str, user_name: str):
     with open(file_path) as json_file:
         data = json.load(json_file)
         data['users'][user_id] = {
@@ -45,6 +44,12 @@ def add_user(user_id: str):
             }
         }
     save_data(data)
+    with open('bank/website/user_ids.json') as json_file:
+        data = json.load(json_file)
+        data['users'][user_id] = user_name
+        data['users'][user_name] = user_id
+    with open('bank/website/user_ids.json', 'w') as json_file:
+        json.dump(data, json_file, indent=4)
 
 
 def has_card(user_id: str, card_id: str):
