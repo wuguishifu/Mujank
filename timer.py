@@ -1,9 +1,11 @@
+import datetime
 import shutil
 import time
 from datetime import date
 
 import schedule
 
+import bank
 import database
 
 
@@ -22,11 +24,18 @@ def backup(t):
     shutil.copy('mujank_db.json', f'db_backups/{destination}.json')
 
 
+def update_bank_history():
+    now = datetime.datetime.now()
+    date_format = now.strftime('%m_%d_%Y %H_%M_%S')
+    bank.update(date_format)
+
+
 schedule.every().day.at('06:00').do(reset)
 schedule.every().day.at('18:00').do(reset)
 schedule.every().day.at('00:00').do(backup, '00_00')
 schedule.every().day.at('12:00').do(backup, '12_00')
 schedule.every().day.at('06:00').do(reset_daily)
+schedule.every().hour.do(update_bank_history)
 
 while True:
     schedule.run_pending()
