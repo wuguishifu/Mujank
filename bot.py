@@ -89,6 +89,13 @@ async def bal_inc(ctx, mention, amount='1'):
                 database.add_coins(str(ctx.message.mentions[0].id), amount)
 
 
+@bot.command(name='get_bank_hist')
+async def get_bank_hist(ctx):
+    if ctx.author.id in admin:
+        file = discord.File('bank/history.csv')
+        await ctx.send(file=file)
+
+
 @bot.event
 async def on_message(message):
     channel = message.channel
