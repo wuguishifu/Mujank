@@ -23,7 +23,7 @@ class Administrative(commands.Cog):
         if database.user_exists(str(ctx.author.id)):
             await ctx.send('You have already joined!')
         else:
-            database.add_user(str(ctx.author.id))
+            database.add_user(str(ctx.author.id), ctx.author.name)
             await ctx.send(f'Thanks for joining, {ctx.author.mention}!')
 
     @commands.command(name='time')

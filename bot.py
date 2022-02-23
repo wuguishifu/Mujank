@@ -4,6 +4,8 @@ import discord
 import dotenv
 from discord.ext import commands
 
+import json
+
 import database
 
 intents = discord.Intents(messages=True, members=True, guilds=True)
@@ -104,6 +106,25 @@ async def on_message(message):
     elif message.content == '!online' and str(message.author) == 'Bo#3515':
         await channel.send('Mujank is currently online.')
     await bot.process_commands(message)
+
+
+@bot.command(name='update_database')
+async def update_database(ctx):
+    members = []
+    with open('mujank_db.json') as json_file:
+        data = json.load(json_file)
+        user_ids = list(data['users'])
+    for user_id in user_ids:
+        member = await ctx.guild.fetch_member(user_id)
+        members.append(member)
+        print(f'{member.name}, {member.id}')
+    with open('bank/website/user_ids.json') as json_file:
+        data = json.load(json_file)
+        for member in members:
+            data['users'][member.id] = member.name
+            data['users'][member.name] = member.id
+    with open('bank/website/user_ids.json', 'w') as json_file:
+        json.dump(data, json_file, indent=4)
 
 
 @bot.event
