@@ -115,9 +115,13 @@ async def update_database(ctx):
         data = json.load(json_file)
         user_ids = list(data['users'])
     for user_id in user_ids:
-        member = await ctx.guild.fetch_member(user_id)
-        members.append(member)
-        print(f'{member.name}, {member.id}')
+        try:
+            member = await ctx.guild.fetch_member(user_id)
+        except discord.NotFound:
+            print(f'id not found: {user_id}')
+        else:
+            members.append(member)
+            print(f'{member.name}, {member.id}')
     with open('bank/website/user_ids.json') as json_file:
         data = json.load(json_file)
         for member in members:
