@@ -4,8 +4,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="history.css">
-	<link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/history.css">
+	<link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico">
 	<title>Balance History</title>
 </head>
 
@@ -19,7 +19,21 @@
 		<div class="header">
 			<h1>Balance History</h1>
 		</div>
+
+		<div class="form">
+		    <div class="form-label">
+		    	<label class="username-entry">Username (Case Sensitive)</label>
+		    	<label class="entry-required">*</label>
+		    </div>
+		    <div class="form-input">
+		        <input type="text" placeholder="w.vxtn" class="form-control" name="username-entry" access="false" name="username-entry" id="username-entry" required="required" aria-required="true">
+		    	<input class="submit-button" type="button" name="submit-button" id="submit-button" value="Submit">
+		    </div>
+		</div>
 	</div>
+
+	<script src="/js/history.js"></script>
 </body>
+
 
 </html>

@@ -2,6 +2,7 @@
 @import url("subheader.css");
 @import url("button.css");
 @import url("navigation_bar.css");
+@import url("colors.css");
 
 body {
 	margin: 0px;

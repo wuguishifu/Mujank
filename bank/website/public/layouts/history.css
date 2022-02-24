@@ -1,2 +1,24 @@
 @import url("components/stylesheet.css");
-@import url(components/bootstrap.css);
+
+.form-label {
+	font-family: 'Nunito-Regular';
+	color: black;
+}
+
+.username-entry {
+	font-family: 'Nunito-Regular';
+}
+
+.entry-required {
+	font-family: 'Nunito-Regular';
+	color: var(--red_primary);
+}
+
+.form-input {
+	padding-top: 10px;
+	font-family: 'Nunito-Regular';
+}
+
+.submit-button {
+	font-family: 'Nunito-Regular';
+}
