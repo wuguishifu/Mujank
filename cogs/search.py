@@ -64,7 +64,7 @@ class Search(commands.Cog):
     async def categories(self, ctx):
         await ctx.send(
             'The categories are:\nAlex, Misc, Bo, Combo, Flynn, Haroon, Jenn, Matt, Mikey, Nayoung, Nina, Noah, '
-            'Patrick, Steven, Tim, Tommy, Wendy, Will, Elijah, Ashwin, John')
+            'Patrick, Steven, Tim, Tommy, Wendy, Will, Elijah, Ashwin, John, Sorina')
 
 
 class PrevSearch(discord.ui.Button):
