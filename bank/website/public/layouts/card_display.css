@@ -1,0 +1,5 @@
+@import url("components/stylesheet.css");
+
+.card {
+	color: var(--red_primary);
+}

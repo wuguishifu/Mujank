@@ -182,6 +182,13 @@ def reset_all_timers():
             set_claimed(u, False)
 
 
+def give_roll(user_id: str, amount=1):
+    with open(file_path) as json_file:
+        data = json.load(json_file)
+        data['users'][user_id]['num_rolls'] += amount
+    save_data(data)
+
+
 def add_card_to_wishlist(user_id: str, card_id: str):
     with open(file_path) as json_file:
         data = json.load(json_file)

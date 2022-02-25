@@ -98,6 +98,22 @@ async def get_bank_hist(ctx):
         await ctx.send(file=file)
 
 
+@bot.command(name='roll_inc')
+async def roll_inc(ctx, mention, amount='1'):
+    if ctx.author.id in admin:
+        if ctx.message.mentions:
+            if amount.isnumeric():
+                database.give_roll(str(ctx.message.mentions[0].id), int(amount))
+
+
+@bot.command(name='roll_dec')
+async def roll_dec(ctx, mention, amount='1'):
+    if ctx.author.id in admin:
+        if ctx.message.mentions:
+            if amount.isnumeric():
+                database.give_roll(str(ctx.message.mentions[0].id), -int(amount))
+
+
 @bot.event
 async def on_message(message):
     channel = message.channel
