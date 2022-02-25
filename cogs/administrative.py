@@ -266,8 +266,13 @@ help_embed = discord.Embed(
                 f'**Wishlist** :sparkles:\n'
                 f'**\*wishadd <card name>**: adds the specified card to your wishlist.\n'
                 f'**\*wishlist**: displays your wishlist.\n'
-                f'**\*wishremove <card name>**: removes the specified card from your wishlist.\n'
+                f'**\*wishremove <card name>**: removes the specified card from your wishlist.\n\n'
                 f''
+                f'**Help** :information_source:\n'
+                f'**\*report <bug message>**: make a bug report.\n'
+                f'**\*status <ticket number>**: checks the status of your bug report.\n'
+                f'**\*view <ticket number>**: checks the bug report message.\n'
+                f'**\*viewopen**: view the currently unresolved bugs.'
 )
 
 
