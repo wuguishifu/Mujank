@@ -128,7 +128,7 @@ async def on_message(message):
     await bot.process_commands(message)
 
 
-@bot.command(name='update_database')
+@bot.command(name='refresh_database')
 async def update_database(ctx):
     members = []
     with open('mujank_db.json') as json_file:
