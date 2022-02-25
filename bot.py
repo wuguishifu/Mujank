@@ -80,6 +80,7 @@ async def bal_dec(ctx, mention, amount='1'):
             if amount.isnumeric():
                 amount = int(amount)
                 database.remove_coins(str(ctx.message.mentions[0].id), amount)
+                await ctx.send(f"{ctx.message.mentions[0].name}'s balance was decreased by {amount}.")
 
 
 @bot.command(name='bal_inc')
@@ -89,6 +90,7 @@ async def bal_inc(ctx, mention, amount='1'):
             if amount.isnumeric():
                 amount = int(amount)
                 database.add_coins(str(ctx.message.mentions[0].id), amount)
+                await ctx.send(f"{ctx.message.mentions[0].name}'s balance was increased by {amount}.")
 
 
 @bot.command(name='get_bank_hist')
@@ -104,6 +106,7 @@ async def roll_inc(ctx, mention, amount='1'):
         if ctx.message.mentions:
             if amount.isnumeric():
                 database.give_roll(str(ctx.message.mentions[0].id), int(amount))
+                await ctx.send(f"{ctx.message.mentions[0].name}'s rolls were increased by {amount}.")
 
 
 @bot.command(name='roll_dec')
@@ -112,6 +115,7 @@ async def roll_dec(ctx, mention, amount='1'):
         if ctx.message.mentions:
             if amount.isnumeric():
                 database.give_roll(str(ctx.message.mentions[0].id), -int(amount))
+                await ctx.send(f"{ctx.message.mentions[0].name}'s rolls were decreased by {amount}.")
 
 
 @bot.event
