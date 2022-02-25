@@ -2,17 +2,25 @@ clc
 clear
 
 data = readmatrix('history.csv');
+time = readtable('history.csv').Var1;
+time = datetime(time, 'InputFormat', 'MM_dd_uuuu HH_mm_ss');
+
+id = [280451832675827712];
+
 figure()
 hold on
-lgd = {};
-t = 0;
 for i=2:size(data, 2)
-    if sum(data(2:end, i)) ~= 0
-        t = t + 1;
-        plot(data(2:end, i))
-        lgd{t} = strcat('userid: ', num2str(data(1, i), '%d'));
+    if ismember(data(1, i), id)
+        var = i;
+        plot(time(2:end), data(2:end, i))
     end
 end
+xlabel('Date')
+ylabel('Balance (Jankcoins)')
 
-ylim([500, 700])
-% legend(lgd)
+t = days(time(2:end) - time(2));
+fit = polyfit(t, data(2:end, var), 1);
+regY = polyval(fit, t([1, end]));
+plot(time([2, end]), regY)
+
+legend('Wendy', 'Forecast')
