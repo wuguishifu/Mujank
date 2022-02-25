@@ -143,7 +143,7 @@ async def update_database(ctx):
             members.append(member)
             print(f'{member.name}, {member.id}')
     with open('bank/website/user_ids.json') as json_file:
-        data = json.load(json_file)
+        data = {'users': {}}
         for member in members:
             data['users'][member.id] = member.name
             data['users'][member.name] = str(member.id)
