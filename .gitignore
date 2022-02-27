@@ -4,3 +4,4 @@ bank/history.csv
 bank/website/user_ids.json
 .env
 cogs/bugs.json
+cogs/powerball.json

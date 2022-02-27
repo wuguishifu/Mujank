@@ -1,17 +1,17 @@
+import datetime
+import json
 import os
 
 import discord
 import dotenv
-from discord.ext import commands
-
-import json
+from discord.ext import commands, tasks
 
 import database
 
 intents = discord.Intents(messages=True, members=True, guilds=True)
 
 dotenv.load_dotenv()
-BOT_TOKEN = os.getenv('DISCORD_TOKEN_MAIN')
+BOT_TOKEN = os.getenv('DISCORD_TOKEN_TEST')
 bot = commands.Bot(command_prefix='*', intents=intents)
 bot.remove_command('help')
 
