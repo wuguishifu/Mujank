@@ -81,7 +81,7 @@ class Powerball(commands.Cog):
             nums.append(random.randint(1, 69))
         nums.append(random.randint(1, 26))
         ticket = ','.join(str(num) for num in nums)
-        await ctx.send(f"{ctx.author.id}, your ticket's numbers are {', '.join(str(i) for i in nums[:5])}, "
+        await ctx.send(f"{ctx.author.mention}, your ticket's numbers are {', '.join(str(i) for i in nums[:5])}, "
                        f"and {nums[5]}. You've been charged 3x {coin_emoji}. Come back at 6:00 PM PST to see if "
                        f"you've won!")
         with open('cogs/powerball.json', 'r') as json_file:
