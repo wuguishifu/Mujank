@@ -13,7 +13,7 @@ red = discord.Colour.from_rgb(227, 24, 24)
 
 admin = [933726675974381578, 200454087148437504, 937450639506669589]
 
-channel_id = 932934074270642187
+channel_id = 933225183936933908
 
 
 class Powerball(commands.Cog):
