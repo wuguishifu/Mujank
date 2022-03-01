@@ -1,5 +1,6 @@
 import csv
 import json
+import shutil
 
 bank_path = 'bank/history.csv'
 database_path = 'mujank_db.json'
@@ -35,3 +36,9 @@ def update(time):
         writer = csv.DictWriter(csv_file, fieldnames=fields)
         writer.writeheader()
         writer.writerows(rows)
+
+
+def backup(date):
+    shutil.move('bank/history.csv', f'bank/date_history/history_{date}.csv')
+    new_file = open('bank/history.csv', 'x')
+    new_file.close()

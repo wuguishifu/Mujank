@@ -5,3 +5,4 @@ bank/website/user_ids.json
 .env
 cogs/bugs.json
 cogs/powerball.json
+bank/date_history
