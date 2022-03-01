@@ -6,6 +6,7 @@
 
 body {
 	margin: 0px;
+	/*background: var(--background_grey_light);*/
 }
 
 .center {

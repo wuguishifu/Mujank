@@ -272,7 +272,8 @@ help_embed = discord.Embed(
                 f'**\*report <bug message>**: make a bug report.\n'
                 f'**\*status <ticket number>**: checks the status of your bug report.\n'
                 f'**\*view <ticket number>**: checks the bug report message.\n'
-                f'**\*viewopen**: view the currently unresolved bugs.'
+                f'**\*viewopen**: view the currently unresolved bugs.',
+    colour=red
 )
 
 
