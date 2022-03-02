@@ -12,7 +12,7 @@ intents = discord.Intents(messages=True, members=True, guilds=True)
 
 dotenv.load_dotenv()
 BOT_TOKEN = os.getenv('DISCORD_TOKEN_MAIN')
-bot = commands.Bot(command_prefix='*', intents=intents)
+bot = commands.Bot(command_prefix='*', intents=intents, case_insensitive=True)
 bot.remove_command('help')
 
 admin = [933726675974381578, 200454087148437504, 937450639506669589]
