@@ -18,7 +18,7 @@ function findUser(username) {
 }
 
 function getUserID(username) {
-	let uri = 'http://127.0.0.1:5000/user_id';
+	let uri = 'http://136.52.14.191:8080/user_id';
 	fetch(uri, {
 		method: 'POST',
 		mode: 'cors',
@@ -41,7 +41,7 @@ function getUserID(username) {
 }
 
 function displayBankHistory(user_id, username) {
-	let uri = 'http://127.0.0.1:5000/bank_hist';
+	let uri = 'http://136.52.14.191:8080/bank_hist';
 	fetch(uri, {
 		method: 'POST',
 		mode: 'cors',

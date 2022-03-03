@@ -15,7 +15,7 @@ function findCards(query) {
 	if (query.length === 0) {
 		alert('Please enter a search!')
 	} else {
-		let uri = 'http://127.0.0.1:5000/card_search';
+		let uri = 'http://136.52.14.191:8080/card_search';
 		fetch(uri, {
 			method: 'POST',
 			mode: 'cors',
