@@ -156,4 +156,6 @@ def test():
 
 
 if __name__ == '__main__':
-    serve(app, port=8080)
+    ssl_context = ('mujank.com.crt', 'mujank.com_key.txt')
+    app.run(port=8080, ssl_context=ssl_context)
+    # serve(app, port=8080, ssl_context=ssl_context)
