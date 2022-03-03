@@ -1,1 +1,76 @@
 @import url("components/stylesheet.css");
+
+.form-label {
+	font-family: 'Nunito-Regular';
+	color: black;
+}
+
+.username-entry {
+	font-family: 'Nunito-Regular';
+}
+
+.entry-required {
+	font-family: 'Nunito-Regular';
+	color: var(--red_primary);
+}
+
+.form-input {
+	padding-top: 10px;
+	font-family: 'Nunito-Regular';
+}
+
+.submit-button {
+	font-family: 'Nunito-Regular';
+}
+
+.card_box {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	align-content: center;
+	align-self: center;
+}
+
+/*body {
+	background-color: var(--background_grey_light);
+}*/
+
+.card_box div {
+	border-width: 5px;
+	border-style: solid;
+	margin: 5px;
+	width: 400px;
+	background-color: var(--background_grey);
+	text-align: center;
+	text-overflow: break-word;
+	font-family: 'Nunito-Regular';
+}
+
+.card-2 {
+	color: var(--card_2);
+	border-color: var(--card_2);
+}
+
+.card-3 {
+	color: var(--card_3);
+	border-color: var(--card_3);
+}
+
+
+.card-4 {
+	color: var(--card_4);
+	border-color: var(--card_4);
+}
+
+
+.card-5 {
+	color: var(--card_5);
+	border-color: var(--card_5);
+}
+
+
+.card-6 {
+	color: var(--card_6);
+	border-color: var(--card_6);
+}

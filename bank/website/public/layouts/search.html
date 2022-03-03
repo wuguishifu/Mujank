@@ -13,15 +13,18 @@
 	<div class="topnav">
 		<a href="/">Home</a>
 		<a href="/cards">Cards</a>
+		<a href="/bank">Bank</a>
 		<a class="active" href="/search">Card Search</a>
 	</div>
 
 	<div class="center">
 		<div class="header">
-			<h1>Cards</h1>
+			<h1 id="title">Cards</h1>
 		</div>
 
-		<div class="form">
+		<div class="card_box", align="center", id="cards"></div>
+
+		<div class="form" id="entry-form">
 		    <div class="form-label">
 		    	<label class="search">Search (Case Insensitive)</label>
 		    	<label class="entry-required">*</label>

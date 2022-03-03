@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="/history.css">
+	<link rel="stylesheet" type="text/css" href="/cards.css">
 	<link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico">
 	<title>Cards</title>
 </head>
@@ -13,15 +13,18 @@
 	<div class="topnav">
 		<a href="/">Home</a>
 		<a class="active" href="/cards">Cards</a>
+		<a href="/bank">Bank</a>
 		<a href="/search">Card Search</a>
 	</div>
 
 	<div class="center">
 		<div class="header">
-			<h1>Cards</h1>
+			<h1 id="title">Cards</h1>
 		</div>
 
-		<div class="form">
+		<div class="card_box", align="center", id="cards"></div>
+
+		<div class="form" id="username-form">
 		    <div class="form-label">
 		    	<label class="username-entry">Username (Case Sensitive)</label>
 		    	<label class="entry-required">*</label>

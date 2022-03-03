@@ -38,6 +38,7 @@ search_display = `<!DOCTYPE html>
 	<div class="topnav">
 		<a href="/">Home</a>
 		<a href="/cards">Cards</a>
+		<a href="/bank">Bank</a>
 		<a href="/search">Card Search</a>
 	</div>
 

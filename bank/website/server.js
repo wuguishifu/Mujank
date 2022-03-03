@@ -2,8 +2,7 @@ const url = require('url');
 const http = require('http');
 const show = require('./show');
 const https = require('https');
-const card_display = require('./card_display');
-const card_search = require('./card_search')
+const request = require('request-promise');
 const fs = require('fs');
 
 var https_options = {
@@ -33,23 +32,7 @@ httpsServer.listen(443, () => {
 	console.log('HTTPS Server running on port 443');
 });
 
-app.get('/cards', (req, res) => {
-	if (Object.keys(req.query).length === 0) {
-		show.showPage(res, '/cards');
-	} else {
-		card_display.display_cards(res, req.query.user);
-	}
-});
-
-app.get('/search', (req, res) => {
-	if (Object.keys(req.query).length === 0) {
-		show.showPage(res, '/search');
-	} else {
-		card_search.search_cards(res, req.query.query)
-	}
-});
-
-// send pages
+// send other pages
 app.use((req, res, next) => {
 	show.showPage(res, req.url);
 });

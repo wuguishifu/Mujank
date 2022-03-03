@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/bank.css">
+	<link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico">
+	<script src='https://cdn.plot.ly/plotly-2.9.0.min.js'></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+	<title>Bank</title>
+</head>
+
+<body>
+	<div class="topnav">
+		<a href="/">Home</a>
+		<a href="/cards">Cards</a>
+		<a class="active" href="/bank">Bank</a>
+		<a href="/search">Card Search</a>
+	</div>
+
+	<div class="center" id="center-div">
+		<div class="header">
+			<h1 id="title">Bank</h1>
+		</div>
+
+		<div id="bank-plot" align="center"></div>
+
+		<div class="form" id="entry-form">
+		    <div class="form-label">
+		    	<label class="username-entry">Username (Case Sensitive)</label>
+		    	<label class="entry-required">*</label>
+		    </div>
+		    <div class="form-input">
+		        <input type="text" placeholder="w.vxtn" class="form-control" name="username-entry" access="false" name="username-entry" id="username-entry" required="required" aria-required="true">
+		    	<input class="submit-button" type="button" name="submit-button" id="submit-button" value="Submit">
+		    </div>
+		</div>
+	</div>
+
+	<script src="/js/bank.js"></script>
+</body>
+
+
+</html>

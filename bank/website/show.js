@@ -11,26 +11,13 @@ function showPage(res, pathName) {
 	}
 }
 
-function showHistory(res, username) {
-	var user_id_map = JSON.parse(fs.readFileSync(__dirname + '/user_ids.json'));
-	if (username in user_id_map['users']) {
-		var user_id = user_id_map['users'][username.toString()];
-		var mujank_db = JSON.parse(fs.readFileSync(__dirname + '/../../mujank_db.json'));
-		console.log(mujank_db['users'][user_id]);
-	} else {
-		res.send(`<script>window.location.replace('/history');
-			alert("No user found!");</script>`);
-	}
-}
-
 const contentMap = {
 	'/': location + 'main.html',
 	'/submit': location	+ 'submit.html',
-	'/cards': location + 'cards.html',
-	'/history': location + 'history.html',
+	'/cards/': location + 'cards.html',
 	'404': location	+ '404.html',
-	'no_user': location + 'no_user.html',
-	'/search': location + 'search.html'
+	'/search': location + 'search.html',
+	'/bank': location + 'bank.html'
 }
 
 exports.showPage = showPage;
