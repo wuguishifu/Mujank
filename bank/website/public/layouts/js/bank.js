@@ -1,4 +1,4 @@
-var uri_header = 'https://136.52.14.191:80/';
+var uri_header = 'https://136.52.14.191:8080/';
 
 var usernameEntry = document.getElementById('username-entry');
 usernameEntry.addEventListener('keypress', function (e) {
