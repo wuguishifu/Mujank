@@ -1,3 +1,5 @@
+var uri_header = 'https://136.52.14.191:80/';
+
 var queryEntry = document.getElementById('username-entry');
 queryEntry.addEventListener('keypress', function (e) {
 	if (e.key === 'Enter') {
@@ -15,7 +17,7 @@ function findCards(query) {
 	if (query.length === 0) {
 		alert('Please enter a search!')
 	} else {
-		let uri = 'http://136.52.14.191:8080/card_search';
+		let uri = uri_header + 'post_card_search';
 		fetch(uri, {
 			method: 'POST',
 			mode: 'cors',

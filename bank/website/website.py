@@ -43,7 +43,7 @@ with open(spreadsheet_location) as mujank_spreadsheet:
             card_deck[c[0]] = Card(c[0], f'{c[1]}', c[2], int(c[3]), c[4])
 
 
-@app.route('/get_cards', methods=['POST'])
+@app.route('/post_user_cards', methods=['POST'])
 def get_user_cards():
     data = request.get_json()
     user_id = data['user_id']
@@ -68,7 +68,7 @@ def get_user_cards():
             return response
 
 
-@app.route('/card_search', methods=['POST'])
+@app.route('/post_card_search', methods=['POST'])
 def card_search():
     data = request.get_json()
     query = data['query']
@@ -93,7 +93,7 @@ def card_search():
         return response
 
 
-@app.route('/bank_hist', methods=['POST'])
+@app.route('/post_user_bank', methods=['POST'])
 def get_bank_hist():
     data = request.get_json()
     user_id: str = data['user_id']
@@ -127,7 +127,7 @@ def get_bank_hist():
         return {'error': 'user-not-found'}
 
 
-@app.route('/user_id', methods=['POST'])
+@app.route('/post_user_id', methods=['POST'])
 def get_user_id():
     username = request.get_json()['username']
     with open(os.path.dirname(__file__) + '/user_ids.json') as json_file:

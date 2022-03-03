@@ -1,3 +1,5 @@
+var uri_header = 'https://136.52.14.191:80/';
+
 var usernameEntry = document.getElementById('username-entry');
 usernameEntry.addEventListener('keypress', function (e) {
 	if (e.key === 'Enter') {
@@ -18,7 +20,7 @@ function findUser(username) {
 }
 
 function getUserID(username) {
-	let uri = 'http://136.52.14.191:8080/user_id';
+	let uri = uri_header + 'post_user_id';
 	fetch(uri, {
 		method: 'POST',
 		mode: 'cors',
@@ -41,7 +43,7 @@ function getUserID(username) {
 }
 
 function displayBankHistory(user_id, username) {
-	let uri = 'http://136.52.14.191:8080/bank_hist';
+	let uri = uri_header + 'post_user_bank';
 	fetch(uri, {
 		method: 'POST',
 		mode: 'cors',
