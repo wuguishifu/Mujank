@@ -43,6 +43,11 @@ with open(spreadsheet_location) as mujank_spreadsheet:
             card_deck[c[0]] = Card(c[0], f'{c[1]}', c[2], int(c[3]), c[4])
 
 
+@app.route('/')
+def serve_main():
+    return 'Hello, World!'
+
+
 @app.route('/post_user_cards', methods=['POST'])
 def get_user_cards():
     data = request.get_json()
