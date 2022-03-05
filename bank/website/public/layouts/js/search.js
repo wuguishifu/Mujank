@@ -1,4 +1,4 @@
-var uri_header = 'http://mujank.com/';
+var uri_header = 'https://mujank.com/';
 
 var queryEntry = document.getElementById('username-entry');
 queryEntry.addEventListener('keypress', function (e) {
