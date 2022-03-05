@@ -9,11 +9,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.2",
     "csv": "^6.0.5",
     "express": "^4.17.3",
+    "fast-csv": "^4.3.6",
     "handlebars": "^4.7.7",
     "jade": "^1.11.0",
+    "moment": "^2.29.1",
     "node-csv": "^0.1.2",
+    "papaparse": "^5.3.1",
     "plotly": "^1.0.6",
     "request-promise": "^4.2.6"
   }

@@ -5,7 +5,7 @@ import os
 
 import flask
 import pandas as pd
-from flask import Flask, request
+from flask import Flask, request, render_template
 from flask_cors import CORS
 
 from waitress import serve
@@ -42,10 +42,9 @@ with open(spreadsheet_location) as mujank_spreadsheet:
         if int(c[3]) != 0:
             card_deck[c[0]] = Card(c[0], f'{c[1]}', c[2], int(c[3]), c[4])
 
-
-@app.route('/')
-def serve_main():
-    return 'Hello, World!'
+#
+# @app.route('/', methods=['GET'])
+# def home():
 
 
 @app.route('/post_user_cards', methods=['POST'])

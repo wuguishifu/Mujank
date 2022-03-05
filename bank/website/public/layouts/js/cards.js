@@ -1,4 +1,4 @@
-var uri_header = 'https://136.52.14.191:8080/';
+var uri_header = 'http://mujank.com/';
 
 var usernameEntry = document.getElementById('username-entry');
 usernameEntry.addEventListener('keypress', function (e) {
@@ -69,8 +69,6 @@ function displayCards(user_id, username) {
 				let image_location = ('/img/' + card.image_url).replace(/ /g, '');
 				divs += `<div class='card-${card.rating}'><h2>${card.title}</h2><img src='${image_location}' alt='${card.image_url}' width='400'></div>`
 			}
-
 			container.innerHTML = divs;
-
-		})
+		});
 }

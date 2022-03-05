@@ -1,4 +1,4 @@
-var uri_header = 'https://136.52.14.191:8080/';
+var uri_header = 'http://mujank.com/';
 
 var usernameEntry = document.getElementById('username-entry');
 usernameEntry.addEventListener('keypress', function (e) {
@@ -23,7 +23,6 @@ function getUserID(username) {
 	let uri = uri_header + 'post_user_id';
 	fetch(uri, {
 		method: 'POST',
-		mode: 'cors',
 		cache: 'no-cache',
 		headers: {
 			'Content-Type': 'application/json'
@@ -37,7 +36,7 @@ function getUserID(username) {
 				let user_id = data.user_id;
 				displayBankHistory(user_id, username);
 			} else if (err === 'user-not-found') {
-				alert('User not found!')
+				alert('User not found!');
 			}
 		})
 }
@@ -61,12 +60,21 @@ function displayBankHistory(user_id, username) {
 
 			let err = data.error;
 			let hist = data.hist;
-			times = [];
-			vals = [];
+			let times = [];
+			let vals = [];
+			let dataPoints = [];
 
 			for ([key, val] of Object.entries(hist)) {
-				times.push(new Date(key));
-				vals.push(val);
+				dataPoints.push({date: new Date(key), val: val});
+			}
+			dataPoints.sort((a, b) => {
+				let d1 = a.date;
+				let d2 = b.date;
+				return d1 - d2;
+			});
+			for (var i = 0; i < dataPoints.length; i++) {
+				times.push(dataPoints[i].date);
+				vals.push(dataPoints[i].val);
 			}
 
 			var data = [{
