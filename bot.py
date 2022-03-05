@@ -152,6 +152,7 @@ async def update_database(ctx):
 
 @bot.event
 async def on_ready():
+    print("Mujank is connected.")
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=f'*help'))
 
 
