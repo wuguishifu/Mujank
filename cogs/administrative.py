@@ -5,7 +5,6 @@ from discord.ext import commands
 
 import database
 
-
 red = discord.Colour.from_rgb(227, 24, 24)
 
 
@@ -140,7 +139,6 @@ patches = {
     ),
 }
 
-
 patches_full = {
     'v0.6b': """***Patch v0.6b (1/19/2022)***
 ✩ Added Bot to Jank for beta release
@@ -186,37 +184,36 @@ _ _\t\t- Please report any bugs
 }
 
 help_embed_old = discord.Embed(
-            title=f'Help',
-            description=f'``*balance`` - checks your Jankcoin balance.\n\n'
-                        f'``*buy <item name>`` - buys an item from the shop for Jankcoins.\n\n'
-                        f'``*categories`` - shows all the search tags\n\n'
-                        f'``*deck`` - displays your deck.\n\n'
-                        f'``*display <card name>`` - sets the thumbnail of your deck.\n\n'
-                        f'``*give <@user>`` - gives the tagged user a card.\n\n'
-                        f'``*info <card name>`` - displays a specific card.\n\n'
-                        f'``*inventory`` - shows your inventory.\n\n'
-                        f'``*item <item name>`` - shows information about the specified item.\n\n'
-                        f'``*join`` - joins the game!\n\n'
-                        f'``*help`` - shows this message.\n\n'
-                        f'``*patchnotes <version>`` - shows the patchnotes from the entered Mujank version.\n\n'
-                        f'``*pay <@user> <amount>`` - pays `amount` of Jankcoins to the tagged user.\n\n'
-                        f'``*price <card name>`` - checks the selling price of a card.\n\n'
-                        f'``*prices`` - displays the selling price of each card rarity.\n\n'
-                        f'``*roll`` - rolls for a new card.\n\n'
-                        f'``*search <person>`` - searches for cards of that person.\n\n'
-                        f'``*searchrarity <rarity>`` - searches for cards by rarity.\n\n'
-                        f'``*sell <card name>`` - sell a card for Jankcoins.\n\n'
-                        f'``*shop`` - displays the item shop.\n\n'
-                        f'``*time`` - checks how much time until roll reset.\n\n'
-                        f'``*trade <@user>`` - initiates a trade with the tagged user.\n\n'
-                        f'``*use <card name>`` - uses an item from your inventory.\n\n'
-                        f'``*versions`` - shows a list of previous Mujank versions.\n\n'
-                        f'``*wishadd <card name>`` - adds a card to wishlist.\n\n'
-                        f'``*wishlist`` - displays your wishlist.\n\n'
-                        f'``*wishremove <card name>`` - removes a card from your wishlist.',
-            colour=red
-        )
-
+    title=f'Help',
+    description=f'``*balance`` - checks your Jankcoin balance.\n\n'
+                f'``*buy <item name>`` - buys an item from the shop for Jankcoins.\n\n'
+                f'``*categories`` - shows all the search tags\n\n'
+                f'``*deck`` - displays your deck.\n\n'
+                f'``*display <card name>`` - sets the thumbnail of your deck.\n\n'
+                f'``*give <@user>`` - gives the tagged user a card.\n\n'
+                f'``*info <card name>`` - displays a specific card.\n\n'
+                f'``*inventory`` - shows your inventory.\n\n'
+                f'``*item <item name>`` - shows information about the specified item.\n\n'
+                f'``*join`` - joins the game!\n\n'
+                f'``*help`` - shows this message.\n\n'
+                f'``*patchnotes <version>`` - shows the patchnotes from the entered Mujank version.\n\n'
+                f'``*pay <@user> <amount>`` - pays `amount` of Jankcoins to the tagged user.\n\n'
+                f'``*price <card name>`` - checks the selling price of a card.\n\n'
+                f'``*prices`` - displays the selling price of each card rarity.\n\n'
+                f'``*roll`` - rolls for a new card.\n\n'
+                f'``*search <person>`` - searches for cards of that person.\n\n'
+                f'``*searchrarity <rarity>`` - searches for cards by rarity.\n\n'
+                f'``*sell <card name>`` - sell a card for Jankcoins.\n\n'
+                f'``*shop`` - displays the item shop.\n\n'
+                f'``*time`` - checks how much time until roll reset.\n\n'
+                f'``*trade <@user>`` - initiates a trade with the tagged user.\n\n'
+                f'``*use <card name>`` - uses an item from your inventory.\n\n'
+                f'``*versions`` - shows a list of previous Mujank versions.\n\n'
+                f'``*wishadd <card name>`` - adds a card to wishlist.\n\n'
+                f'``*wishlist`` - displays your wishlist.\n\n'
+                f'``*wishremove <card name>`` - removes a card from your wishlist.',
+    colour=red
+)
 
 help_embed = discord.Embed(
     title=f'Help',

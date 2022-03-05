@@ -5,10 +5,8 @@ import os
 
 import flask
 import pandas as pd
-from flask import Flask, request, render_template
+from flask import Flask, request
 from flask_cors import CORS
-
-from waitress import serve
 
 # set up flask server
 app = Flask(__name__)
@@ -41,10 +39,6 @@ with open(spreadsheet_location) as mujank_spreadsheet:
     for c in csvreader:
         if int(c[3]) != 0:
             card_deck[c[0]] = Card(c[0], f'{c[1]}', c[2], int(c[3]), c[4])
-
-#
-# @app.route('/', methods=['GET'])
-# def home():
 
 
 @app.route('/post_user_cards', methods=['POST'])

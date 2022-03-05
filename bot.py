@@ -1,10 +1,9 @@
-import datetime
 import json
 import os
 
 import discord
 import dotenv
-from discord.ext import commands, tasks
+from discord.ext import commands
 
 import database
 

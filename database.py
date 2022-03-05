@@ -1,7 +1,8 @@
 import datetime
-import shutil
 import json
+import shutil
 from datetime import date
+
 import user
 
 max_rolls = 3
