@@ -19,11 +19,18 @@ class BirthdayGift(commands.Cog):
         self.bot = bot
 
     @commands.Cog.listener()
-    async def on_ready(self):
+    async def on_ready(self) -> None:
+        """
+        Function ran when bot is initialized.
+        """
         print("birthday_gift.py loaded")
         await self.wait_until()
 
-    async def wait_until(self):
+    async def wait_until(self) -> None:
+        """
+        Makes function execution happen at 6PM every day.
+
+        """
         # Grab the current datetime
         now = datetime.datetime.now()
 
@@ -36,7 +43,11 @@ class BirthdayGift(commands.Cog):
         self.give_birthday_gifts.start()
 
     @tasks.loop(hours=24)
-    async def give_birthday_gifts(self):
+    async def give_birthday_gifts(self) -> None:
+        """
+        Checks if  it is someone's birthday today, and if it is, then gives them a gift of
+        25 jankcoins.
+        """
         # Get the current date
         now = datetime.datetime.now()
         formatted_date = now.strftime("%m_%d")
@@ -55,5 +66,10 @@ class BirthdayGift(commands.Cog):
                 await channel.send(f"Happy birthday {user.mention}, please enjoy this gift of 25 jankcoins!")
 
 
-def setup(bot: commands.Bot):
+def setup(bot: commands.Bot) -> None:
+    """
+    Adds the BirthdayGift cog to the bot.
+
+    :param bot: The current initialization of the Mujank bot.
+    """
     bot.add_cog(BirthdayGift(bot))

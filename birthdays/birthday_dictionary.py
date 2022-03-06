@@ -11,8 +11,7 @@ def get_dictionary() -> dict:
 
     :return:    A dictionary that contains all birthdays in Jank in the
                 following format:
-
-                {birthDate1: [userID1], birthDate2: [userID2, userID3],....}
+                    {birthDate1: [userID1], birthDate2: [userID2, userID3],....}
     """
     # A dictionary that contains all birthdays in Jank in the
     # following format:
@@ -27,6 +26,5 @@ def get_dictionary() -> dict:
         for birthday, user_id in data["people"].items():
             birthdays[birthday].append(user_id)
 
-    # Cast the defaultdict back into a regular dict and return it
     return dict(birthdays)
 
