@@ -1,17 +1,13 @@
 import asyncio
 import database
 import datetime
+import channel_id_constants
 import birthdays.birthday_dictionary as birthday_dictionary
 
+from birthdays import birthday_constants
 from discord.ext import commands, tasks
 
 admin = [933726675974381578, 200454087148437504, 937450639506669589]
-
-# We are writing a birthday message in the #mujank channel
-CHANNEL_ID = 933225183936933908
-
-# Number of coins given as gift
-GIFT_AMOUNT = 25
 
 
 class BirthdayGift(commands.Cog):
@@ -23,22 +19,23 @@ class BirthdayGift(commands.Cog):
         """
         Function ran when bot is initialized.
         """
-        print("birthday_gift.py loaded")
+        print(birthday_constants.MODULE_LOADED_MESSAGE)
         await self.wait_until()
 
     async def wait_until(self) -> None:
         """
         Makes function execution happen at 6PM every day.
-
         """
         # Grab the current datetime
         now = datetime.datetime.now()
 
-        # This is the amount of seconds until 6pm
-        delta = (datetime.timedelta(hours=24) - (
-                now - now.replace(hour=18, minute=0, second=0, microsecond=0))).total_seconds() % (24 * 3600)
+        # This is the amount of seconds until 6PM
+        delta = (datetime.timedelta(hours=birthday_constants.HOURS_IN_DAY) - (
+                now - now.replace(hour=birthday_constants.SIX_PM_HOUR, minute=0, second=0,
+                                  microsecond=0))).total_seconds() % (
+                birthday_constants.HOURS_IN_DAY * birthday_constants.SECONDS_IN_HOUR)
 
-        # Wait until we reach 6pm
+        # Wait until we reach 6PM
         await asyncio.sleep(delta)
         self.give_birthday_gifts.start()
 
@@ -50,7 +47,7 @@ class BirthdayGift(commands.Cog):
         """
         # Get the current date
         now = datetime.datetime.now()
-        formatted_date = now.strftime("%m_%d")
+        formatted_date = now.strftime(birthday_constants.DATE_FORMAT)
 
         # Check if this is anyone's birthday if it is, give this person 25 coins
         birthdays = birthday_dictionary.get_dictionary()
@@ -58,10 +55,10 @@ class BirthdayGift(commands.Cog):
         if formatted_date in birthdays:
             for user_id in birthdays[formatted_date]:
                 # Increment their balance
-                database.add_coins(user_id, GIFT_AMOUNT)
+                database.add_coins(user_id, birthday_constants.GIFT_AMOUNT)
 
                 # Make announcement of birthday in #mujank channel
-                channel = self.bot.get_channel(CHANNEL_ID)
+                channel = self.bot.get_channel(channel_id_constants.TEST_CHANNEL)
                 user = self.bot.get_user(int(user_id))
                 await channel.send(f"Happy birthday {user.mention}, please enjoy this gift of 25 jankcoins!")
 
