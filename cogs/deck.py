@@ -119,43 +119,6 @@ class Deck(commands.Cog):
         else:
             await ctx.send(f"No card named {query} found!")
 
-    @commands.command(name='givecard')
-    async def give(self, ctx):
-        if ctx.author.id in admin:
-            query = ctx.message.content[10:].replace('‘', "'").replace('’', "'")
-            database.add_card(str(ctx.author.id), cards.name_deck.get(query.lower()).id)
-
-    @commands.command(name='removecard')
-    async def remove(self, ctx):
-        if ctx.author.id in admin:
-            query = ctx.message.content[12:].replace('‘', "'").replace('’', "'")
-            database.remove_card(ctx.author.id, cards.name_deck.get(query.lower()).id)
-
-    @commands.command(name='forcegive')
-    async def forcegive(self, ctx, mention, card_id):
-        if ctx.author.id in admin:
-            if ctx.message.mentions:
-                card_id = f'c_id_{card_id}'
-                if card_id in cards.card_deck:
-                    database.add_card(str(ctx.message.mentions[0].id), card_id)
-
-    @commands.command(name='forceremove')
-    async def forceremove(self, ctx, mention, card_id):
-        if ctx.author.id in admin:
-            if ctx.message.mentions:
-                card_id = f'c_id_{card_id}'
-                if card_id in cards.card_deck:
-                    database.remove_card(str(ctx.message.mentions[0].id), card_id)
-
-    @commands.command(name='getcardid')
-    async def getcardid(self, ctx):
-        if ctx.author.id in admin:
-            query = ctx.message.content[11:].lower().replace('‘', "'").replace('’', "'")
-            if query in cards.name_deck:
-                await ctx.send(f'{cards.name_deck[query].id}')
-            else:
-                await ctx.send(f'None')
-
 
 class ClaimButton(discord.ui.Button):
     def __init__(self, card: cards.Card, user: discord.user.User):
