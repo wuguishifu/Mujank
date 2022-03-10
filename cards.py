@@ -2,6 +2,7 @@ import csv
 
 import discord
 
+import cards
 import database
 
 colors = {
@@ -14,12 +15,13 @@ colors = {
 
 
 class Card:
-    def __init__(self, card_id: str, image_url: str, title: str, rating: int, tags: str):
+    def __init__(self, card_id: str, image_url: str, title: str, rating: int, tags: str, url_url: str):
         self.id = card_id
         self.image_url = image_url
         self.title = title
         self.rating = rating
         self.tags = tags
+        self.url_url = url_url
 
     def to_embed(self, author: discord.member.Member):
         rolls_left = database.get_num_rolls(str(author.id))
@@ -74,6 +76,20 @@ class Card:
         else:
             embed.set_image(url='attachment://image.png')
         return embed, file
+
+    def to_url_display_embed(self, author: discord.member.Member):
+        stars = ''
+        for i in range(self.rating):
+            stars += '★'
+        color = colors.get(self.rating)
+        embed = discord.Embed(
+            title=f'{self.title}',
+            description=f'{stars}\n{self.tags}',
+            colour=color
+        )
+        num_owned = database.get_num(str(author.id), self.id)
+        embed.set_footer(text=f'{num_owned} owned by {author.name}')
+        embed.set_image(url=self.url_url)
 
     def to_owner_list_embed(self, owners: []):
         stars = ''
@@ -130,6 +146,24 @@ def to_owned_embed(user: discord.user.User, owned_list: [], page: int, num_pages
     else:
         embed.set_thumbnail(url='attachment://image.png')
     return embed, file
+
+
+def to_owned_url_display_embed(user: discord.user.User, owned_list: [], page: int, num_pages: int):
+    card: Card = cards.card_deck[list(owned_list)[page]]
+    stars = ''
+    for i in range(card.rating):
+        stars += '★'
+    description = f'**{card.title}**\n{stars}\n{card.tags}'
+    embed = discord.Embed(
+        title=f"{user.name}'s Deck - Page {page + 1}/{num_pages}",
+        description=description,
+        colour=colors[card.rating]
+    )
+    embed.set_image(url=card.url_url)
+    embed.set_footer()
+    num_owned = database.get_num(str(user.id), card.id)
+    embed.set_footer(text=f'{num_owned} owned by {user.name}')
+    return embed
 
 
 def to_wishlist_embed(user: discord.user.User, wishlist: [], page: int, num_pages: int):
@@ -214,13 +248,17 @@ name_deck = {}
 rating_decks = {2: {}, 3: {}, 4: {}, 5: {}, 6: {}}
 
 cards_path = f'cards/'
+url_path = f'https://mujank.com/img/'
 
 for c in csvreader:
     if int(c[3]) != 0:
-        card_deck[c[0]] = Card(c[0], f'{cards_path}{c[1]}', c[2], int(c[3]), c[4])
-        name_deck[c[2].lower()] = Card(c[0], f'{cards_path}{c[1]}', c[2], int(c[3]), c[4])
-        name_deck[c[2].lower().replace('’', "'")] = Card(c[0], f'{cards_path}{c[1]}', c[2], int(c[3]), c[4])
-        rating_decks[int(c[3])][c[0]] = Card(c[0], f'{cards_path}{c[1]}', c[2], int(c[3]), c[4])
+        card_deck[c[0]] = Card(c[0], f'{cards_path}{c[1]}', c[2], int(c[3]), c[4], f'{url_path}{c[1]}'.replace(" ", ""))
+        name_deck[c[2].lower()] = Card(c[0], f'{cards_path}{c[1]}', c[2], int(c[3]), c[4],
+                                       f'{url_path}{c[1]}'.replace(" ", ""))
+        name_deck[c[2].lower().replace('’', "'")] = Card(c[0], f'{cards_path}{c[1]}', c[2], int(c[3]), c[4],
+                                                         f'{url_path}{c[1]}'.replace(" ", ""))
+        rating_decks[int(c[3])][c[0]] = Card(c[0], f'{cards_path}{c[1]}', c[2], int(c[3]), c[4],
+                                             f'{url_path}{c[1]}'.replace(" ", ""))
 
 t = ["c_id_0337", "cards/matt- poptart.jpg", "Poptart \*in a British accent\*", 5, "Matt"]
-name_deck[t[2].lower().replace('\*', '*')] = Card(t[0], t[1], t[2], t[3], t[4])
+name_deck[t[2].lower().replace('\*', '*')] = Card(t[0], t[1], t[2], t[3], t[4], f'{url_path}{t[1]}'.replace(" ", ""))

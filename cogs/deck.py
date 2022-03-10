@@ -62,7 +62,7 @@ class Deck(commands.Cog):
             owned_cards = database.get_cards(str(user.id))
             if len(owned_cards) == 0:
                 if user.id == ctx.author.id:
-                    await ctx.send(f"{user.mention}, you don't have any cards yet!")
+                    await ctx.send(f"{user.mention}, you don't have any cards in your deck yet!")
                 else:
                     await ctx.send(f"{user.mention} doesn't have any cards in their deck yet!")
             else:
