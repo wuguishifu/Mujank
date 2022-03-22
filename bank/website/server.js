@@ -1,6 +1,7 @@
 const url = require('url');
 const http = require('http');
 const show = require('./show');
+const bankHistDisplay = require('./bank_hist_display');
 const https = require('https');
 const fs = require('fs');
 const bodyParser = require('body-parser');
@@ -161,5 +162,9 @@ app.post('/post_card_search', urlencodedParser, (req, res) => {
 
 // send other pages
 app.use((req, res, next) => {
-	show.showPage(res, req.url);
+	if (req.url.startsWith("/bank_hist")) {
+		bankHistDisplay.displayBankHistory(res, req);
+	} else {		
+		show.showPage(res, req.url);
+	}
 });
