@@ -92,6 +92,34 @@ class Deck(commands.Cog):
             else:
                 await ctx.send(f'No card named {query} found!')
 
+    @commands.command(name='triplets')
+    async def display_triplets(self, ctx):
+        if ctx.message.mentions:
+            user = ctx.message.mentions[0]
+        else:
+            user = ctx.author
+        caller = ctx.author
+        if database.user_exists(str(user.id)):
+            owned_cards = database.get_cards(str(user.id))
+            triplets = {}
+            for card_id in owned_cards:
+                if owned_cards[card_id] >= 3:
+                    triplets[card_id] = owned_cards[card_id]
+            if len(triplets) > 0:
+                num_pages = int((len(triplets) + 9) / 10)
+                embed, file = cards.to_owned_embed(user, triplets, 0, num_pages)
+                await ctx.send(embed=embed, file=file, view=DeckView(triplets, caller, user, cur_page=0))
+            else:
+                if user.id == ctx.author.id:
+                    await ctx.send(f"{user.mention}, you don't have any triplets yet!W")
+                else:
+                    await ctx.send(f"{user.mention} doesn't have any triplets yet!")
+        else:
+            if user.id == ctx.author.id:
+                await ctx.send(f'{user.mention}, Please join using the ``*join`` command!')
+            else:
+                await ctx.send(f'{user.mention} has not joined yet!')
+
     @commands.command(name='ownerslist', aliases=['ol'])
     async def display_owners(self, ctx):
         content: str = ctx.message.content

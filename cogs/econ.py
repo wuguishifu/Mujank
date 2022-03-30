@@ -291,6 +291,10 @@ class Econ(commands.Cog):
             database.set_daily_coin_claim(str(ctx.author.id), True)
             await ctx.send(f"{ctx.author.mention}, you've received {coin}x {coin_emoji}!")
 
+    # @commands.command(name='history')
+    # async def fetch_history(self, ctx):
+    #
+
 
 async def execute_item_function(ctx, item_id):
     card = None
