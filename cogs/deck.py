@@ -111,7 +111,7 @@ class Deck(commands.Cog):
                 await ctx.send(embed=embed, file=file, view=DeckView(triplets, caller, user, cur_page=0))
             else:
                 if user.id == ctx.author.id:
-                    await ctx.send(f"{user.mention}, you don't have any triplets yet!W")
+                    await ctx.send(f"{user.mention}, you don't have any triplets yet!")
                 else:
                     await ctx.send(f"{user.mention} doesn't have any triplets yet!")
         else:
