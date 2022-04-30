@@ -17,7 +17,8 @@ const contentMap = {
 	'/cards/': location + 'cards.html',
 	'404': location	+ '404.html',
 	'/search': location + 'search.html',
-	'/bank': location + 'bank.html'
+	'/bank': location + 'bank.html',
+	'/periodic-table': location + 'ptable.html'
 }
 
 exports.showPage = showPage;
