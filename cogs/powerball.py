@@ -170,4 +170,5 @@ white_matches = {
 
 
 def setup(bot: commands.Bot):
-    bot.add_cog(Powerball(bot))
+    pass
+    # bot.add_cog(Powerball(bot))
